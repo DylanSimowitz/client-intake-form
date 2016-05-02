@@ -1,0 +1,21 @@
+{
+  "name": "client-intake-form",
+  "version": "1.0.0",
+  "description": "Client questionairre for my dad's law office.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ToxicSalt/client-intake-form.git"
+  },
+  "author": "Dylan Simowitz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ToxicSalt/client-intake-form/issues"
+  },
+  "homepage": "https://github.com/ToxicSalt/client-intake-form#readme"
+}
