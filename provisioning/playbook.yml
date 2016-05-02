@@ -1,0 +1,6 @@
+- hosts: all
+  become: yes
+  vars_files:
+    - vars/mongodb.yml
+  roles:
+    - { role: Stouts.mongodb }
