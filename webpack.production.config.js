@@ -1,17 +1,29 @@
 var webpack = require('webpack');
+var path = require('path');
+
 module.exports = {
     plugins: [
-        new webpack.HotModuleReplacementPlugin(), new webpack.NoErrorsPlugin()
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            },
+            output: {
+                comments: false
+            }
+        })
     ],
-    entry: [
-      'webpack-hot-middleware/client',
-      'react-hot-loader/patch',
-      './client/index.js',
-    ],
+    entry: ['./client/index.js'],
     output: {
         filename: 'bundle.js',
-        publicPath: '/',
-        path: __dirname
+        publicPath: '/public',
+        path: path.join(__dirname, '/public')
     },
     resolve: {
         extensions: ['', '.js', '.jsx']
@@ -26,11 +38,9 @@ module.exports = {
         ],
         loaders: [
             {
-              test: /\.js$/,
-              exclude: /node_modules/,
-              loaders: [
-                'babel-loader'
-              ]
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
             }, {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader?modules',
@@ -48,7 +58,7 @@ module.exports = {
                 test: /\.styl/,
                 loader: 'style-loader!css-loader!stylus-loader'
             }, {
-                test: /\.(png|jpg|gif|woff|woff2|ttf|eot)$/,
+                test: /\.(png|jpg|gif|woff|woff2)$/,
                 loader: 'url-loader?limit=8192'
             }
         ]

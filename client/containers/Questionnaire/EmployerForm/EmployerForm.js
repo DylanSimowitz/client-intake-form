@@ -1,38 +1,12 @@
 import React from 'react';
-import {TextField, DatePicker, RaisedButton} from 'material-ui';
+import {DatePicker, RaisedButton} from 'material-ui';
+import {TextField} from 'redux-form-material-ui'
 import {Grid, Row, Col} from 'react-flexbox-grid';
-import { reduxForm } from 'redux-form';
-
-export const fields = [
-  'employerName',
-  'occupation',
-  'employerAddress',
-  'employerCity',
-  'employerState',
-  'employerZipcode',
-  'employerPhone',
-  'supervisor',
-  'salary',
-  'timeLoss',
-  'lossWages'
-]
+import { Field,reduxForm } from 'redux-form';
 
 class EmployerForm extends React.Component {
   render() {
     const {
-      fields: {
-        employerName,
-        occupation,
-        employerAddress,
-        employerCity,
-        employerState,
-        employerZipcode,
-        employerPhone,
-        supervisor,
-        salary,
-        timeLoss,
-        lossWages
-      },
       handleSubmit,
       previousPage
     } = this.props
@@ -40,45 +14,45 @@ class EmployerForm extends React.Component {
           <form onSubmit={handleSubmit} onChange={e => e.stopPropagation()}>
               <Row>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Employer Name" fullWidth={true} {...employerName}/>
+                      <Field name="employerName" component={TextField} floatingLabelText="Employer Name" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Occupation" fullWidth={true} {...occupation}/>
+                      <Field name="employerOccupation" component={TextField} floatingLabelText="Occupation" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12}>
-                      <TextField floatingLabelText="Employer Address" fullWidth={true} {...employerAddress}/>
+                      <Field name="employerAddress" component={TextField} floatingLabelText="Employer Address" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Employer City" fullWidth={true} {...employerCity}/>
+                      <Field name="employerAddressCity" component={TextField} floatingLabelText="Employer City" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Employer State" fullWidth={true} {...employerState}/>
+                      <Field name="employerAddressState" component={TextField} floatingLabelText="Employer State" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Employer Zipcode" fullWidth={true} {...employerZipcode}/>
+                      <Field name="employerAddressZipcode" component={TextField} floatingLabelText="Employer Zipcode" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Employer Phone" fullWidth={true} {...employerPhone}/>
+                      <Field name="employerPhone" component={TextField} floatingLabelText="Employer Phone" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Supervisor" fullWidth={true} {...supervisor}/>
+                      <Field name="employerSupervisor" component={TextField} floatingLabelText="Supervisor" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Salary" fullWidth={true} {...salary}/>
+                      <Field name="employerSalary" component={TextField} floatingLabelText="Salary" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Time Loss" fullWidth={true} {...timeLoss}/>
+                      <Field name="employerTimeLoss" component={TextField} floatingLabelText="Time Loss" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <DatePicker floatingLabelText="Loss Wages" fullWidth={true} {...lossWages}/>
+                      <DatePicker floatingLabelText="Loss Wages" fullWidth={true}/>
                   </Col>
               </Row>
               {this.props.stepper}
@@ -90,7 +64,6 @@ class EmployerForm extends React.Component {
 
 EmployerForm = reduxForm({
   form: 'questionnaire',
-  fields,
   destroyOnUnmount: false
 })(EmployerForm);
 

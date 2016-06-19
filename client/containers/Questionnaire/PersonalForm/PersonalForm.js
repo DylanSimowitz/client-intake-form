@@ -1,42 +1,12 @@
 import React from 'react';
-import {TextField, DatePicker, RaisedButton} from 'material-ui';
+import {DatePicker, RaisedButton} from 'material-ui';
+import {TextField} from 'redux-form-material-ui'
 import {Grid, Row, Col} from 'react-flexbox-grid';
-import { reduxForm } from 'redux-form';
-
-export const fields = [
-  'firstName',
-  'lastName',
-  'accidentDate',
-  'socialSecurityNumber',
-  'homePhone',
-  'cellPhone',
-  'address',
-  'city',
-  'state',
-  'zipcode',
-  'email',
-  'driversLicense',
-  'dateOfBirth'
-]
+import { Field, reduxForm } from 'redux-form';
 
 class PersonalForm extends React.Component {
   render() {
     const {
-      fields: {
-        firstName,
-        lastName,
-        accidentDate,
-        socialSecurityNumber,
-        homePhone,
-        cellPhone,
-        address,
-        city,
-        state,
-        zipcode,
-        email,
-        driversLicense,
-        dateOfBirth
-      },
       handleSubmit,
       stopPropagation
     } = this.props
@@ -44,56 +14,56 @@ class PersonalForm extends React.Component {
           <form onSubmit={handleSubmit} onChange={e => e.stopPropagation()}>
               <Row>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="First Name" fullWidth={true} {...firstName}/>
+                      <Field name="personalFirstName" component={TextField} floatingLabelText="First Name" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Last Name" fullWidth={true} {...lastName}/>
+                      <Field name="personalLastName" component={TextField} floatingLabelText="Last Name" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={6}>
-                      <DatePicker floatingLabelText="Accident Date" fullWidth={true} {...accidentDate}/>
+                      <DatePicker floatingLabelText="Accident Date" fullWidth={true}/>
                   </Col>
 
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="SSN" fullWidth={true} {...socialSecurityNumber}/>
+                      <Field name="personalSSN" component={TextField} floatingLabelText="SSN" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Home Phone" fullWidth={true} {...homePhone}/>
+                      <Field name="personalHomePhone" component={TextField} floatingLabelText="Home Phone" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Cell Phone" fullWidth={true} {...cellPhone}/>
+                      <Field name="personalCellPhone" component={TextField} floatingLabelText="Cell Phone" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12}>
-                      <TextField floatingLabelText="Address" fullWidth={true} {...address}/>
+                      <Field name="personalAddress" component={TextField} floatingLabelText="Address" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="City" fullWidth={true} {...city}/>
+                      <Field name="personalAddressCity" component={TextField} floatingLabelText="City" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="State" fullWidth={true} {...state}/>
+                      <Field name="personalAddressState" component={TextField} floatingLabelText="State" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Zipcode" fullWidth={true} {...zipcode}/>
+                      <Field name="personalAddressZipcode" component={TextField} floatingLabelText="Zipcode" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12}>
-                      <TextField floatingLabelText="Email" fullWidth={true} {...email}/>
+                      <Field name="personalEmail" component={TextField} floatingLabelText="Email" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Driver's License" fullWidth={true} {...driversLicense}/>
+                      <Field name="personalDriversLicense" component={TextField} floatingLabelText="Driver's License" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={6}>
-                      <DatePicker floatingLabelText="Date of Birth" fullWidth={true} {...dateOfBirth}/>
+                      <DatePicker floatingLabelText="Date of Birth" fullWidth={true}/>
                   </Col>
               </Row>
               {this.props.stepper}
@@ -105,9 +75,7 @@ class PersonalForm extends React.Component {
 
 PersonalForm = reduxForm({
   form: 'questionnaire',
-  fields,
   destroyOnUnmount: false
 })(PersonalForm);
-
 
 export default PersonalForm;

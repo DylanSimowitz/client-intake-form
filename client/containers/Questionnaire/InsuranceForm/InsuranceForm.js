@@ -1,32 +1,12 @@
 import React from 'react';
-import {TextField, RaisedButton} from 'material-ui';
+import {RaisedButton} from 'material-ui';
+import {TextField} from 'redux-form-material-ui';
 import {Grid, Row, Col} from 'react-flexbox-grid';
-import { reduxForm } from 'redux-form';
-
-export const fields = [
-  'insuranceCompany',
-  'insuranceAgent',
-  'insuranceAddress',
-  'insuranceCity',
-  'insuranceState',
-  'insuranceZipcode',
-  'insurancePolicyNumber',
-  'insuranceClaimNumber'
-]
+import { Field, reduxForm } from 'redux-form';
 
 class InsuranceForm extends React.Component {
   render() {
     const {
-      fields: {
-        insuranceCompany,
-        insuranceAgent,
-        insuranceAddress,
-        insuranceCity,
-        insuranceState,
-        insuranceZipcode,
-        insurancePolicyNumber,
-        insuranceClaimNumber
-      },
       handleSubmit,
       previousPage
     } = this.props
@@ -34,34 +14,34 @@ class InsuranceForm extends React.Component {
           <form onSubmit={handleSubmit} onChange={e => e.stopPropagation()}>
               <Row>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Insurance Company" fullWidth={true} {...insuranceCompany}/>
+                      <Field name="insurance" component={TextField} floatingLabelText="Insurance Company" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Insurance Agent" fullWidth={true} {...insuranceAgent}/>
+                      <Field name="insurance" component={TextField} floatingLabelText="Insurance Agent" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12}>
-                      <TextField floatingLabelText="Insurance Address" fullWidth={true} {...insuranceAddress}/>
+                      <Field name="insurance" component={TextField} floatingLabelText="Insurance Address" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Insurance City" fullWidth={true} {...insuranceCity}/>
+                      <Field name="insurance" component={TextField} floatingLabelText="Insurance City" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Insurance State" fullWidth={true} {...insuranceState}/>
+                      <Field name="insurance" component={TextField} floatingLabelText="Insurance State" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Insurance Zipcode" fullWidth={true} {...insuranceZipcode}/>
+                      <Field name="insurance" component={TextField} floatingLabelText="Insurance Zipcode" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Insurance Policy #" fullWidth={true} {...insurancePolicyNumber}/>
+                      <Field name="insurance" component={TextField} floatingLabelText="Insurance Policy #" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Insurance Claim #" fullWidth={true} {...insuranceClaimNumber}/>
+                      <Field name="insurance" component={TextField} floatingLabelText="Insurance Claim #" fullWidth={true}/>
                   </Col>
               </Row>
               {this.props.stepper}
@@ -73,7 +53,6 @@ class InsuranceForm extends React.Component {
 
 InsuranceForm = reduxForm({
   form: 'questionnaire',
-  fields,
   destroyOnUnmount: false
 })(InsuranceForm);
 

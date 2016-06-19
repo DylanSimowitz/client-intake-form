@@ -1,6 +1,4 @@
-var webpack = require('webpack');
-var webpackConfig = require('../webpack.config');
-var compiler = webpack(webpackConfig);
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer')
@@ -9,12 +7,21 @@ var upload = multer();
 var app = express();
 let router = express.Router();
 
-
-app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: webpackConfig.output.publicPath
-}));
-app.use(require('webpack-hot-middleware')(compiler));
+if (process.env.NODE_ENV === 'development') {
+  var webpack = require('webpack');
+  var webpackConfig = require('../webpack.config');
+  var compiler = webpack(webpackConfig);
+  app.use(require('webpack-dev-middleware')(compiler, {
+      noInfo: true,
+      publicPath: webpackConfig.output.publicPath,
+      historyApiFallback: true,
+      stats: {
+        colors: true
+      }
+  }));
+  app.use(require('webpack-hot-middleware')(compiler));
+}
+app.use(express.static('public'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

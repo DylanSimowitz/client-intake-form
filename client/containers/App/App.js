@@ -4,13 +4,9 @@ import Questionnaire from '../Questionnaire';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import theme from './theme';
-
-import configureStore from '../../redux/store'
 import { Provider } from 'react-redux';
 
 require('normalize-css')
-
-let store = configureStore();
 
 class App extends React.Component {
     constructor() {
@@ -25,7 +21,7 @@ class App extends React.Component {
 
     render() {
         return (
-          <Provider store={store}>
+          <Provider store={this.props.store}>
             <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
                 <div>
                     <AppBar title="Form" onLeftIconButtonTouchTap={this.handleToggle} iconClassNameRight="muidocs-icon-navigation-expand-more" zDepth={0}/>
@@ -42,4 +38,4 @@ class App extends React.Component {
     }
 }
 
-module.exports = App;
+export default App;

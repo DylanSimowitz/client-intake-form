@@ -20,6 +20,7 @@
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.2",
     "redux-form": "^6.0.0-alpha.15",
+    "redux-form-material-ui": "^2.0.0",
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
@@ -41,7 +42,7 @@
     "node-sass": "^3.8.0",
     "nodemon": "^1.9.2",
     "path": "^0.12.7",
-    "react-hot-loader": "^1.3.0",
+    "react-hot-loader": "^3.0.0-beta.1",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
@@ -51,7 +52,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server"
+    "start": "NODE_ENV=production node server",
+    "build": "NODE_ENV=production webpack -p --config webpack.production.config",
+    "dev": "NODE_ENV=development node server"
   },
   "repository": {
     "type": "git",

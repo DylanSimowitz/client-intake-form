@@ -1,29 +1,8 @@
 import React from 'react';
-import {TextField, AutoComplete, RaisedButton, TimePicker} from 'material-ui';
+import {AutoComplete, RaisedButton, TimePicker} from 'material-ui';
+import {TextField} from 'redux-form-material-ui'
 import {Grid, Row, Col} from 'react-flexbox-grid';
-import { reduxForm } from 'redux-form';
-import { fields as insuranceFields } from '../InsuranceForm/InsuranceForm'
-import { fields as employerFields } from '../EmployerForm/EmployerForm'
-import { fields as personalFields } from '../PersonalForm/PersonalForm'
-
-export const fields = [
-    'accidentType',
-    'accidentTime',
-    'accidentCity',
-    'accidentStreet1',
-    'accidentStreet2',
-    'accidentStreetClient',
-    'accidentDirectionClient',
-    'accidentLaneClient',
-    'accidentStreetDefendant',
-    'accidentDirectionDefendant',
-    'accidentLaneDefendant',
-    'accidentPersonsCount',
-    'accidentPersonsInjured',
-    'accidentDescription'
-  ]
-
-const allFields = [...personalFields,...employerFields,...insuranceFields,...fields]
+import { Field, reduxForm } from 'redux-form';
 
 const styles = {
   imageInput: {
@@ -51,22 +30,6 @@ class AccidentForm extends React.Component {
       'Product Liability'
     ]
     const {
-      fields: {
-        accidentType,
-        accidentTime,
-        accidentCity,
-        accidentStreet1,
-        accidentStreet2,
-        accidentStreetClient,
-        accidentDirectionClient,
-        accidentLaneClient,
-        accidentStreetDefendant,
-        accidentDirectionDefendant,
-        accidentLaneDefendant,
-        accidentPersonsCount,
-        accidentPersonsInjured,
-        accidentDescription
-      },
       handleSubmit,
       previousPage
     } = this.props
@@ -74,54 +37,56 @@ class AccidentForm extends React.Component {
           <form onSubmit={handleSubmit} onChange={e => e.stopPropagation()}>
               <Row>
                   <Col xs={12} md={6}>
+                  <Field name="accidentType" component={accidentType =>
                     <AutoComplete floatingLabelText="Case Type" fullWidth={true} dataSource={caseTypes} filter={AutoComplete.noFilter} openOnFocus={true} {...accidentType}/>
+                  }/>
                   </Col>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Accident Time" fullWidth={true} {...accidentTime}/>
+                      <TimePicker floatingLabelText="Accident Time" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12}>
-                      <TextField floatingLabelText="Accident City" fullWidth={true} {...accidentCity}/>
+                    <Field name="accidentCity" component={TextField} floatingLabelText="Accident City" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Cross Street" fullWidth={true} {...accidentStreet1}/>
+                    <Field name="accidentStreet1" component={TextField} floatingLabelText="Cross Street" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Cross Street" fullWidth={true} {...accidentStreet2}/>
-                  </Col>
-                  <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Street Client On" fullWidth={true} {...accidentStreetClient}/>
+                    <Field name="accidentStreet2" component={TextField} floatingLabelText="Cross Street" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Direction" fullWidth={true} {...accidentDirectionClient}/>
+                  <Field name="accidentStreetClient" component={TextField} floatingLabelText="Street Client On" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Lane" fullWidth={true} {...accidentLaneClient}/>
+                  <Field name="accidentDirectionClient" component={TextField} floatingLabelText="Direction" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Street Defendant On" fullWidth={true} {...accidentStreetDefendant}/>
+                  <Field name="accidentLaneClient" component={TextField} floatingLabelText="Lane" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Direction" fullWidth={true} {...accidentDirectionDefendant}/>
+                  <Field name="accidentStreetDefendant" component={TextField} floatingLabelText="Street Defendant On" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <TextField floatingLabelText="Lane" fullWidth={true} {...accidentLaneDefendant}/>
+                  <Field name="accidentDirectionDefendant" component={TextField} floatingLabelText="Direction" fullWidth={true}/>
+                  </Col>
+                  <Col xs={12} md={4}>
+                  <Field name="accidentLaneDefendant" component={TextField} floatingLabelText="Lane" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Persons in Auto" fullWidth={true} {...accidentPersonsCount}/>
+                  <Field name="accidentPersonsCount" component={TextField} floatingLabelText="Persons in Auto" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={6}>
-                      <TextField floatingLabelText="Persons Injured" fullWidth={true} {...accidentPersonsInjured}/>
+                    <Field name="accidentPersonsInjured" component={TextField} floatingLabelText="Persons Injured" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                 <Col xs={12}>
-                  <TextField floatingLabelText="Accident Description" fullWidth={true} multiLine={true} rows={8} {...accidentDescription}/>
+                  <Field name="accidentDescription" component={TextField} floatingLabelText="Accident Description" fullWidth={true} multiLine={true} rows={8}/>
                 </Col>
               </Row>
               {/*<Row>
@@ -138,7 +103,6 @@ class AccidentForm extends React.Component {
 
 AccidentForm = reduxForm({
   form: 'questionnaire',
-  fields: allFields,
   destroyOnUnmount: false
 })(AccidentForm);
 
