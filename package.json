@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Client questionairre for my dad's law office.",
   "main": "index.js",
+  "engines": {
+    "node": "6.2.1"
+  },
   "dependencies": {
     "body-parser": "^1.15.1",
     "classnames": "^2.2.5",
