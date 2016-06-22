@@ -1,8 +1,9 @@
 import React from 'react';
 import {RaisedButton} from 'material-ui';
-import {TextField} from 'redux-form-material-ui';
+import {TextField, SelectField} from 'redux-form-material-ui';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import { Field, reduxForm } from 'redux-form';
+import states from '../../../components/StateMenuItems'
 
 class InsuranceForm extends React.Component {
   render() {
@@ -11,37 +12,39 @@ class InsuranceForm extends React.Component {
       previousPage
     } = this.props
     return (
-          <form onSubmit={handleSubmit} onChange={e => e.stopPropagation()}>
+          <form onSubmit={handleSubmit}>
               <Row>
                   <Col xs={12} md={6}>
-                      <Field name="insurance" component={TextField} floatingLabelText="Insurance Company" fullWidth={true}/>
+                      <Field name="insuranceCompany" component={TextField} floatingLabelText="Insurance Company" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={6}>
-                      <Field name="insurance" component={TextField} floatingLabelText="Insurance Agent" fullWidth={true}/>
+                      <Field name="insuranceAgent" component={TextField} floatingLabelText="Insurance Agent" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12}>
-                      <Field name="insurance" component={TextField} floatingLabelText="Insurance Address" fullWidth={true}/>
+                      <Field name="insuranceAddress" component={TextField} floatingLabelText="Insurance Address" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={4}>
-                      <Field name="insurance" component={TextField} floatingLabelText="Insurance City" fullWidth={true}/>
+                      <Field name="insuranceAddressCity" component={TextField} floatingLabelText="Insurance City" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <Field name="insurance" component={TextField} floatingLabelText="Insurance State" fullWidth={true}/>
+                    <Field name="insuranceAddressState" component={SelectField} floatingLabelText="Insurance State" fullWidth={true}>
+                      {states}
+                    </Field>
                   </Col>
                   <Col xs={12} md={4}>
-                      <Field name="insurance" component={TextField} floatingLabelText="Insurance Zipcode" fullWidth={true}/>
+                      <Field name="insuranceAddressZipcode" component={TextField} floatingLabelText="Insurance Zipcode" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={6}>
-                      <Field name="insurance" component={TextField} floatingLabelText="Insurance Policy #" fullWidth={true}/>
+                      <Field name="insurancePolicyNumber" component={TextField} floatingLabelText="Insurance Policy #" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={6}>
-                      <Field name="insurance" component={TextField} floatingLabelText="Insurance Claim #" fullWidth={true}/>
+                      <Field name="insuranceClaimNumber" component={TextField} floatingLabelText="Insurance Claim #" fullWidth={true}/>
                   </Col>
               </Row>
               {this.props.stepper}

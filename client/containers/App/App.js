@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {AppBar, Drawer, MenuItem} from 'material-ui';
 import Questionnaire from '../Questionnaire';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -36,6 +36,9 @@ class App extends React.Component {
           </Provider>
         )
     }
+}
+App.childContextTypes = {
+  muiTheme: PropTypes.object.isRequired
 }
 
 export default App;

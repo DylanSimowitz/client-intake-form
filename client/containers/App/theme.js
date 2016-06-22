@@ -1,11 +1,13 @@
 import {fade} from 'material-ui/utils/colorManipulator';
 import {
-cyan500,
+cyan500, cyan400,
 red600,
 grey100, grey200, grey300, grey400, grey500,
 indigo500, indigo700,
 white, darkBlack, fullBlack
 } from 'material-ui/styles/colors';
+
+document.body.style.backgroundColor = grey100
 
 const theme = {
   spacing: {
@@ -32,11 +34,15 @@ const theme = {
     textColor: darkBlack,
     alternateTextColor: white,
     canvasColor: grey200,
-    borderColor: grey300,
+    borderColor: grey400,
     disabledColor: fade(darkBlack, 0.3),
     pickerHeaderColor: cyan500,
     clockCircleColor: fade(darkBlack, 0.07),
     shadowColor: fullBlack
+  },
+  textField: {
+    hintColor: grey500,
+    borderColor: grey400
   }
 };
 

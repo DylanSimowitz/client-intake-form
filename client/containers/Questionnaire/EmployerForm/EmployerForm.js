@@ -1,8 +1,9 @@
 import React from 'react';
 import {DatePicker, RaisedButton} from 'material-ui';
-import {TextField} from 'redux-form-material-ui'
+import {TextField, SelectField} from 'redux-form-material-ui'
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import { Field,reduxForm } from 'redux-form';
+import states from '../../../components/StateMenuItems';
 
 class EmployerForm extends React.Component {
   render() {
@@ -30,7 +31,9 @@ class EmployerForm extends React.Component {
                       <Field name="employerAddressCity" component={TextField} floatingLabelText="Employer City" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <Field name="employerAddressState" component={TextField} floatingLabelText="Employer State" fullWidth={true}/>
+                      <Field name="employerAddressState" component={SelectField} floatingLabelText="Employer State" fullWidth={true}>
+                        {states}
+                      </Field>
                   </Col>
                   <Col xs={12} md={4}>
                       <Field name="employerAddressZipcode" component={TextField} floatingLabelText="Employer Zipcode" fullWidth={true}/>

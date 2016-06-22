@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import PersonalForm from './PersonalForm'
 import EmployerForm from './EmployerForm'
 import InsuranceForm from './InsuranceForm'
@@ -153,6 +153,10 @@ class Questionnaire extends React.Component {
         // </Tabs>
         )
     }
+}
+
+Questionnaire.contextTypes = {
+  muiTheme: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
