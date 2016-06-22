@@ -1,6 +1,6 @@
 import React from 'react';
 import {DatePicker, RaisedButton, MenuItem, FloatingActionButton} from 'material-ui';
-import {TextField, SelectField} from 'redux-form-material-ui';
+import {TextField, SelectField, Checkbox} from 'redux-form-material-ui';
 import states from '../../../components/StateMenuItems';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import { Field, reduxForm } from 'redux-form';
@@ -10,7 +10,12 @@ class PersonalForm extends React.Component {
   constructor() {
     super()
     this.state = {
-      photos: []
+      photos: [],
+    }
+  }
+  handleCheck = (event, isInputChecked) => {
+    if (isInputChecked) {
+
     }
   }
   render() {
@@ -22,11 +27,7 @@ class PersonalForm extends React.Component {
           <form onSubmit={handleSubmit} onChange={e => e.stopPropagation()}>
               <Row>
                   <Col xs={12} md={6}>
-                      {/*<Field name="personalFirstName" component={TextField} floatingLabelText="First Name" fullWidth={true}/>*/}
-                      {/*{this.state.photos}
-                      <FloatingActionButton mini={true} zDepth={2} onMouseDown={this.addPhoto}>
-                        <AddIcon/>
-                      </FloatingActionButton>*/}
+                      <Field name="personalFirstName" component={TextField} floatingLabelText="First Name" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={6}>
                       <Field name="personalLastName" component={TextField} floatingLabelText="Last Name" fullWidth={true}/>
@@ -79,6 +80,11 @@ class PersonalForm extends React.Component {
                   <Col xs={12} md={6}>
                       <DatePicker floatingLabelText="Date of Birth" fullWidth={true}/>
                   </Col>
+              </Row>
+              <Row>
+                <Col xs={12}>
+                  <Field name="personalFelony" component={Checkbox} label="I have been convicted of a felony" onCheck={this.handleCheck}/>
+                </Col>
               </Row>
               {this.props.stepper}
           </form>
