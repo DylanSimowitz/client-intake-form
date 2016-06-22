@@ -38,6 +38,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.9.0",
     "babel-types": "^6.10.2",
+    "cross-env": "^1.0.8",
     "css-loader": "^0.23.1",
     "dotenv": "^2.0.0",
     "eslint": "^2.13.1",
@@ -56,9 +57,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production node server",
-    "build": "NODE_ENV=production webpack -p --config webpack.production.config",
-    "dev": "NODE_ENV=development node server"
+    "start": "cross-env NODE_ENV=production node server",
+    "build": "cross-env NODE_ENV=production webpack -p --config webpack.production.config",
+    "dev": "cross-env NODE_ENV=development node server"
   },
   "repository": {
     "type": "git",
