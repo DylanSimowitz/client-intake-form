@@ -33,7 +33,7 @@ const theme = {
     accent3Color: grey500,
     textColor: darkBlack,
     alternateTextColor: white,
-    canvasColor: grey200,
+    canvasColor: grey300,
     borderColor: grey400,
     disabledColor: fade(darkBlack, 0.3),
     pickerHeaderColor: cyan500,

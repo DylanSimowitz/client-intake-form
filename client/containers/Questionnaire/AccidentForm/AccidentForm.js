@@ -1,11 +1,13 @@
 import React, {PropTypes} from 'react';
-import {AutoComplete, RaisedButton, TimePicker, GridList, GridTile} from 'material-ui';
-import {TextField} from 'redux-form-material-ui'
+import {AutoComplete, RaisedButton, TimePicker, GridList, GridTile, MenuItem} from 'material-ui';
+import {TextField,SelectField} from 'redux-form-material-ui'
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import Dropzone from 'react-dropzone';
-import {Field, reduxForm} from 'redux-form';
+import {Field, reduxForm, formValueSelector} from 'redux-form';
+import {connect} from 'react-redux'
 import UploadIcon from 'material-ui/svg-icons/file/file-upload'
 import ClearIcon from 'material-ui/svg-icons/content/clear'
+import ExpandTransition from 'material-ui/internal/ExpandTransition';
 
 class AccidentForm extends React.Component {
     constructor(props, context) {
@@ -62,18 +64,23 @@ class AccidentForm extends React.Component {
             'Dog Bites',
             'Product Liability'
         ]
-        const {handleSubmit, previousPage} = this.props
+        const {handleSubmit, previousPage, selectedCase} = this.props
         const {muiTheme} = this.context
         return (
-            <form onSubmit={handleSubmit} onChange={e => e.stopPropagation()}>
+            <form onSubmit={handleSubmit}>
                 <Row>
                     <Col xs={12} md={6}>
-                        <Field name="accidentType" component={accidentType => <AutoComplete floatingLabelText="Case Type" fullWidth={true} dataSource={caseTypes} filter={AutoComplete.noFilter} openOnFocus={true} {...accidentType}/>}/>
+                        <Field name="accidentType" component={SelectField} fullWidth={true} floatingLabelText="Accident Type">
+                          {caseTypes.map((caseType,item) => {
+                            return <MenuItem value={caseType} primaryText={caseType}/>
+                          })}
+                        </Field>
                     </Col>
                     <Col xs={12} md={6}>
                         <TimePicker floatingLabelText="Accident Time" fullWidth={true}/>
                     </Col>
                 </Row>
+                <ExpandTransition open={selectedCase === 'Auto' || selectedCase === 'Motorcycle'}>
                 <Row>
                     <Col xs={12}>
                         <Field name="accidentCity" component={TextField} floatingLabelText="Accident City" fullWidth={true}/>
@@ -122,9 +129,9 @@ class AccidentForm extends React.Component {
                     <Col xs={12}>
                         <Dropzone onDrop={this.onDrop} accept="image/*" style={this.styles.dropzone}>
                             <div>Drag and drop or click to upload photos.</div>
-                            <UploadIcon color={muiTheme.palette.primary1Color}/>
+                            {/*<UploadIcon color={muiTheme.palette.primary1Color}/>*/}
                         </Dropzone>
-                        <GridList cellHeight={200} cols={3}>
+                        <GridList cellHeight={200} cols={window.innerWidth < 1400 ? 2 : 3}>
                           {this.state.photos.map((photo,item) => {
                             return (
                               <GridTile key={photo.name} title={photo.name} subtitle={`${photo.size} bytes`} actionIcon={<ClearIcon color="white" onClick={() => this.removePhoto(photo.name)}/>}>
@@ -135,6 +142,7 @@ class AccidentForm extends React.Component {
                         </GridList>
                     </Col>
                 </Row>
+                </ExpandTransition>
                 {this.props.stepper}
             </form>
         )
@@ -146,5 +154,13 @@ AccidentForm.contextTypes = {
 }
 
 AccidentForm = reduxForm({form: 'questionnaire', destroyOnUnmount: false})(AccidentForm);
+
+const selector = formValueSelector('questionnaire')
+AccidentForm = connect(state => {
+  const selectedCase = selector(state, 'accidentType')
+  return {
+    selectedCase
+  }
+})(AccidentForm)
 
 export default AccidentForm;

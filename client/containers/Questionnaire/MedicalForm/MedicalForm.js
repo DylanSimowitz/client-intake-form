@@ -1,6 +1,7 @@
 import React from 'react';
 import {TextField, AutoComplete, RaisedButton, TimePicker} from 'material-ui';
 import {Grid, Row, Col} from 'react-flexbox-grid';
+import {TextField, SelectField} from 'redux-form-material-ui';
 import { reduxForm } from 'redux-form';
 
 class MedicalForm extends React.Component {
@@ -48,7 +49,9 @@ class MedicalForm extends React.Component {
           <form onSubmit={handleSubmit}>
               <Row>
                   <Col xs={12} md={6}>
-                    <AutoComplete floatingLabelText="Case Type" fullWidth={true} dataSource={caseTypes} filter={AutoComplete.noFilter} openOnFocus={true} {...accidentType}/>
+                    <Field name="medical">
+
+                    </Field>
                   </Col>
                   <Col xs={12} md={6}>
                       <TimePicker floatingLabelText="Accident Time" fullWidth={true} {...accidentTime}/>

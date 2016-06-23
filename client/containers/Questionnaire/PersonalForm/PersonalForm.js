@@ -1,10 +1,13 @@
 import React from 'react';
+import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import {DatePicker, RaisedButton, MenuItem, FloatingActionButton} from 'material-ui';
 import {TextField, SelectField, Checkbox} from 'redux-form-material-ui';
 import states from '../../../components/StateMenuItems';
 import {Grid, Row, Col} from 'react-flexbox-grid';
-import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import AddIcon from 'material-ui/svg-icons/content/add';
+
 
 class PersonalForm extends React.Component {
   constructor() {
@@ -13,18 +16,15 @@ class PersonalForm extends React.Component {
       photos: [],
     }
   }
-  handleCheck = (event, isInputChecked) => {
-    if (isInputChecked) {
 
-    }
-  }
   render() {
     const {
       handleSubmit,
-      stopPropagation
+      stopPropagation,
+      isFelon
     } = this.props
     return (
-          <form onSubmit={handleSubmit} onChange={e => e.stopPropagation()}>
+          <form onSubmit={handleSubmit}>
               <Row>
                   <Col xs={12} md={6}>
                       <Field name="personalFirstName" component={TextField} floatingLabelText="First Name" fullWidth={true}/>
@@ -83,9 +83,22 @@ class PersonalForm extends React.Component {
               </Row>
               <Row>
                 <Col xs={12}>
-                  <Field name="personalFelony" component={Checkbox} label="I have been convicted of a felony" onCheck={this.handleCheck}/>
+                  <Field name="personalIsFelon" component={Checkbox} label="I have been convicted of a felony"/>
                 </Col>
               </Row>
+              <ExpandTransition open={isFelon}>
+                <Row>
+                  <Col xs={12} md={4}>
+                    <DatePicker floatingLabelText="Felony Court Date" fullWidth={true}/>
+                  </Col>
+                  <Col xs={12} md={4}>
+                    <Field name="personalFelonyCourt" component={TextField} floatingLabelText="Felony Court Name" fullWidth={true}/>
+                  </Col>
+                  <Col xs={12} md={4}>
+                    <Field name="personalFelonyCase" component={TextField} floatingLabelText="Felony Case Number" fullWidth={true}/>
+                  </Col>
+                </Row>
+              </ExpandTransition>
               {this.props.stepper}
           </form>
     )
@@ -97,5 +110,13 @@ PersonalForm = reduxForm({
   form: 'questionnaire',
   destroyOnUnmount: false
 })(PersonalForm);
+
+const selector = formValueSelector('questionnaire')
+PersonalForm = connect(state => {
+  const isFelon = selector(state, 'personalIsFelon')
+  return {
+    isFelon
+  }
+})(PersonalForm)
 
 export default PersonalForm;

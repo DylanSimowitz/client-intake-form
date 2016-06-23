@@ -12,7 +12,7 @@ class EmployerForm extends React.Component {
       previousPage
     } = this.props
     return (
-          <form onSubmit={handleSubmit} onChange={e => e.stopPropagation()}>
+          <form onSubmit={handleSubmit}>
               <Row>
                   <Col xs={12} md={6}>
                       <Field name="employerName" component={TextField} floatingLabelText="Employer Name" fullWidth={true}/>

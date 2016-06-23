@@ -74,7 +74,7 @@ class Questionnaire extends React.Component {
     render() {
         const {stepIndex} = this.state
         return (
-            <Stepper linear={false} activeStep={stepIndex} orientation="vertical">
+            <Stepper linear={false} activeStep={stepIndex} orientation="vertical" style={styles.container}>
                 <Step>
                     <StepButton onClick={() => this.setState({stepIndex: 0})}>
                         Personal information
