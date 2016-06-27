@@ -55,7 +55,7 @@ class EmployerForm extends React.Component {
                       <Field name="employerTimeLoss" component={TextField} floatingLabelText="Time Loss" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <DatePicker floatingLabelText="Loss Wages" fullWidth={true}/>
+                      <Field name="employerLossWages" component={TextField} floatingLabelText="Loss Wages" fullWidth={true}/>
                   </Col>
               </Row>
               {this.props.stepper}

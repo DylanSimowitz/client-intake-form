@@ -11,7 +11,7 @@
     "classnames": "^2.2.5",
     "express": "^4.14.0",
     "flexboxgrid": "^6.3.0",
-    "material-ui": "^0.15.1",
+    "material-ui": "callemall/material-ui",
     "mongoose": "^4.5.1",
     "multer": "^1.1.0",
     "normalize-css": "^2.3.1",

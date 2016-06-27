@@ -1,13 +1,14 @@
 import React, {PropTypes} from 'react';
 import {AutoComplete, RaisedButton, TimePicker, GridList, GridTile, MenuItem} from 'material-ui';
 import {TextField,SelectField} from 'redux-form-material-ui'
-import {Grid, Row, Col} from 'react-flexbox-grid';
+import {Row, Col} from 'react-flexbox-grid';
 import Dropzone from 'react-dropzone';
 import {Field, reduxForm, formValueSelector} from 'redux-form';
 import {connect} from 'react-redux'
 import UploadIcon from 'material-ui/svg-icons/file/file-upload'
 import ClearIcon from 'material-ui/svg-icons/content/clear'
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
+import VehicleAccident from './VehicleAccident';
 
 class AccidentForm extends React.Component {
     constructor(props, context) {
@@ -17,33 +18,25 @@ class AccidentForm extends React.Component {
         }
     }
     styles = {
-        imageInput: {
-            cursor: 'pointer',
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            right: 0,
-            left: 0,
-            width: '100%',
-            opacity: 0
-        },
         dropzone: {
             width: '100%',
             height: '400px',
-            backgroundColor: this.context.muiTheme.palette.canvasColor,
+            backgroundColor: this.context.muiTheme.palette.accent2Color,
             color: this.context.muiTheme.palette.textColor,
             display: 'flex',
             flexDirection: 'column',
+            textAlign: 'center',
             justifyContent: 'center',
             alignItems: 'center',
             fontFamily: this.context.muiTheme.fontFamily,
-            border: '1px solid ' + this.context.muiTheme.borderColor
+            border: '1px solid ' + this.context.muiTheme.borderColor,
+            borderRadius: 5
         }
     }
     onDrop = (photos) => {
         console.log(photos);
         this.setState({
-            photos: [...photos]
+            photos: [...this.state.photos, ...photos]
         })
     }
     removePhoto = (selectedPhoto) => {
@@ -77,54 +70,14 @@ class AccidentForm extends React.Component {
                         </Field>
                     </Col>
                     <Col xs={12} md={6}>
-                        <TimePicker floatingLabelText="Accident Time" fullWidth={true}/>
+                      <Field name="accidentTime" component={accidentTime =>
+                      <TimePicker fullWidth={true} floatingLabelText="Accident Time" {...accidentTime} value={accidentTime.value || new Date()} onChange={(event,date) => accidentTime.onChange(date)} onBlur={(event,date) => accidentTime.onBlur(date)}/>
+                    }/>
                     </Col>
                 </Row>
-                <ExpandTransition open={selectedCase === 'Auto' || selectedCase === 'Motorcycle'}>
-                <Row>
-                    <Col xs={12}>
-                        <Field name="accidentCity" component={TextField} floatingLabelText="Accident City" fullWidth={true}/>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={12} md={6}>
-                        <Field name="accidentStreet1" component={TextField} floatingLabelText="Cross Street" fullWidth={true}/>
-                    </Col>
-                    <Col xs={12} md={6}>
-                        <Field name="accidentStreet2" component={TextField} floatingLabelText="Cross Street" fullWidth={true}/>
-                    </Col>
-                    <Col xs={12} md={4}>
-                        <Field name="accidentStreetClient" component={TextField} floatingLabelText="Street Client On" fullWidth={true}/>
-                    </Col>
-                    <Col xs={12} md={4}>
-                        <Field name="accidentDirectionClient" component={TextField} floatingLabelText="Direction" fullWidth={true}/>
-                    </Col>
-                    <Col xs={12} md={4}>
-                        <Field name="accidentLaneClient" component={TextField} floatingLabelText="Lane" fullWidth={true}/>
-                    </Col>
-                    <Col xs={12} md={4}>
-                        <Field name="accidentStreetDefendant" component={TextField} floatingLabelText="Street Defendant On" fullWidth={true}/>
-                    </Col>
-                    <Col xs={12} md={4}>
-                        <Field name="accidentDirectionDefendant" component={TextField} floatingLabelText="Direction" fullWidth={true}/>
-                    </Col>
-                    <Col xs={12} md={4}>
-                        <Field name="accidentLaneDefendant" component={TextField} floatingLabelText="Lane" fullWidth={true}/>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={12} md={6}>
-                        <Field name="accidentPersonsCount" component={TextField} floatingLabelText="Persons in Auto" fullWidth={true}/>
-                    </Col>
-                    <Col xs={12} md={6}>
-                        <Field name="accidentPersonsInjured" component={TextField} floatingLabelText="Persons Injured" fullWidth={true}/>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={12}>
-                        <Field name="accidentDescription" component={TextField} floatingLabelText="Accident Description" fullWidth={true} multiLine={true} rows={8}/>
-                    </Col>
-                </Row>
+                {(selectedCase === 'Auto' || selectedCase === 'Motorcycle') &&
+                  <VehicleAccident/>
+                }
                 <Row>
                     <Col xs={12}>
                         <Dropzone onDrop={this.onDrop} accept="image/*" style={this.styles.dropzone}>
@@ -142,7 +95,6 @@ class AccidentForm extends React.Component {
                         </GridList>
                     </Col>
                 </Row>
-                </ExpandTransition>
                 {this.props.stepper}
             </form>
         )
@@ -158,8 +110,10 @@ AccidentForm = reduxForm({form: 'questionnaire', destroyOnUnmount: false})(Accid
 const selector = formValueSelector('questionnaire')
 AccidentForm = connect(state => {
   const selectedCase = selector(state, 'accidentType')
+  const accidentTime = selector(state, 'accidentTime')
   return {
-    selectedCase
+    selectedCase,
+    accidentTime
   }
 })(AccidentForm)
 

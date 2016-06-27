@@ -86,7 +86,8 @@ class PersonalForm extends React.Component {
                   <Field name="personalIsFelon" component={Checkbox} label="I have been convicted of a felony"/>
                 </Col>
               </Row>
-              <ExpandTransition open={isFelon}>
+              {/*<ExpandTransition open={isFelon}>*/}
+              {isFelon &&
                 <Row>
                   <Col xs={12} md={4}>
                     <DatePicker floatingLabelText="Felony Court Date" fullWidth={true}/>
@@ -98,8 +99,13 @@ class PersonalForm extends React.Component {
                     <Field name="personalFelonyCase" component={TextField} floatingLabelText="Felony Case Number" fullWidth={true}/>
                   </Col>
                 </Row>
-              </ExpandTransition>
-              {this.props.stepper}
+              }
+              {/*</ExpandTransition>*/}
+              <Row>
+                <Col xs={12}>
+                  {this.props.stepper}
+                </Col>
+              </Row>
           </form>
     )
   }
