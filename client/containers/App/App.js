@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
 import {AppBar, Drawer, MenuItem} from 'material-ui';
 import Questionnaire from '../Questionnaire';
-import Stepper from '../Stepper';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import theme from './theme';
