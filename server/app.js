@@ -1,17 +1,22 @@
+import express from 'express'
 
-var express = require('express');
-var bodyParser = require('body-parser');
-var multer = require('multer')
-var upload = multer();
+const app = express()
 
-var app = express();
-let router = express.Router();
-
+// DEVELOPMENT MIDDLEWARE //
 if (process.env.NODE_ENV === 'development') {
-  var webpack = require('webpack');
-  var webpackConfig = require('../webpack.config');
-  var compiler = webpack(webpackConfig);
-  app.use(require('webpack-dev-middleware')(compiler, {
+  const webpack = require('webpack');
+  const webpackConfig = require('../webpack.config');
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  const chokidar = require('chokidar');
+  // import webpack from 'webpack'
+  // import webpackConfig from '../webpack.config'
+  // import webpackDevMiddleware from 'webpack-dev-middleware'
+  // import webpackHotMiddleware from 'webpack-hot-middleware'
+  // import chokidar from ('chokidar')
+  const compiler = webpack(webpackConfig)
+
+  app.use(webpackDevMiddleware(compiler, {
       noInfo: true,
       publicPath: webpackConfig.output.publicPath,
       historyApiFallback: true,
@@ -19,18 +24,23 @@ if (process.env.NODE_ENV === 'development') {
         colors: true
       }
   }));
-  app.use(require('webpack-hot-middleware')(compiler));
+  app.use(webpackHotMiddleware(compiler));
+
+  const watcher = chokidar.watch(__dirname + '/router')
+  watcher.on('ready', function() {
+    watcher.on('all', function() {
+      console.log("Clearing /router/ module cache from server")
+      Object.keys(require.cache).forEach(function(id) {
+        if (/[\/\\]server[\/\\]router[\/\\]/.test(id)) delete require.cache[id]
+      })
+    })
+  })
 }
 app.use(express.static('public'))
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use('/', express.static(__dirname + '/../client'));
-
-app.post('/client', function(req, res) {
-  console.log(req.body);
-  res.send('OK')
+app.listen(process.env.PORT || 3000);
+app.use((req, res, next) => {
+  require('./router')(app, req, res, next)
+  next()
 })
 
-
-app.listen(process.env.PORT || 3000);
+export default app

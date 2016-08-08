@@ -2,9 +2,9 @@ import React from 'react';
 import {GridList, GridTile} from 'material-ui';
 import {TextField} from 'redux-form-material-ui'
 import {Row, Col} from 'react-flexbox-grid';
-import {Field} from 'redux-form';
+import {Field, reduxForm} from 'redux-form';
 
-class VehicleForms extends React.Component {
+class Auto extends React.Component {
   render() {
     return(
       <div>
@@ -57,4 +57,6 @@ class VehicleForms extends React.Component {
   }
 }
 
-export default VehicleForms
+Auto = reduxForm({form: 'questionnaire'})(Auto);
+
+export default Auto

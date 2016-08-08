@@ -1,7 +1,7 @@
 import React from 'react';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
-import {DatePicker, RaisedButton, MenuItem, FloatingActionButton} from 'material-ui';
-import {TextField, SelectField, Checkbox} from 'redux-form-material-ui';
+import {RaisedButton, MenuItem, FloatingActionButton} from 'material-ui';
+import {TextField, SelectField, Checkbox, DatePicker} from 'redux-form-material-ui';
 import states from '../../../components/StateMenuItems';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import { connect } from 'react-redux';
@@ -31,15 +31,6 @@ class PersonalForm extends React.Component {
                   </Col>
                   <Col xs={12} md={6}>
                       <Field name="personalLastName" component={TextField} floatingLabelText="Last Name" fullWidth={true}/>
-                  </Col>
-              </Row>
-              <Row>
-                  <Col xs={12} md={6}>
-                      <DatePicker floatingLabelText="Accident Date" fullWidth={true}/>
-                  </Col>
-
-                  <Col xs={12} md={6}>
-                      <Field name="personalSSN" component={TextField} floatingLabelText="SSN" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
@@ -74,11 +65,14 @@ class PersonalForm extends React.Component {
                   </Col>
               </Row>
               <Row>
-                  <Col xs={12} md={6}>
+                  <Col xs={12} md={4}>
                       <Field name="personalDriversLicense" component={TextField} floatingLabelText="Driver's License" fullWidth={true}/>
                   </Col>
-                  <Col xs={12} md={6}>
-                      <DatePicker floatingLabelText="Date of Birth" fullWidth={true}/>
+                  <Col xs={12} md={4}>
+                      <Field name="personalDateOfBirth" component={DatePicker} floatingLabelText="Date of Birth" fullWidth={true}/>
+                  </Col>
+                  <Col xs={12} md={4}>
+                      <Field name="personalSSN" component={TextField} floatingLabelText="SSN" fullWidth={true}/>
                   </Col>
               </Row>
               <Row>
@@ -90,7 +84,7 @@ class PersonalForm extends React.Component {
               {isFelon &&
                 <Row>
                   <Col xs={12} md={4}>
-                    <DatePicker floatingLabelText="Felony Court Date" fullWidth={true}/>
+                    <Field name="personalFelonyDate" component={DatePicker} floatingLabelText="Felony Court Date" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
                     <Field name="personalFelonyCourt" component={TextField} floatingLabelText="Felony Court Name" fullWidth={true}/>

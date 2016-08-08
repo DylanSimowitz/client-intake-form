@@ -23,6 +23,7 @@ import {connect} from 'react-redux'
 let styles = {
     paper: {
         padding: 10,
+        paddingBottom: 30,
         maxWidth: '1200px',
         margin: '15px auto'
     }
@@ -46,12 +47,20 @@ class Questionnaire extends React.Component {
         window.removeEventListener('resize', this.handleResize)
     }
     handleSubmit = (data) => {
-        fetch('/client', {
+        let body = new FormData()
+        Object.keys(data).forEach(( key ) => {
+              if (key === 'accidentPhotos') {
+                console.log(data[key]);
+                data[key].map(file => {
+                  body.append(key, file, file.name)
+                })
+              } else {
+                body.append(key, data[key]);
+              }
+            });
+        fetch('/clients', {
             method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+            body
         })
     }
     nextStep = () => {

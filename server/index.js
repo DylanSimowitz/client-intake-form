@@ -1,1 +1,1 @@
-require('./app.js')
+export default from './app'

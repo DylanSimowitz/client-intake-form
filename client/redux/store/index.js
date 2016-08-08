@@ -4,7 +4,7 @@ import rootReducer from '../reducers'
 
 
 export default function configureStore(initialState) {
-  if (process.env.NODE_ENV === 'development') {
+  // if (process.env.NODE_ENV === 'development') {
     return createStore(
       rootReducer,
       initialState,
@@ -15,12 +15,12 @@ export default function configureStore(initialState) {
         window.devToolsExtension ? window.devToolsExtension() : f => f
       )
     )
-  }
-  return createStore(
-    rootReducer,
-    initialState,
-    applyMiddleware(
-      thunkMiddleware
-    )
-  )
+//   }
+//   return createStore(
+//     rootReducer,
+//     initialState,
+//     applyMiddleware(
+//       thunkMiddleware
+//     )
+//   )
 }
