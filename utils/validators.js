@@ -12,7 +12,14 @@ class Validator {
     }
   }
   validate(type, value) {
-    return value.match(this.type[type]) != null ? true : false;
+    if (typeof type === 'string') {
+      return value.match(this.type[type]) != null ? true : false;
+    }
+    elseif (Array.isArray(type)) {
+      type.reduce(item => {
+
+      })
+    }
   }
   addValidation(name, test) {
     Object.assign(this.type, {[name]:test})
@@ -21,3 +28,9 @@ class Validator {
 
 
 module.exports = Validator;
+{
+  personalLastName: {
+    value: 'simowitz'
+    type: 'string'
+  }
+}

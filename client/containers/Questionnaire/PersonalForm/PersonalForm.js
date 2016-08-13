@@ -1,23 +1,43 @@
 import React from 'react';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import {RaisedButton, MenuItem, FloatingActionButton} from 'material-ui';
-import {TextField, SelectField, Checkbox, DatePicker} from 'redux-form-material-ui';
-import states from '../../../components/StateMenuItems';
+import {TextField, SelectField, Checkbox, DatePicker, AutoComplete} from 'redux-form-material-ui';
+import states from 'components/StateMenuItems';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import AddIcon from 'material-ui/svg-icons/content/add';
+import { normalizeSSN, normalizePhone, normalizeZipcode } from 'redux/utils/normalizer'
 
 
 class PersonalForm extends React.Component {
   constructor() {
     super()
-    this.state = {
-      photos: [],
-    }
   }
-
+  // getPlaces = (address) => {
+  //   let autocomplete = new google.maps.places.AutocompleteService()
+  //   let query = {
+  //     input: address
+  //   }
+  //   let descriptions;
+  //   autocomplete.getPlacePredictions(query, (predictions, status) => {
+  //     if (status === google.maps.places.PlacesServiceStatus.OK) {
+  //       descriptions = predictions.map((value,index,array) => {
+  //         console.log(value.description);
+  //         return value.description
+  //       })
+  //     }
+  //     else {
+  //       console.log('Places API denied');
+  //     }
+  //   })
+  //   this.setState({
+  //     places: descriptions
+  //   })
+  // }
+  // places = []
   render() {
+
     const {
       handleSubmit,
       stopPropagation,
@@ -35,15 +55,15 @@ class PersonalForm extends React.Component {
               </Row>
               <Row>
                   <Col xs={12} md={6}>
-                      <Field name="personalHomePhone" component={TextField} floatingLabelText="Home Phone" fullWidth={true}/>
+                      <Field name="personalHomePhone" component={TextField} floatingLabelText="Home Phone" fullWidth={true} normalize={normalizePhone}/>
                   </Col>
                   <Col xs={12} md={6}>
-                      <Field name="personalCellPhone" component={TextField} floatingLabelText="Cell Phone" fullWidth={true}/>
+                      <Field name="personalCellPhone" component={TextField} floatingLabelText="Cell Phone" fullWidth={true} normalize={normalizePhone}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12}>
-                      <Field name="personalAddress" component={TextField} floatingLabelText="Address" fullWidth={true}/>
+                      <Field name="personalAddress" component={TextField} floatingLabelText="Address" fullWidth={true} />
                   </Col>
               </Row>
               <Row>
@@ -56,7 +76,7 @@ class PersonalForm extends React.Component {
                       </Field>
                   </Col>
                   <Col xs={12} md={4}>
-                      <Field name="personalAddressZipcode" component={TextField} floatingLabelText="Zipcode" fullWidth={true}/>
+                      <Field name="personalAddressZipcode" component={TextField} floatingLabelText="Zipcode" fullWidth={true} normalize={normalizeZipcode}/>
                   </Col>
               </Row>
               <Row>
@@ -72,7 +92,7 @@ class PersonalForm extends React.Component {
                       <Field name="personalDateOfBirth" component={DatePicker} floatingLabelText="Date of Birth" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <Field name="personalSSN" component={TextField} floatingLabelText="SSN" fullWidth={true}/>
+                      <Field name="personalSSN" component={TextField} floatingLabelText="SSN" fullWidth={true} normalize={normalizeSSN}/>
                   </Col>
               </Row>
               <Row>
@@ -114,8 +134,10 @@ PersonalForm = reduxForm({
 const selector = formValueSelector('questionnaire')
 PersonalForm = connect(state => {
   const isFelon = selector(state, 'personalIsFelon')
+  const address = selector(state, 'personalAddress')
   return {
-    isFelon
+    isFelon,
+    address
   }
 })(PersonalForm)
 

@@ -9,6 +9,19 @@ import UploadIcon from 'material-ui/svg-icons/file/file-upload'
 import ClearIcon from 'material-ui/svg-icons/content/clear'
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import Auto from './AccidentTypes/Auto';
+import { openDialog } from 'redux/actions'
+
+function onSubmitFail(error, dispatch) {
+  if (error) {
+    dispatch(openDialog(error._error))
+  }
+  else {
+    dispatch(openDialog('Fix all invalid fields before submitting.'))
+  }
+}
+function onSubmitSuccess(result, dispatch) {
+  dispatch(openDialog('Your submission was successfully received.'))
+}
 
 class AccidentForm extends React.Component {
     constructor(props, context) {
@@ -60,7 +73,7 @@ class AccidentForm extends React.Component {
                         </Field>
                     </Col>
                     <Col xs={12} md={3}>
-                        <Field name="personalAccidentDate" component={DatePicker} floatingLabelText="Accident Date" fullWidth={true}/>
+                        <Field name="accidentDate" component={DatePicker} floatingLabelText="Accident Date" fullWidth={true}/>
                     </Col>
                     <Col xs={12} md={3}>
                       <Field name="accidentTime" component={props =>
@@ -103,16 +116,14 @@ AccidentForm.contextTypes = {
     muiTheme: PropTypes.object.isRequired
 }
 
-AccidentForm = reduxForm({form: 'questionnaire', destroyOnUnmount: false})(AccidentForm);
+AccidentForm = reduxForm({form: 'questionnaire', destroyOnUnmount: false, onSubmitFail, onSubmitSuccess})(AccidentForm);
 
 const selector = formValueSelector('questionnaire')
 AccidentForm = connect(state => {
   const selectedCase = selector(state, 'accidentType')
-  const accidentTime = selector(state, 'accidentTime')
   const accidentPhotos = selector(state, 'accidentPhotos')
   return {
     selectedCase,
-    accidentTime,
     accidentPhotos
   }
 })(AccidentForm)

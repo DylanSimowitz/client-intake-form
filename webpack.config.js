@@ -1,4 +1,5 @@
-var webpack = require('webpack');
+import webpack from 'webpack'
+import path from 'path'
 module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(), new webpack.NoErrorsPlugin()
@@ -14,7 +15,8 @@ module.exports = {
         path: __dirname
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['', '.js', '.jsx'],
+        root: [path.resolve('./client')]
     },
     module: {
         preLoaders: [

@@ -5,7 +5,12 @@ import {AppContainer} from 'react-hot-loader';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 import configureStore from './redux/store'
-const store = configureStore();
+const store = configureStore({
+  dialog: {
+    open: false,
+    message: ''
+  }
+});
 
 const rootElement = document.getElementById('app');
 
