@@ -7,7 +7,7 @@ module.exports = {
     entry: [
       'webpack-hot-middleware/client',
       'react-hot-loader/patch',
-      './client/index.js',
+      './client/index.js'
     ],
     output: {
         filename: 'bundle.js',
@@ -16,7 +16,7 @@ module.exports = {
     },
     resolve: {
         extensions: ['', '.js', '.jsx'],
-        root: [path.resolve('./client')]
+        root: [path.resolve('./client'), path.resolve('./')]
     },
     module: {
         preLoaders: [
@@ -29,11 +29,15 @@ module.exports = {
         loaders: [
             {
               test: /\.js$/,
-              exclude: /node_modules/,
+              include: [
+                path.join(__dirname, 'client'),
+                path.join(__dirname, 'server/shared')
+              ],
               loaders: [
                 'babel-loader'
               ]
-            }, {
+            }
+            , {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader?modules',
                 exclued: /flexboxgrid/

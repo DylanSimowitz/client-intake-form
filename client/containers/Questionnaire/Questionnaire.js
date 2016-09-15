@@ -49,18 +49,20 @@ function onSubmit(data) {
       })
       .then(response => {
         if (response.status === 200) {
-          resolve('It works')
+          resolve('It works');
         }
         else if (response.status === 400) {
           response.json()
-          .then(json => {
-            let submission = {_error: 'There was an error with your submission. Please correct the mistakes and try again.'}
-            json.errors.map(error => {
-              submission[error.field] = error.message
-            })
-            reject(new SubmissionError(submission))
-          })
+          .then(errors => {
+              errors._error = 'Please correct all marked fields and try again.'
+            reject(new SubmissionError(errors))
+          })        }
+        else if (response.status === 500) {
+          reject(new SubmissionError({_error: 'The server is experiencing technical difficulties. Your submission was not stored.'}))
         }
+          else {
+            reject(new SubmissionError({_error: 'An unknown error occurred.'}))
+          }
       })
     })
 }

@@ -9,22 +9,20 @@ if (process.env.NODE_ENV === 'development') {
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const chokidar = require('chokidar');
-  // import webpack from 'webpack'
-  // import webpackConfig from '../webpack.config'
-  // import webpackDevMiddleware from 'webpack-dev-middleware'
-  // import webpackHotMiddleware from 'webpack-hot-middleware'
-  // import chokidar from ('chokidar')
+  const DashboardPlugin = require('webpack-dashboard/plugin');
   const compiler = webpack(webpackConfig)
+  // compiler.apply(new DashboardPlugin());
 
   app.use(webpackDevMiddleware(compiler, {
       noInfo: true,
+      quiet: true,
       publicPath: webpackConfig.output.publicPath,
       historyApiFallback: true,
       stats: {
         colors: true
       }
   }));
-  app.use(webpackHotMiddleware(compiler));
+  app.use(webpackHotMiddleware(compiler,));
 
   const watcher = chokidar.watch(__dirname + '/router')
   watcher.on('ready', function() {

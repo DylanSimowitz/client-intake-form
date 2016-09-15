@@ -19,14 +19,15 @@ module.exports = {
             }
         })
     ],
-    entry: ['./client/index.js'],
+    entry: path.join(__dirname, '/client/index.js'),
     output: {
         filename: 'bundle.js',
         publicPath: '/public',
         path: path.join(__dirname, '/public')
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['', '.js', '.jsx'],
+        root: [path.resolve('./client')]
     },
     module: {
         preLoaders: [
@@ -37,10 +38,15 @@ module.exports = {
             }
         ],
         loaders: [
-            {
+              {
                 test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
+                include: [
+                  path.join(__dirname, 'client'),
+                  path.join(__dirname, 'server/shared')
+                ],
+                loaders: [
+                  'babel-loader'
+                ]
             }, {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader?modules',

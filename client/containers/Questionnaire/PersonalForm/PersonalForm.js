@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import { normalizeSSN, normalizePhone, normalizeZipcode } from 'redux/utils/normalizer'
-
+// import validate from '../../../../server/shared/validations/questionnaire'
 
 class PersonalForm extends React.Component {
   constructor() {
@@ -114,7 +114,6 @@ class PersonalForm extends React.Component {
                   </Col>
                 </Row>
               }
-              {/*</ExpandTransition>*/}
               <Row>
                 <Col xs={12}>
                   {this.props.stepper}

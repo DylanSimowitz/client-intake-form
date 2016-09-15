@@ -10,7 +10,7 @@ import ClearIcon from 'material-ui/svg-icons/content/clear'
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import Auto from './AccidentTypes/Auto';
 import { openDialog } from 'redux/actions'
-
+//import validate from 'server/shared/validations/questionnaire';
 function onSubmitFail(error, dispatch) {
   if (error) {
     dispatch(openDialog(error._error))
