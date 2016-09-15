@@ -5,3 +5,4 @@ node_modules
 roles
 uploads
 npm-debug.log
+bundle.js
