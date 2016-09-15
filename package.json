@@ -64,9 +64,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production node server",
+    "start": "NODE_ENV=production node build",
     "build": "cross-env NODE_ENV=production webpack -p --config webpack.production.config",
-    "dev": "cross-env NODE_ENV=development babel-node -- server/index.js"
+    "dev": "cross-env NODE_ENV=development babel-node -- server/index.js",
+    "postinstall": "cross-env NODE_ENV=production babel server -d build"
   },
   "repository": {
     "type": "git",
