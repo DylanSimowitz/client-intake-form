@@ -67,7 +67,7 @@
     "start": "NODE_ENV=production node build",
     "build": "cross-env NODE_ENV=production webpack -p --config webpack.production.config",
     "dev": "cross-env NODE_ENV=development babel-node -- server/index.js",
-    "postinstall": "cross-env NODE_ENV=production babel server -d build"
+    "postinstall": "NODE_ENV=production babel server -d build"
   },
   "repository": {
     "type": "git",
