@@ -1,5 +1,7 @@
 import express from 'express'
+import createSchema from './database/schema'
 
+createSchema()
 const app = express()
 
 // DEVELOPMENT MIDDLEWARE //
