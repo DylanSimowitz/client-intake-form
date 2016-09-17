@@ -39,7 +39,6 @@ function success(attributes) {
   })
 }
 function error(errors) {
-  console.log(errors)
   res.status(400).send(errors)
 }
   validateQuestionnaire(req.body)
