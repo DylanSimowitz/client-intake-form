@@ -1,9 +1,9 @@
-import React from 'react';
-import {DatePicker, RaisedButton} from 'material-ui';
+import React from 'react'
+import {DatePicker, RaisedButton} from 'material-ui'
 import {TextField, SelectField} from 'redux-form-material-ui'
-import {Grid, Row, Col} from 'react-flexbox-grid';
-import { Field,reduxForm } from 'redux-form';
-import states from '../../../components/StateMenuItems';
+import {Grid, Row, Col} from 'react-flexbox-grid'
+import { Field,reduxForm } from 'redux-form'
+import states from '../../../components/StateMenuItems'
 
 class EmployerForm extends React.Component {
   render() {
@@ -68,7 +68,7 @@ class EmployerForm extends React.Component {
 EmployerForm = reduxForm({
   form: 'questionnaire',
   destroyOnUnmount: false
-})(EmployerForm);
+})(EmployerForm)
 
 
-export default EmployerForm;
+export default EmployerForm

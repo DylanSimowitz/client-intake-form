@@ -1,18 +1,18 @@
-import React from 'react';
-import {TextField, AutoComplete, RaisedButton, TimePicker} from 'material-ui';
-import {Grid, Row, Col} from 'react-flexbox-grid';
-import {TextField, SelectField} from 'redux-form-material-ui';
-import { reduxForm } from 'redux-form';
+import React from 'react'
+import {TextField, AutoComplete, RaisedButton, TimePicker} from 'material-ui'
+import {Grid, Row, Col} from 'react-flexbox-grid'
+import {TextField, SelectField} from 'redux-form-material-ui'
+import { reduxForm } from 'redux-form'
 
 class MedicalForm extends React.Component {
   handleSubmit(data) {
-      fetch('/client', {
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-      })
+    fetch('/client', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
   }
   render() {
     const caseTypes = [
@@ -127,7 +127,7 @@ MedicalForm = reduxForm({
     'accidentPersonsInjured'
   ],
   destroyOnUnmount: false
-})(MedicalForm);
+})(MedicalForm)
 
 
-export default MedicalForm;
+export default MedicalForm

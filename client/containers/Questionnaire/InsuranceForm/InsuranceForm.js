@@ -1,8 +1,8 @@
-import React from 'react';
-import {RaisedButton} from 'material-ui';
-import {TextField, SelectField} from 'redux-form-material-ui';
-import {Grid, Row, Col} from 'react-flexbox-grid';
-import { Field, reduxForm } from 'redux-form';
+import React from 'react'
+import {RaisedButton} from 'material-ui'
+import {TextField, SelectField} from 'redux-form-material-ui'
+import {Grid, Row, Col} from 'react-flexbox-grid'
+import { Field, reduxForm } from 'redux-form'
 import states from '../../../components/StateMenuItems'
 
 class InsuranceForm extends React.Component {
@@ -57,7 +57,7 @@ class InsuranceForm extends React.Component {
 InsuranceForm = reduxForm({
   form: 'questionnaire',
   destroyOnUnmount: false
-})(InsuranceForm);
+})(InsuranceForm)
 
 
-export default InsuranceForm;
+export default InsuranceForm

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {RaisedButton, TextField} from 'material-ui'
 
 class FileUpload extends React.Component {

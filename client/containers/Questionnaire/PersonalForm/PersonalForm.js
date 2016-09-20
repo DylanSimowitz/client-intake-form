@@ -1,12 +1,12 @@
-import React from 'react';
-import ExpandTransition from 'material-ui/internal/ExpandTransition';
-import {RaisedButton, MenuItem, FloatingActionButton} from 'material-ui';
-import {TextField, SelectField, Checkbox, DatePicker, AutoComplete} from 'redux-form-material-ui';
-import states from 'components/StateMenuItems';
-import {Grid, Row, Col} from 'react-flexbox-grid';
-import { connect } from 'react-redux';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
-import AddIcon from 'material-ui/svg-icons/content/add';
+import React from 'react'
+import ExpandTransition from 'material-ui/internal/ExpandTransition'
+import {RaisedButton, MenuItem, FloatingActionButton} from 'material-ui'
+import {TextField, SelectField, Checkbox, DatePicker, AutoComplete} from 'redux-form-material-ui'
+import states from 'components/StateMenuItems'
+import {Grid, Row, Col} from 'react-flexbox-grid'
+import { connect } from 'react-redux'
+import { Field, reduxForm, formValueSelector } from 'redux-form'
+import AddIcon from 'material-ui/svg-icons/content/add'
 import { normalizeSSN, normalizePhone, normalizeZipcode } from 'redux/utils/normalizer'
 // import validate from '../../../../server/shared/validations/questionnaire'
 
@@ -128,7 +128,7 @@ class PersonalForm extends React.Component {
 PersonalForm = reduxForm({
   form: 'questionnaire',
   destroyOnUnmount: false
-})(PersonalForm);
+})(PersonalForm)
 
 const selector = formValueSelector('questionnaire')
 PersonalForm = connect(state => {
@@ -140,4 +140,4 @@ PersonalForm = connect(state => {
   }
 })(PersonalForm)
 
-export default PersonalForm;
+export default PersonalForm

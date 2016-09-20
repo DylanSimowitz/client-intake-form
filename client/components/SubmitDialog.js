@@ -1,7 +1,7 @@
-import React from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import React from 'react'
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 import { connect } from 'react-redux'
 import { closeDialog } from 'redux/actions'
 
@@ -24,7 +24,7 @@ class SubmitDialog extends React.Component {
         keyboardFocused={true}
         onTouchTap={this.props.closeDialog}
       />
-    ];
+    ]
 
     return (
         <Dialog
@@ -35,7 +35,7 @@ class SubmitDialog extends React.Component {
         >
         {this.props.dialog.message}
         </Dialog>
-    );
+    )
   }
 }
 export default SubmitDialog = connect(null, {closeDialog})(SubmitDialog)

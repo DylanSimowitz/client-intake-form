@@ -5,7 +5,7 @@ import rootReducer from '../reducers'
 
 export default function configureStore(initialState) {
   // if (process.env.NODE_ENV === 'development') {
-    return createStore(
+  return createStore(
       rootReducer,
       initialState,
       compose(

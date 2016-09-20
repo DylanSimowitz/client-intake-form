@@ -1,14 +1,14 @@
-import React from 'react';
-import { TextField } from 'material-ui';
+import React from 'react'
+import { TextField } from 'material-ui'
 import Validator from '../validators'
-var validator = new Validator();
+var validator = new Validator()
 
 const invalidPhoneError = 'Invalid phone number'
 const fieldRequiredError = 'This field is required'
 
 class PhoneField extends TextField {
   constructor() {
-    super();
+    super()
 
 
     this.state = {
@@ -67,4 +67,4 @@ class PhoneField extends TextField {
 }
 
 
-module.exports = PhoneField;
+module.exports = PhoneField

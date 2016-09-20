@@ -1,26 +1,26 @@
-import React, {PropTypes} from 'react';
-import {AppBar, Drawer, MenuItem} from 'material-ui';
-import Questionnaire from '../Questionnaire';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import theme from './theme';
-import { Provider } from 'react-redux';
+import React, {PropTypes} from 'react'
+import {AppBar, Drawer, MenuItem} from 'material-ui'
+import Questionnaire from '../Questionnaire'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import theme from './theme'
+import { Provider } from 'react-redux'
 
 require('normalize-css')
 
 class App extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            open: false
-        }
+  constructor() {
+    super()
+    this.state = {
+      open: false
     }
-    handleToggle = () => this.setState({
-        open: !this.state.open
-    });
+  }
+  handleToggle = () => this.setState({
+    open: !this.state.open
+  });
 
-    render() {
-        return (
+  render() {
+    return (
           <Provider store={this.props.store}>
             <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
                 <div>
@@ -35,10 +35,10 @@ class App extends React.Component {
             </MuiThemeProvider>
           </Provider>
         )
-    }
+  }
 }
 App.childContextTypes = {
   muiTheme: PropTypes.object.isRequired
 }
 
-export default App;
+export default App

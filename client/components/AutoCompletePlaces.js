@@ -14,16 +14,16 @@ class AutoCompletePlaces extends AutoComplete {
     let query = {
       input: address
     }
-    let descriptions = [];
+    let descriptions = []
     this.autocomplete.getPlacePredictions(query, (predictions, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         descriptions = predictions.map((value,index,array) => {
-          console.log(value.description);
+          console.log(value.description)
           return value.description
         })
       }
       else {
-        console.log('Places API denied');
+        console.log('Places API denied')
       }
     })
     this.setState({

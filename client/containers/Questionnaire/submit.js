@@ -1,19 +1,19 @@
 export default function onSubmit(data) {
-    let body = new FormData()
-    Object.keys(data).forEach(( key ) => {
-          if (key === 'accidentPhotos') {
-            data[key].map(file => {
-              body.append(key, file, file.name)
-            })
-          } else {
-            body.append(key, data[key]);
-          }
-    });
-    return new Promise((resolve, reject) => {
-      fetch('/clients', {
-          method: 'post',
-          body
+  let body = new FormData()
+  Object.keys(data).forEach(( key ) => {
+    if (key === 'accidentPhotos') {
+      data[key].map(file => {
+        body.append(key, file, file.name)
       })
+    } else {
+      body.append(key, data[key])
+    }
+  })
+  return new Promise((resolve, reject) => {
+    fetch('/clients', {
+      method: 'post',
+      body
+    })
       .then(response => {
         if (response.status === 200) {
           resolve('It works')
@@ -29,5 +29,5 @@ export default function onSubmit(data) {
           })
         }
       })
-    })
+  })
 }

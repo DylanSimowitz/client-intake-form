@@ -1,8 +1,8 @@
-import React from 'react';
-import {GridList, GridTile} from 'material-ui';
+import React from 'react'
+import {GridList, GridTile} from 'material-ui'
 import {TextField} from 'redux-form-material-ui'
-import {Row, Col} from 'react-flexbox-grid';
-import {Field, reduxForm} from 'redux-form';
+import {Row, Col} from 'react-flexbox-grid'
+import {Field, reduxForm} from 'redux-form'
 
 class Auto extends React.Component {
   render() {
@@ -57,6 +57,6 @@ class Auto extends React.Component {
   }
 }
 
-Auto = reduxForm({form: 'questionnaire'})(Auto);
+Auto = reduxForm({form: 'questionnaire'})(Auto)
 
 export default Auto

@@ -1,1 +1,1 @@
-export default from './StateMenuItems';
+export default from './StateMenuItems'

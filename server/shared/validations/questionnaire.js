@@ -64,7 +64,7 @@ const constraints = {
     presence: true,
   }
 }
-validate.validators.presence.message = "This field is required"
+validate.validators.presence.message = 'This field is required'
 
 export default function(data) {
   return validate.async(data, constraints, {fullMessages: false})

@@ -1,9 +1,10 @@
 import path from 'path'
 import fs from 'fs'
 import express from 'express'
-const router = express.Router()
 import Client from '../../database/models/Client'
 import multer from 'multer'
+
+const router = express.Router()
 const upload = multer({
   dest: 'uploads',
   storage: multer.diskStorage({
@@ -15,10 +16,10 @@ const upload = multer({
 import validateQuestionnaire from '../../shared/validations/questionnaire'
 
 router.post('/', upload.single(), (req, res, next) => {
-function success(attributes) {
-  new Client({
-    data: JSON.stringify(req.body)
-  })
+  function success(attributes) {
+    new Client({
+      data: JSON.stringify(req.body)
+    })
   .save()
   .then(model => {
     let dest = `uploads/${model.id}`
@@ -26,7 +27,7 @@ function success(attributes) {
       fs.readdirSync(dest)
     }
     catch(err) {
-      console.log('Creating new client: ' + dest);
+      console.log('Creating new client: ' + dest)
       fs.mkdirSync(dest)
     }
     finally {
@@ -37,10 +38,10 @@ function success(attributes) {
   .catch(error => {
     res.status(500)
   })
-}
-function error(errors) {
-  res.status(400).send(errors)
-}
+  }
+  function error(errors) {
+    res.status(400).send(errors)
+  }
   validateQuestionnaire(req.body)
   .then(success, error)
 },

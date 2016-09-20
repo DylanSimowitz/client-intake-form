@@ -1,14 +1,14 @@
-import React, {PropTypes} from 'react';
-import {AutoComplete, RaisedButton, TimePicker, GridList, GridTile, MenuItem} from 'material-ui';
+import React, {PropTypes} from 'react'
+import {AutoComplete, RaisedButton, TimePicker, GridList, GridTile, MenuItem} from 'material-ui'
 import {TextField,SelectField,DatePicker} from 'redux-form-material-ui'
-import {Row, Col} from 'react-flexbox-grid';
-import Dropzone from 'react-dropzone';
-import {Field, reduxForm, formValueSelector} from 'redux-form';
+import {Row, Col} from 'react-flexbox-grid'
+import Dropzone from 'react-dropzone'
+import {Field, reduxForm, formValueSelector} from 'redux-form'
 import {connect} from 'react-redux'
 import UploadIcon from 'material-ui/svg-icons/file/file-upload'
 import ClearIcon from 'material-ui/svg-icons/content/clear'
-import ExpandTransition from 'material-ui/internal/ExpandTransition';
-import Auto from './AccidentTypes/Auto';
+import ExpandTransition from 'material-ui/internal/ExpandTransition'
+import Auto from './AccidentTypes/Auto'
 import { openDialog } from 'redux/actions'
 //import validate from 'server/shared/validations/questionnaire';
 function onSubmitFail(error, dispatch) {
@@ -24,45 +24,45 @@ function onSubmitSuccess(result, dispatch) {
 }
 
 class AccidentForm extends React.Component {
-    constructor(props, context) {
-        super(props, context)
-        this.state = {
-            photos: []
-        }
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      photos: []
     }
-    styles = {
-        dropzone: {
-            width: '100%',
-            height: '400px',
-            backgroundColor: this.context.muiTheme.palette.accent2Color,
-            color: this.context.muiTheme.palette.textColor,
-            display: 'flex',
-            flexDirection: 'column',
-            textAlign: 'center',
-            justifyContent: 'center',
-            alignItems: 'center',
-            fontFamily: this.context.muiTheme.fontFamily,
-            border: '1px solid ' + this.context.muiTheme.borderColor,
-            borderRadius: 5
-        }
+  }
+  styles = {
+    dropzone: {
+      width: '100%',
+      height: '400px',
+      backgroundColor: this.context.muiTheme.palette.accent2Color,
+      color: this.context.muiTheme.palette.textColor,
+      display: 'flex',
+      flexDirection: 'column',
+      textAlign: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontFamily: this.context.muiTheme.fontFamily,
+      border: '1px solid ' + this.context.muiTheme.borderColor,
+      borderRadius: 5
     }
-    removePhoto = (selectedPhoto) => {
-      this.props.array.remove('accidentPhotos',selectedPhoto)
-    }
-    render() {
-        const caseTypes = [
-            'Auto',
-            'Motorcycle',
-            'Slip & Fall',
-            'Premises',
-            'Malpractice',
-            'Wrongful Death',
-            'Dog Bites',
-            'Product Liability'
-        ]
-        const {handleSubmit, previousPage, selectedCase, accidentPhotos} = this.props
-        const {muiTheme} = this.context
-        return (
+  }
+  removePhoto = (selectedPhoto) => {
+    this.props.array.remove('accidentPhotos',selectedPhoto)
+  }
+  render() {
+    const caseTypes = [
+      'Auto',
+      'Motorcycle',
+      'Slip & Fall',
+      'Premises',
+      'Malpractice',
+      'Wrongful Death',
+      'Dog Bites',
+      'Product Liability'
+    ]
+    const {handleSubmit, previousPage, selectedCase, accidentPhotos} = this.props
+    const {muiTheme} = this.context
+    return (
             <form onSubmit={handleSubmit}>
                 <Row>
                     <Col xs={12} md={6}>
@@ -109,14 +109,14 @@ class AccidentForm extends React.Component {
                 {this.props.stepper}
             </form>
         )
-    }
+  }
 }
 
 AccidentForm.contextTypes = {
-    muiTheme: PropTypes.object.isRequired
+  muiTheme: PropTypes.object.isRequired
 }
 
-AccidentForm = reduxForm({form: 'questionnaire', destroyOnUnmount: false, onSubmitFail, onSubmitSuccess})(AccidentForm);
+AccidentForm = reduxForm({form: 'questionnaire', destroyOnUnmount: false, onSubmitFail, onSubmitSuccess})(AccidentForm)
 
 const selector = formValueSelector('questionnaire')
 AccidentForm = connect(state => {
@@ -128,4 +128,4 @@ AccidentForm = connect(state => {
   }
 })(AccidentForm)
 
-export default AccidentForm;
+export default AccidentForm

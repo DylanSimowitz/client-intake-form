@@ -10,6 +10,6 @@ const connection = knex({
     //database : 'postgres',
     //charset  : 'utf8'
   //}
-});
+})
 
 export default connection

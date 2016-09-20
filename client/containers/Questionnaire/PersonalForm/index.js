@@ -1,2 +1,2 @@
-export fields from './PersonalForm';
-export default from './PersonalForm';
+export fields from './PersonalForm'
+export default from './PersonalForm'

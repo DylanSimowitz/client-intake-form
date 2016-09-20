@@ -1,1 +1,1 @@
-export default from './InsuranceForm';
+export default from './InsuranceForm'

@@ -1,11 +1,11 @@
-import {fade} from 'material-ui/utils/colorManipulator';
+import {fade} from 'material-ui/utils/colorManipulator'
 import {
 cyan500, cyan400,
 red600,
 grey100, grey200, grey300, grey400, grey500,
 indigo500, indigo700,
 white, darkBlack, fullBlack
-} from 'material-ui/styles/colors';
+} from 'material-ui/styles/colors'
 
 document.body.style.backgroundColor = grey100
 
@@ -44,6 +44,6 @@ const theme = {
     hintColor: grey500,
     borderColor: grey400
   }
-};
+}
 
-export default theme;
+export default theme

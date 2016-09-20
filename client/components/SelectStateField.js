@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 import { SelectField, MenuItem } from 'material-ui'
 
 class SelectStateField extends SelectField {
   constructor() {
-    super();
+    super()
     this.state = {
       value: 1
     }
@@ -74,4 +74,4 @@ class SelectStateField extends SelectField {
   }
 }
 
-module.exports = SelectStateField;
+module.exports = SelectStateField

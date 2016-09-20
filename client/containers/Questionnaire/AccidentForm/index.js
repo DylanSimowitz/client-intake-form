@@ -1,2 +1,2 @@
-export fields from './AccidentForm';
-export default from './AccidentForm';
+export fields from './AccidentForm'
+export default from './AccidentForm'
