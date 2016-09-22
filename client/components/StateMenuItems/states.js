@@ -90,91 +90,91 @@ export default [
     name: 'Missouri',
     abbreviation: 'MO'
   }, {
-      name: 'Montana',
-      abbreviation: 'MT'
-    }, {
-      name: 'Nebraska',
-      abbreviation: 'NE'
-    }, {
-      name: 'Nevada',
-      abbreviation: 'NV'
-    }, {
-      name: 'New Hampshire',
-      abbreviation: 'NH'
-    }, {
-      name: 'New Jersey',
-      abbreviation: 'NJ'
-    }, {
-      name: 'New Mexico',
-      abbreviation: 'NM'
-    }, {
-      name: 'New York',
-      abbreviation: 'NY'
-    }, {
-      name: 'North Carolina',
-      abbreviation: 'NC'
-    }, {
-      name: 'North Dakota',
-      abbreviation: 'ND'
-    }, {
-      name: 'Northern Mariana Islands',
-      abbreviation: 'MP'
-    }, {
-      name: 'Ohio',
-      abbreviation: 'OH'
-    }, {
-      name: 'Oklahoma',
-      abbreviation: 'OK'
-    }, {
-      name: 'Oregon',
-      abbreviation: 'OR'
-    }, {
-      name: 'Palau',
-      abbreviation: 'PW'
-    }, {
-      name: 'Pennsylvania',
-      abbreviation: 'PA'
-    }, {
-      name: 'Puerto Rico',
-      abbreviation: 'PR'
-    }, {
-      name: 'Rhode Island',
-      abbreviation: 'RI'
-    }, {
-      name: 'South Carolina',
-      abbreviation: 'SC'
-    }, {
-      name: 'South Dakota',
-      abbreviation: 'SD'
-    }, {
-      name: 'Tennessee',
-      abbreviation: 'TN'
-    }, {
-      name: 'Texas',
-      abbreviation: 'TX'
-    }, {
-      name: 'Utah',
-      abbreviation: 'UT'
-    }, {
-      name: 'Vermont',
-      abbreviation: 'VT'
-    }, {
-      name: 'Virgin Islands',
-      abbreviation: 'VI'
-    }, {
-      name: 'Virginia',
-      abbreviation: 'VA'
-    }, {
-      name: 'Washington',
-      abbreviation: 'WA'
-    }, {
-      name: 'West Virginia',
-      abbreviation: 'WV'
-    }, {
-      name: 'Wisconsin',
-      abbreviation: 'WI'
-    }, {
-      name: 'Wyoming',
-      abbreviation: 'WY'
-    }
+    name: 'Montana',
+    abbreviation: 'MT'
+  }, {
+    name: 'Nebraska',
+    abbreviation: 'NE'
+  }, {
+    name: 'Nevada',
+    abbreviation: 'NV'
+  }, {
+    name: 'New Hampshire',
+    abbreviation: 'NH'
+  }, {
+    name: 'New Jersey',
+    abbreviation: 'NJ'
+  }, {
+    name: 'New Mexico',
+    abbreviation: 'NM'
+  }, {
+    name: 'New York',
+    abbreviation: 'NY'
+  }, {
+    name: 'North Carolina',
+    abbreviation: 'NC'
+  }, {
+    name: 'North Dakota',
+    abbreviation: 'ND'
+  }, {
+    name: 'Northern Mariana Islands',
+    abbreviation: 'MP'
+  }, {
+    name: 'Ohio',
+    abbreviation: 'OH'
+  }, {
+    name: 'Oklahoma',
+    abbreviation: 'OK'
+  }, {
+    name: 'Oregon',
+    abbreviation: 'OR'
+  }, {
+    name: 'Palau',
+    abbreviation: 'PW'
+  }, {
+    name: 'Pennsylvania',
+    abbreviation: 'PA'
+  }, {
+    name: 'Puerto Rico',
+    abbreviation: 'PR'
+  }, {
+    name: 'Rhode Island',
+    abbreviation: 'RI'
+  }, {
+    name: 'South Carolina',
+    abbreviation: 'SC'
+  }, {
+    name: 'South Dakota',
+    abbreviation: 'SD'
+  }, {
+    name: 'Tennessee',
+    abbreviation: 'TN'
+  }, {
+    name: 'Texas',
+    abbreviation: 'TX'
+  }, {
+    name: 'Utah',
+    abbreviation: 'UT'
+  }, {
+    name: 'Vermont',
+    abbreviation: 'VT'
+  }, {
+    name: 'Virgin Islands',
+    abbreviation: 'VI'
+  }, {
+    name: 'Virginia',
+    abbreviation: 'VA'
+  }, {
+    name: 'Washington',
+    abbreviation: 'WA'
+  }, {
+    name: 'West Virginia',
+    abbreviation: 'WV'
+  }, {
+    name: 'Wisconsin',
+    abbreviation: 'WI'
+  }, {
+    name: 'Wyoming',
+    abbreviation: 'WY'
+  }
 ]

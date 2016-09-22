@@ -3,7 +3,7 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import { connect } from 'react-redux'
-import { closeDialog } from 'redux/actions'
+import { closeDialog } from 'redux/actions/dialogActions'
 
 /**
  * Dialog with action buttons. The actions are passed in as an array of React objects,
@@ -11,18 +11,19 @@ import { closeDialog } from 'redux/actions'
  *
  * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
  */
-class SubmitDialog extends React.Component {
+class ReduxDialog extends React.Component {
   constructor() {
     super()
   }
 
   render() {
+    const {dialog, close} = this.props
     const actions = [
       <FlatButton
         label="OK"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.props.closeDialog}
+        onTouchTap={close}
       />
     ]
 
@@ -31,11 +32,24 @@ class SubmitDialog extends React.Component {
           title="Submission"
           actions={actions}
           modal={false}
-          open={this.props.dialog.open}
+          open={dialog.open}
         >
-        {this.props.dialog.message}
+        {dialog.message}
         </Dialog>
     )
   }
 }
-export default SubmitDialog = connect(null, {closeDialog})(SubmitDialog)
+
+function mapStateToProps(state) {
+  return {
+    dialog: state.dialog
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    close: closeDialog()
+  }
+}
+
+export default ReduxDialog = connect(mapStateToProps, mapDispatchToProps)(ReduxDialog)

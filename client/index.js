@@ -9,7 +9,12 @@ const store = configureStore({
   dialog: {
     open: false,
     message: ''
-  }
+  },
+  snackbar: {
+    open: false,
+    message: ''
+  },
+  auth: false
 })
 
 const rootElement = document.getElementById('app')

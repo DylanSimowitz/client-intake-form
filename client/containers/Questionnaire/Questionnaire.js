@@ -19,9 +19,7 @@ import {
     StepContent,
     Paper,
 } from 'material-ui'
-import SubmitDialog from 'components/SubmitDialog'
 import {Grid, Row, Col} from 'react-flexbox-grid'
-import {connect} from 'react-redux'
 
 let styles = {
   paper: {
@@ -153,7 +151,6 @@ class Questionnaire extends React.Component {
                       </StepContent>
                   </Step>
               </Stepper>
-              <SubmitDialog dialog={this.props.dialog}/>
             </Paper>
         )
   }
@@ -161,15 +158,4 @@ class Questionnaire extends React.Component {
 Questionnaire.contextTypes = {
   muiTheme: PropTypes.object.isRequired
 }
-const mapStateToProps = (state) => {
-  return {
-    dialog: state.dialog
-  }
-}
-// Questionnaire = reduxForm({
-//   form: 'questionnaire',
-//   onSubmit,
-//   onSubmitSuccess,
-//   onSubmitFail
-// })(Questionnaire)
-export default Questionnaire = connect(mapStateToProps)(Questionnaire)
+export default Questionnaire

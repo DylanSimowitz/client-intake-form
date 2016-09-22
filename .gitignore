@@ -6,3 +6,4 @@ roles
 uploads
 npm-debug.log
 bundle.js
+.tern-port

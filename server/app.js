@@ -1,4 +1,5 @@
 import express from 'express'
+import path from 'path'
 import createSchema from './database/schema'
 import router from './router'
 
@@ -40,5 +41,5 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.static('public'))
 app.listen(process.env.PORT || 3000)
 app.use('/', router)
-
+app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../public/index.html')))
 export default app
