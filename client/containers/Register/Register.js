@@ -1,5 +1,7 @@
 import React, {PropTypes} from 'react'
 import {Field, SubmissionError, reduxForm} from 'redux-form'
+import {connect} from 'react-redux'
+import {openSnackbar} from 'redux/actions/snackbarActions'
 import {
     Tabs,
     Tab,
@@ -8,25 +10,23 @@ import {
     Paper,
 } from 'material-ui'
 import {TextField} from 'redux-form-material-ui'
-import SubmitDialog from 'components/SubmitDialog'
 import {Grid, Row, Col} from 'react-flexbox-grid'
-import {connect} from 'react-redux'
-import {openDialog} from 'redux/actions/dialogActions'
 
-class LoginForm extends React.Component {
+class Register extends React.Component {
   render() {
     const {handleSubmit} = this.props
     return (
       <form onSubmit={handleSubmit}> 
-        <Field name="email" component={TextField} floatingLabelText="Email"/>
-        <Field name="password" type="password" component={TextField} floatingLabelText="Password"/>
-        <RaisedButton type="submit"/>
+        <Field name="email" component={TextField} floatingLabelText="Email" fullWidth={true}/>
+        <Field name="username" component={TextField} floatingLabelText="Username" fullWidth={true}/>
+        <Field name="password" type="password" component={TextField} floatingLabelText="Password" fullWidth={true}/>
+        <RaisedButton type="submit" label="Submit" secondary={true}/>
       </form>
     )
   }
 }
+
 function onSubmit(values) {
-  console.log(values)
   return new Promise((resolve, reject) => {
     fetch('/auth', {
       method: 'post',
@@ -49,24 +49,20 @@ function onSubmit(values) {
   })
 }
 function onSubmitFail(error, dispatch) {
-  dispatch(openDialog(error._error))
+  dispatch(openSnackbar(error._error))
 }
-function onSubmitSuccess() {
-  this.context.router.push('/questionnaire')
-}
-LoginForm.contextTypes = {
-  muiTheme: PropTypes.object.isRequired
+Register.contextTypes = {
+  muiTheme: PropTypes.object.isRequired,
 }
 const mapStateToProps = (state) => {
   return {
     auth: state.auth
   }
 }
-LoginForm = reduxForm({
-  form: 'login',
+Register = reduxForm({
+  form: 'register',
   onSubmit,
-  onSubmitSuccess,
   onSubmitFail
-})(LoginForm)
+})(Register)
 
-export default LoginForm = connect(mapStateToProps)(LoginForm)
+export default Register = connect(mapStateToProps)(Register)
