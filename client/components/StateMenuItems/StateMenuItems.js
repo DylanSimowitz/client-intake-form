@@ -1,5 +1,5 @@
 import React from 'react'
-import {MenuItem} from 'material-ui'
+import MenuItem from 'material-ui/MenuItem'
 import states from './states'
 
 export default states.map((state,item) => {

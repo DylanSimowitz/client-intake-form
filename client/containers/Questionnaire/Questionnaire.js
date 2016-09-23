@@ -5,20 +5,10 @@ import InsuranceForm from './InsuranceForm'
 import AccidentForm from './AccidentForm'
 import 'whatwg-fetch'
 import {SubmissionError, reduxForm} from 'redux-form'
-import {
-    Tabs,
-    Tab,
-    TextField,
-    DatePicker,
-    RaisedButton,
-    FlatButton,
-    Stepper,
-    Step,
-    StepLabel,
-    StepButton,
-    StepContent,
-    Paper,
-} from 'material-ui'
+import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
+import {Stepper, Step, StepButton, StepContent} from 'material-ui/Stepper'
+import Paper from 'material-ui/Paper'
 import {Grid, Row, Col} from 'react-flexbox-grid'
 
 let styles = {

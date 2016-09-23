@@ -2,15 +2,8 @@ import React, {PropTypes} from 'react'
 import {Field, SubmissionError, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
 import {openSnackbar} from 'redux/actions/snackbarActions'
-import {
-    Tabs,
-    Tab,
-    RaisedButton,
-    FlatButton,
-    Paper,
-} from 'material-ui'
 import {TextField} from 'redux-form-material-ui'
-import {Grid, Row, Col} from 'react-flexbox-grid'
+import SubmitButton from 'components/SubmitButton'
 
 class Login extends React.Component {
   render() {
@@ -19,7 +12,7 @@ class Login extends React.Component {
       <form onSubmit={handleSubmit}> 
         <Field name="email" component={TextField} floatingLabelText="Email" fullWidth={true}/>
         <Field name="password" type="password" component={TextField} floatingLabelText="Password" fullWidth={true}/>
-        <RaisedButton type="submit" label="Submit" secondary={true}/>
+        <SubmitButton label="Login"/>
       </form>
     )
   }

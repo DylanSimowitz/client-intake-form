@@ -1,5 +1,5 @@
 import React from 'react'
-import {Snackbar} from 'material-ui'
+import Snackbar from 'material-ui/Snackbar'
 import {connect} from 'react-redux'
 import {closeSnackbar} from 'redux/actions/snackbarActions'
 

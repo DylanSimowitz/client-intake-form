@@ -1,5 +1,6 @@
 import React,{PropTypes} from 'react'
-import {Tabs, Tab, Paper} from 'material-ui'
+import {Tabs, Tab} from 'material-ui/Tabs'
+import Paper from 'material-ui/Paper'
 import Login from '../Login'
 import Register from '../Register'
 import {openSnackbar} from 'redux/actions/snackbarActions'
@@ -11,7 +12,7 @@ const styles = {
     margin: '15px auto'
   },
   form: {
-    padding: '0 10px'
+    padding: '0 30px'
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
-import {TextField, AutoComplete, RaisedButton, TimePicker} from 'material-ui'
+import RaisedButton from 'material-ui/RaisedButton'
+import TimePicker from 'material-ui/TimePicker'
 import {Grid, Row, Col} from 'react-flexbox-grid'
 import {TextField, SelectField} from 'redux-form-material-ui'
 import { reduxForm } from 'redux-form'

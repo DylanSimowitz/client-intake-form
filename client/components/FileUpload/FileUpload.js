@@ -1,5 +1,6 @@
 import React from 'react'
-import {RaisedButton, TextField} from 'material-ui'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
 
 class FileUpload extends React.Component {
   constructor() {

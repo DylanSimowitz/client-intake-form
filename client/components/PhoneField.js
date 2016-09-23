@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextField } from 'material-ui'
+import TextField from 'material-ui/TextField'
 import Validator from '../validators'
 var validator = new Validator()
 

@@ -2,25 +2,42 @@ import React, {PropTypes} from 'react'
 import {Field, SubmissionError, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
 import {openSnackbar} from 'redux/actions/snackbarActions'
-import {
-    Tabs,
-    Tab,
-    RaisedButton,
-    FlatButton,
-    Paper,
-} from 'material-ui'
+import Checkbox from 'material-ui/Checkbox'
+import LockIcon from 'material-ui/svg-icons/action/lock'
+import UnlockIcon from 'material-ui/svg-icons/action/lock-open'
 import {TextField} from 'redux-form-material-ui'
-import {Grid, Row, Col} from 'react-flexbox-grid'
+import SubmitButton from 'components/SubmitButton'
 
 class Register extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      masked: 'password',
+      label: 'Show password'
+    }
+  }
+  handleCheck = (event, isInputChecked) => {
+    if (isInputChecked) {
+      this.setState({
+        masked: 'password',
+        label: 'Show password'
+      })
+    }
+    else {
+      this.setState({
+        masked: 'text',
+        label: 'Hide password'
+      })
+    }
+  }
   render() {
     const {handleSubmit} = this.props
     return (
       <form onSubmit={handleSubmit}> 
         <Field name="email" component={TextField} floatingLabelText="Email" fullWidth={true}/>
-        <Field name="username" component={TextField} floatingLabelText="Username" fullWidth={true}/>
-        <Field name="password" type="password" component={TextField} floatingLabelText="Password" fullWidth={true}/>
-        <RaisedButton type="submit" label="Submit" secondary={true}/>
+        <Field name="password" type={this.state.masked} component={TextField} floatingLabelText="Password" fullWidth={true}/>
+        <Checkbox style={{position: 'relative', left: '-4px'}} label={this.state.label} onCheck={this.handleCheck} checkedIcon={<LockIcon/>} uncheckedIcon={<UnlockIcon/>} defaultChecked={true}/>
+        <SubmitButton label="Register"/>
       </form>
     )
   }
@@ -28,7 +45,7 @@ class Register extends React.Component {
 
 function onSubmit(values) {
   return new Promise((resolve, reject) => {
-    fetch('/auth', {
+    fetch('/register', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -37,13 +54,13 @@ function onSubmit(values) {
     })
     .then(response => response.json())
       .then(json => {
-        const {token, _error} = json
+        const {token} = json
         if (json.token) {
           localStorage.setItem('jwtToken', token)
           resolve()
         }
         else {
-          reject(new SubmissionError({_error}))
+          reject(new SubmissionError(json))
         }
       })
   })

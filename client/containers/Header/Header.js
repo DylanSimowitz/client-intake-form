@@ -1,5 +1,8 @@
 import React, {PropTypes} from 'react'
-import {AppBar, Drawer, MenuItem, FlatButton} from 'material-ui'
+import AppBar from 'material-ui/AppBar'
+import Drawer from 'material-ui/Drawer'
+import MenuItem from 'material-ui/MenuItem'
+import FlatButton from 'material-ui/FlatButton'
 import {withRouter} from 'react-router'
 
 class Header extends React.Component {

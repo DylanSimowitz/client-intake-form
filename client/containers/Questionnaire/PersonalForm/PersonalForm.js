@@ -1,6 +1,4 @@
 import React from 'react'
-import ExpandTransition from 'material-ui/internal/ExpandTransition'
-import {RaisedButton, MenuItem, FloatingActionButton} from 'material-ui'
 import {TextField, SelectField, Checkbox, DatePicker, AutoComplete} from 'redux-form-material-ui'
 import states from 'components/StateMenuItems'
 import {Grid, Row, Col} from 'react-flexbox-grid'
