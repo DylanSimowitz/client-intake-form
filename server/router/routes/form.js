@@ -20,7 +20,6 @@ import Validate from '../middleware/validate'
 const validation = new Validate('questionnaire')
 
 router.post('/:formName', authentication, upload.single(), validation.validate, (req, res, next) => {
-  res.json({ok: 'ok'})
   new Form({client: res.locals.client.id, [req.params.formName]: JSON.stringify(req.body)})
     .save()
     .then(form => {

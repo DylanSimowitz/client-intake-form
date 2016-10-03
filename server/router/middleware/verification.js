@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
 export default function(req, res, next) {
   const {email} = res.locals
   const token = jwt.sign({email}, process.env.JWT_SECRET, {expiresIn: '1d'})
-  const link = `${req.protocol}://${req.get('host')}/verify?email=${email}&token=${token}`
+  const link = `${req.protocol}://${req.get('host')}/verify?token=${token}`
   const mailOptions = {
     from: 'Mark Simowitz <mark@simowitz.com>',
     to: email,

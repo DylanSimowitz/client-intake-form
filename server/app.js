@@ -2,6 +2,7 @@ import express from 'express'
 import path from 'path'
 import createSchema from './database/schema'
 import router from './router'
+import enforce from 'express-sslify'
 
 const app = express()
 
@@ -36,6 +37,9 @@ if (process.env.NODE_ENV === 'development') {
       })
     })
   })
+}
+if (process.env.NODE_ENV === 'production') {
+  app.use(enforce.HTTPS({trustProtoHeader: true}))
 }
 const staticPath = path.resolve(__dirname, '../public')
 app.use(express.static(staticPath))

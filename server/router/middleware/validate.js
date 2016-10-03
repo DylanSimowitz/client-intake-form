@@ -71,7 +71,7 @@ export default class ValidateMiddleware {
     validate.async(req.body, this.constraints[this.form], {fullMessages: false})
       .then(() => next(), errors => {
         errors._error = 'Correct all marked fields and try again'
-        res.json(errors)
+        res.status(400).json(errors)
       })
   }
 }
