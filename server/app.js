@@ -44,6 +44,6 @@ if (process.env.NODE_ENV === 'production') {
 const staticPath = path.resolve(__dirname, '../public')
 app.use(express.static(staticPath))
 app.listen(process.env.PORT || 3000)
-app.get('*', (req, res) => res.sendFile(staticPath + '/index.html'))
 app.use('/', router)
+app.get('*', (req, res) => res.sendFile(staticPath + '/index.html'))
 export default app
