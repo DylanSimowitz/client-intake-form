@@ -4,6 +4,8 @@ import Paper from 'material-ui/Paper'
 import Login from '../Login'
 import Register from '../Register'
 import {openSnackbar} from 'redux/actions/snackbarActions'
+import {openDialog} from 'redux/actions/dialogActions'
+import {authenticate} from 'redux/actions/authActions'
 
 const styles = {
   paper: {
@@ -19,11 +21,19 @@ const styles = {
 class Account extends React.Component {
   handleLoginSubmitSuccess = (result, dispatch) => {
     dispatch(openSnackbar('Login successful'))
-    this.context.router.push('/questionnaire')
+    this.context.router.push('/form/questionnaire')
   }
   handleRegisterSubmitSuccess = (result, dispatch) => {
-    dispatch(openSnackbar('Account creation successful'))
-    this.context.router.push('/questionnaire')
+    const email = result
+    dispatch(openDialog('Account Activation', `An email containing a link to activate your account has been sent to ${email}`))
+  }
+  handleSubmitFail = (error, dispatch) => {
+    if (error._error) {
+      dispatch(openSnackbar(error._error))
+    }
+    else {
+      dispatch(openSnackbar('Correct marked fields before trying again'))
+    }
   }
   render() {
     return(
@@ -31,12 +41,12 @@ class Account extends React.Component {
       <Tabs>
         <Tab label="Login">
           <div style={styles.form}>
-            <Login onSubmitSuccess={this.handleLoginSubmitSuccess} />
+            <Login onSubmitSuccess={this.handleLoginSubmitSuccess} onSubmitFail={this.handleSubmitFail}/>
           </div>
         </Tab>
         <Tab label="Register">
           <div style={styles.form}>
-            <Register onSubmitSuccess={this.handleRegisterSubmitSuccess} /> 
+            <Register onSubmitSuccess={this.handleRegisterSubmitSuccess} onSubmitFail={this.handleSubmitFail}/> 
           </div> 
         </Tab>
       </Tabs>

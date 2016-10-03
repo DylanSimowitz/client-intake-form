@@ -1,12 +1,19 @@
-import React, {PropTypes} from 'react'
-import {Field, SubmissionError, reduxForm} from 'redux-form'
-import {connect} from 'react-redux'
-import {openSnackbar} from 'redux/actions/snackbarActions'
+import React from 'react'
+import {Field, reduxForm} from 'redux-form'
 import Checkbox from 'material-ui/Checkbox'
 import LockIcon from 'material-ui/svg-icons/action/lock'
 import UnlockIcon from 'material-ui/svg-icons/action/lock-open'
 import {TextField} from 'redux-form-material-ui'
 import SubmitButton from 'components/SubmitButton'
+import {register} from 'redux/actions/authActions'
+
+const styles = {
+  checkbox: {
+    position: 'relative',
+    left: '-4px',
+    marginTop: '10px'
+  }
+}
 
 class Register extends React.Component {
   constructor() {
@@ -36,50 +43,15 @@ class Register extends React.Component {
       <form onSubmit={handleSubmit}> 
         <Field name="email" component={TextField} floatingLabelText="Email" fullWidth={true}/>
         <Field name="password" type={this.state.masked} component={TextField} floatingLabelText="Password" fullWidth={true}/>
-        <Checkbox style={{position: 'relative', left: '-4px'}} label={this.state.label} onCheck={this.handleCheck} checkedIcon={<LockIcon/>} uncheckedIcon={<UnlockIcon/>} defaultChecked={true}/>
+        <Checkbox style={styles.checkbox} label={this.state.label} onCheck={this.handleCheck} checkedIcon={<LockIcon/>} uncheckedIcon={<UnlockIcon/>} defaultChecked={true}/>
         <SubmitButton label="Register"/>
       </form>
     )
   }
 }
 
-function onSubmit(values) {
-  return new Promise((resolve, reject) => {
-    fetch('/register', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(values)
-    })
-    .then(response => response.json())
-      .then(json => {
-        const {token} = json
-        if (json.token) {
-          localStorage.setItem('jwtToken', token)
-          resolve()
-        }
-        else {
-          reject(new SubmissionError(json))
-        }
-      })
-  })
+function onSubmit(values, dispatch) {
+  return dispatch(register(values))
 }
-function onSubmitFail(error, dispatch) {
-  dispatch(openSnackbar(error._error))
-}
-Register.contextTypes = {
-  muiTheme: PropTypes.object.isRequired,
-}
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth
-  }
-}
-Register = reduxForm({
-  form: 'register',
-  onSubmit,
-  onSubmitFail
-})(Register)
+export default Register = reduxForm({form: 'register', onSubmit})(Register)
 
-export default Register = connect(mapStateToProps)(Register)

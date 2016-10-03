@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes'
 
-export function openDialog(message) {
-  return { type: actionTypes.OPEN_DIALOG, message }
+export function openDialog(title, message) {
+  return { type: actionTypes.OPEN_DIALOG, message, title }
 }
 
 export function closeDialog() {

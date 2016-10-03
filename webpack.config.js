@@ -1,9 +1,14 @@
 import webpack from 'webpack'
 import path from 'path'
+
 module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(), new webpack.NoErrorsPlugin()
   ],
+  node: {
+    net: 'empty',
+    dns: 'empty'
+  },
   entry: [
     'webpack-hot-middleware/client',
     'react-hot-loader/patch',
@@ -12,7 +17,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     publicPath: '/',
-    path: __dirname
+    path: __dirname 
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],

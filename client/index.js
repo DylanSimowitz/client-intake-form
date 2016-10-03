@@ -5,19 +5,29 @@ import {AppContainer} from 'react-hot-loader'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 import configureStore from './redux/store'
+import {authenticate} from 'redux/actions/authActions'
+
 const store = configureStore({
   dialog: {
     open: false,
-    message: ''
+    message: '',
+    title: ''
   },
   snackbar: {
     open: false,
     message: ''
   },
-  auth: false
+  auth: {
+    authenticated: false,
+    user: {}
+  } 
 })
 
 const rootElement = document.getElementById('app')
+
+if (localStorage.jwtToken) {
+  store.dispatch(authenticate(localStorage.jwtToken))
+}
 
 ReactDOM.render(
   <AppContainer>

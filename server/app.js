@@ -3,7 +3,6 @@ import path from 'path'
 import createSchema from './database/schema'
 import router from './router'
 
-createSchema()
 const app = express()
 
 // DEVELOPMENT MIDDLEWARE //
@@ -38,8 +37,9 @@ if (process.env.NODE_ENV === 'development') {
     })
   })
 }
-app.use(express.static('public'))
+const staticPath = path.resolve(__dirname, '../public')
+app.use(express.static(staticPath))
 app.listen(process.env.PORT || 3000)
+app.get('*', (req, res) => res.sendFile(staticPath + '/index.html'))
 app.use('/', router)
-app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../public/index.html')))
 export default app

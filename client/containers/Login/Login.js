@@ -1,7 +1,6 @@
-import React, {PropTypes} from 'react'
-import {Field, SubmissionError, reduxForm} from 'redux-form'
-import {connect} from 'react-redux'
-import {openSnackbar} from 'redux/actions/snackbarActions'
+import React from 'react'
+import {Field, reduxForm} from 'redux-form'
+import {login} from 'redux/actions/authActions'
 import {TextField} from 'redux-form-material-ui'
 import SubmitButton from 'components/SubmitButton'
 
@@ -18,43 +17,9 @@ class Login extends React.Component {
   }
 }
 
-function onSubmit(values) {
-  return new Promise((resolve, reject) => {
-    fetch('/auth', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(values)
-    })
-    .then(response => response.json())
-      .then(json => {
-        const {token, _error} = json
-        if (json.token) {
-          localStorage.setItem('jwtToken', token)
-          resolve()
-        }
-        else {
-          reject(new SubmissionError({_error}))
-        }
-      })
-  })
+function onSubmit(values, dispatch) {
+  return dispatch(login(values))
 }
-function onSubmitFail(error, dispatch) {
-  dispatch(openSnackbar(error._error))
-}
-Login.contextTypes = {
-  muiTheme: PropTypes.object.isRequired,
-}
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth
-  }
-}
-Login = reduxForm({
-  form: 'login',
-  onSubmit,
-  onSubmitFail
-})(Login)
 
-export default Login = connect(mapStateToProps)(Login)
+export default Login = reduxForm({form: 'login', onSubmit})(Login)
+

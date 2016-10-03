@@ -31,29 +31,25 @@ function onSubmit(data) {
     }
   })
   return new Promise((resolve, reject) => {
-    fetch('/clients', {
+    fetch('/form/questionnaire', {
       method: 'post',
+      headers: {Authorization: `Bearer ${localStorage.getItem('jwtToken')}`},
       body
     })
       .then(response => {
-        if (response.status === 200) {
-          resolve('It works')
+        response.json()
+      })
+      .then(json => {
+        if (json._error) {
+          console.log('error')
+          reject(new SubmissionError(json))
         }
-        else if (response.status === 400) {
-          response.json()
-          .then(errors => {
-            errors._error = 'Please correct all marked fields and try again.'
-            reject(new SubmissionError(errors))
-          })        }
-        else if (response.status === 500) {
-          reject(new SubmissionError({_error: 'The server is experiencing technical difficulties. Your submission was not stored.'}))
-        }
-        else {
-          reject(new SubmissionError({_error: 'An unknown error occurred.'}))
-        }
+        console.log('no error')
+        resolve()
       })
   })
 }
+
 class Questionnaire extends React.Component {
   constructor() {
     super()

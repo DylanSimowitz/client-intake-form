@@ -29,7 +29,7 @@ class ReduxDialog extends React.Component {
 
     return (
         <Dialog
-          title="Submission"
+          title={dialog.title}
           actions={actions}
           modal={false}
           open={dialog.open}
@@ -40,16 +40,14 @@ class ReduxDialog extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    dialog: state.dialog
-  }
-}
+const mapStateToProps = (state) => ({
+  dialog: state.dialog
+})
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
-    close: closeDialog()
+    close: () => dispatch(closeDialog()) 
   }
-}
+} 
 
 export default ReduxDialog = connect(mapStateToProps, mapDispatchToProps)(ReduxDialog)

@@ -1,5 +1,7 @@
 import React, {PropTypes} from 'react'
-import {TimePicker, GridList, GridTile, MenuItem} from 'material-ui'
+import TimePicker from 'material-ui/TimePicker'
+import {GridList, GridTile}  from 'material-ui/GridList'
+import MenuItem from 'material-ui/MenuItem'
 import {SelectField, DatePicker} from 'redux-form-material-ui'
 import {Row, Col} from 'react-flexbox-grid'
 import Dropzone from 'react-dropzone'
@@ -7,18 +9,20 @@ import {Field, reduxForm, formValueSelector} from 'redux-form'
 import {connect} from 'react-redux'
 import ClearIcon from 'material-ui/svg-icons/content/clear'
 import Auto from './AccidentTypes/Auto'
-import { openDialog } from 'redux/actions'
+import { openDialog } from 'redux/actions/dialogActions'
+import {openSnackbar} from 'redux/actions/snackbarActions'
 //import validate from 'server/shared/validations/questionnaire';
+
 function onSubmitFail(error, dispatch) {
   if (error) {
-    dispatch(openDialog(error._error))
+    dispatch(openSnackbar(error._error))
   }
   else {
-    dispatch(openDialog('Fix all invalid fields before submitting.'))
+    dispatch(openSnackbar('Fix all invalid fields before submitting.'))
   }
 }
 function onSubmitSuccess(result, dispatch) {
-  dispatch(openDialog('Your submission was successfully received.'))
+  dispatch(openDialog('Submission Successful', 'Your submission was successfully received.'))
 }
 
 class AccidentForm extends React.Component {

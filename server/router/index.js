@@ -1,12 +1,14 @@
 import express from 'express'
-import clientRoutes from './routes/clients'
+import formRoutes from './routes/form'
 import authRoutes from './routes/auth'
 import registerRoutes from './routes/register'
+import verifyRoutes from './routes/verify'
 
 const router = express.Router()
-router.use('/clients', clientRoutes)
+router.use('/form', formRoutes)
 router.use('/auth', authRoutes)
 router.use('/register', registerRoutes)
+router.use('/verify', verifyRoutes)
 //module.exports = function(app, req, res, next) {
   //app.use('/clients', (req, res, next) => {
     //require('./routes/clients')(req, res, next)
