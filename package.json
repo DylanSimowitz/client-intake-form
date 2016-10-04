@@ -7,7 +7,7 @@
     "node": "6.2.1"
   },
   "dependencies": {
-    "bcrypt": "^0.8.7",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "bookshelf": "^0.10.2",
     "classnames": "^2.2.5",

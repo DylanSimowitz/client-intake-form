@@ -1,5 +1,5 @@
 import bookshelf from '../bookshelf'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt-nodejs'
 import jwt from 'jsonwebtoken'
 
 class Client extends bookshelf.Model {
