@@ -18,7 +18,7 @@ export default function(req, res, next) {
   const token = jwt.sign({email}, process.env.JWT_SECRET, {expiresIn: '1d'})
   const link = `${req.protocol}://${req.get('host')}/verify?token=${token}`
   const mailOptions = {
-    from: 'Mark Simowitz <mark@simowitz.com>',
+    from: 'Law Offices of Mark B. Simowitz <registration@simowitz.com>',
     to: email,
     subject: 'Activate your account',
     html: `Thank you for choosing the Law Offices of Mark B. Simowitz<br><a href=${link}>Click here to verify your email</a>`
