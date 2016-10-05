@@ -1,7 +1,7 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
 import Client from '../../database/models/Client.js'
-import bcrypt from 'bcrypt-nodejs'
+import bcrypt from 'bcrypt'
 import bodyParser from 'body-parser'
 import ValidateMiddleware from '../middleware/validate'
 
