@@ -76,7 +76,7 @@
     "webpack-stats": "cross-env NODE_ENV=production webpack -p --config webpack.production.config --json > stats.json",
     "build-server": "cross-env NODE_ENV=production babel server -d build",
     "dev": "cross-env NODE_ENV=development node -r dotenv/config -r babel-register server",
-    "postinstall": "cross-env NODE_ENV=production npm rebuild && npm run migration && npm run build-client && npm run build-server"
+    "postinstall": "cross-env NODE_ENV=production npm run migration && npm run build-client && npm run build-server"
   },
   "repository": {
     "type": "git",
