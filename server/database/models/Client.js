@@ -1,10 +1,15 @@
 import bookshelf from '../bookshelf'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import Form from './Form'
 
 class Client extends bookshelf.Model {
   tableName = 'clients'
   hasTimestamps = true
+  
+  forms = () => {
+    return this.hasOne(Form, 'client_id')
+  }
 
   generateToken = (id) => {
     return jwt.sign({id}, process.env.JWT_SECRET)

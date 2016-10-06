@@ -1,4 +1,6 @@
 import React, {PropTypes} from 'react'
+import {connect} from 'react-redux'
+import {loadForm} from 'redux/actions/formActions'
 import PersonalForm from './PersonalForm'
 import EmployerForm from './EmployerForm'
 import InsuranceForm from './InsuranceForm'
@@ -37,15 +39,15 @@ function onSubmit(data) {
       body
     })
       .then(response => {
-        response.json()
+        return response.json()
       })
       .then(json => {
         if (json._error) {
-          console.log('error')
           reject(new SubmissionError(json))
         }
-        console.log('no error')
-        resolve()
+        else {
+          resolve()
+        }
       })
   })
 }
@@ -56,6 +58,9 @@ class Questionnaire extends React.Component {
     this.state = {
       stepIndex: 0
     }
+  }
+  componentWillMount = () => {
+    this.props.loadForm('questionnaire')
   }
   nextStep = () => {
     this.setState({
@@ -88,13 +93,13 @@ class Questionnaire extends React.Component {
 
     switch (step) {
     case 0:
-      return <PersonalForm onSubmit={this.nextStep} stepper={this.renderStepActions(step)}/>
+      return <PersonalForm onSubmit={this.nextStep} initialValues={this.props.formData} stepper={this.renderStepActions(step)}/>
     case 1:
-      return <EmployerForm onSubmit={this.nextStep} stepper={this.renderStepActions(step)}/>
+      return <EmployerForm onSubmit={this.nextStep} initialValues={this.props.formData} stepper={this.renderStepActions(step)}/>
     case 2:
-      return <InsuranceForm onSubmit={this.nextStep} stepper={this.renderStepActions(step)}/>
+      return <InsuranceForm onSubmit={this.nextStep} initialValues={this.props.formData} stepper={this.renderStepActions(step)}/>
     case 3:
-      return <AccidentForm onSubmit={onSubmit} stepper={this.renderStepActions(step)}/>
+      return <AccidentForm onSubmit={onSubmit} initialValues={this.props.formData} stepper={this.renderStepActions(step)}/>
     default:
 
     }
@@ -144,4 +149,9 @@ class Questionnaire extends React.Component {
 Questionnaire.contextTypes = {
   muiTheme: PropTypes.object.isRequired
 }
-export default Questionnaire
+function mapStateToProps(state) {
+  return {
+    formData: state.formData
+  }
+}
+export default connect(mapStateToProps, {loadForm})(Questionnaire)

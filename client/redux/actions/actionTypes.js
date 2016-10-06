@@ -6,3 +6,5 @@ export const CLOSE_DIALOG = 'CLOSE_DIALOG'
 
 export const AUTHENTICATE = 'AUTHENTICATE'
 export const UNAUTHENTICATE = 'UNAUTHENTICATE'
+
+export const LOAD_FORM='LOAD_FORM'
