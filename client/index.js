@@ -20,7 +20,12 @@ const store = configureStore({
   auth: {
     authenticated: false,
     user: {}
-  } 
+  },
+  admin: {
+    clients: [],
+    selectedClient: ''
+  },
+  formData: {}
 })
 
 const rootElement = document.getElementById('app')

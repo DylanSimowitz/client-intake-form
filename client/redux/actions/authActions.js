@@ -22,7 +22,7 @@ export function logout() {
 export function login(values) {
   return dispatch => {
     return new Promise((resolve, reject) => {
-      fetch('/auth', {
+      fetch('/api/auth', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ export function login(values) {
 export function register(values) {
   return dispatch => {
     return new Promise((resolve, reject) => {
-      fetch('/register', {
+      fetch('/api/register', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'

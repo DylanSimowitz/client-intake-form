@@ -2,12 +2,7 @@ import validate from 'validate.js'
 
 validate.validators.presence.message = 'This field is required'
 
-export default class ValidateMiddleware {
-  constructor(form) {
-    this.form = form
-  }
-
-  constraints = {
+const constraints = {
     login: {
       email: {
         presence: true
@@ -17,6 +12,12 @@ export default class ValidateMiddleware {
       }
     },
     register: {
+      first_name: {
+        presence: true
+      },
+      last_name: {
+        presence: true
+      },
       email: {
         presence: true,
         email: {
@@ -67,11 +68,12 @@ export default class ValidateMiddleware {
     }
   } 
 
-  validate = (req, res, next) => {
-    validate.async(req.body, this.constraints[this.form], {fullMessages: false})
+  export default (formName) => {
+    return (req, res, next) => {
+      validate.async(req.body, constraints[formName ? formName : req.params.formName], {fullMessages: false})
       .then(() => next(), errors => {
         errors._error = 'Correct all marked fields and try again'
         res.status(400).json(errors)
       })
+    }
   }
-}

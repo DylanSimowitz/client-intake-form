@@ -41,6 +41,8 @@ class Register extends React.Component {
     const {handleSubmit} = this.props
     return (
       <form onSubmit={handleSubmit}> 
+        <Field name="first_name" component={TextField} floatingLabelText="First Name" fullWidth={true}/>
+        <Field name="last_name" component={TextField} floatingLabelText="Last Name" fullWidth={true}/>
         <Field name="email" component={TextField} floatingLabelText="Email" fullWidth={true}/>
         <Field name="password" type={this.state.masked} component={TextField} floatingLabelText="Password" fullWidth={true}/>
         <Checkbox style={styles.checkbox} label={this.state.label} onCheck={this.handleCheck} checkedIcon={<LockIcon/>} uncheckedIcon={<UnlockIcon/>} defaultChecked={true}/>

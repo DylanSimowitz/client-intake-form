@@ -1,21 +1,19 @@
 import express from 'express'
-import Client from '../../database/models/Client.js'
+import User from '../../database/models/User.js'
 import bodyParser from 'body-parser'
-import ValidateMiddleware from '../middleware/validate'
+import validate from '../middleware/validate'
 import verificationEmail from '../middleware/verification'
 
-const validator = new ValidateMiddleware('register')
 const router = express.Router()
 
-router.post('/', bodyParser.json(), validator.validate, (req, res, next) => {
-  const {email, password} = req.body
-  Client.forge().register(email, password)
-    .then(client => {
-      res.locals.email= client.get('email')
+router.post('/', bodyParser.json(), validate('register'), (req, res, next) => {
+  const {first_name, last_name, email, password} = req.body
+  new User({first_name, last_name, email}).register(password)
+    .then(user => {
+      res.locals.email = user.get('email') 
       next()
     })
     .catch(error => {
-      console.log(error)
       res.status(409).json({email: 'Email already registered', _error: 'Correct all marked fields'})
     })
 }, verificationEmail)

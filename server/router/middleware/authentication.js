@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import Client from '../../database/models/Client'
+import User from '../../database/models/User'
 
 export default (req, res, next) => {
   const authorizationHeader = req.headers['authorization']
@@ -15,15 +15,14 @@ export default (req, res, next) => {
         res.status(401).json({error: 'Failed to authenticate'})
       }
       else {
-        Client.query({
-          where: {id: decoded.id},
-          select: ['email', 'id']
+        User.query({
+          where: {id: decoded.id}
         })
-        .fetch({require: true}).then(client => {
-          res.locals.client = client
-          next()
+        .fetch({require: true}).then(user => {
+          res.locals.user = user 
+          return next()
         })
-        .catch(Client.NotFoundError, () => res.status(404).redirect('/'))
+        .catch(User.NotFoundError, () => res.status(404).redirect('/'))
       }
     })
   }

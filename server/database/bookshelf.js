@@ -1,4 +1,8 @@
 import connection from './connection'
-import bookshelf from 'bookshelf'
+import Bookshelf from 'bookshelf'
 
-export default bookshelf(connection)
+let bookshelf = new Bookshelf(connection)
+
+bookshelf.plugin('registry')
+
+export default bookshelf

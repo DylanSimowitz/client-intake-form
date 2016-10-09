@@ -1,14 +1,14 @@
 import bookshelf from '../bookshelf'
-import Client from './Client'
+import User from './User'
 
 class Form extends bookshelf.Model {
-  tableName = 'forms'
-  hasTimestamps = true
-  idAttribute = 'client_id'
+  get tableName() {return 'forms'}
+  get hasTimestamps() {return true}
+  get idAttribute() {return 'user_id'}
 
-  client = () => {
-    return this.belongsTo(Client, 'client_id')
+  user = () => {
+    return this.belongsTo('User', 'user_id')
   }
 }
 
-module.exports = Form 
+module.exports = bookshelf.model('Form', Form)

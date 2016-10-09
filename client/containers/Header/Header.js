@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton'
 import {logout} from 'redux/actions/authActions'
 import {connect} from 'react-redux'
 import withRouter from 'react-router/lib/withRouter'
+import AdminBar from 'components/AdminBar'
 
 class Header extends React.Component {
   constructor() {
@@ -32,9 +33,11 @@ class Header extends React.Component {
   }
 
   render() {
+    const {role} = this.props
     return (
     <div>
       <AppBar title="Questionnaire" onLeftIconButtonTouchTap={this.handleToggle} iconElementRight={this.renderIconElementRight()} zDepth={0}/>
+      { role === 'admin' && <AdminBar/> }
       <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
         <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
         <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
@@ -47,7 +50,10 @@ Header.contextTypes = {
 }
 
 function mapStateToProps(state) {
-  return {authenticated: state.auth.authenticated}
+  return {
+    authenticated: state.auth.authenticated,
+    role: state.auth.user.role
+  }
 }
 
 export default withRouter(connect(mapStateToProps, {handleLogoutClick: logout})(Header))

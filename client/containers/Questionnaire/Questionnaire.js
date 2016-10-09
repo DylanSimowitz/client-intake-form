@@ -93,13 +93,13 @@ class Questionnaire extends React.Component {
 
     switch (step) {
     case 0:
-      return <PersonalForm onSubmit={this.nextStep} initialValues={this.props.formData} stepper={this.renderStepActions(step)}/>
+      return <PersonalForm onSubmit={this.nextStep} initialValues={this.props.formData.questionnaire} stepper={this.renderStepActions(step)}/>
     case 1:
-      return <EmployerForm onSubmit={this.nextStep} initialValues={this.props.formData} stepper={this.renderStepActions(step)}/>
+      return <EmployerForm onSubmit={this.nextStep} initialValues={this.props.formData.questionnaire} stepper={this.renderStepActions(step)}/>
     case 2:
-      return <InsuranceForm onSubmit={this.nextStep} initialValues={this.props.formData} stepper={this.renderStepActions(step)}/>
+      return <InsuranceForm onSubmit={this.nextStep} initialValues={this.props.formData.questionnaire} stepper={this.renderStepActions(step)}/>
     case 3:
-      return <AccidentForm onSubmit={onSubmit} initialValues={this.props.formData} stepper={this.renderStepActions(step)}/>
+      return <AccidentForm onSubmit={onSubmit} initialValues={this.props.formData.questionnaire} stepper={this.renderStepActions(step)}/>
     default:
 
     }

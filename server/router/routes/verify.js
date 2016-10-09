@@ -1,5 +1,5 @@
 import express from 'express'
-import Client from '../../database/models/Client.js'
+import User from '../../database/models/User.js'
 import jwt from 'jsonwebtoken'
 
 const router = express.Router()
@@ -11,10 +11,10 @@ router.get('/', (req, res) => {
       res.status(400).json({error: 'Your token is invalid'})
     }
     else {
-      Client.where({email: decoded.email}).fetch({require: true}).then(client => {
-        client.set('verified', true).save().then(() => res.status(302).redirect('/login')) 
+      User.where({email: decoded.email}).fetch({require: true}).then(user => {
+        user.set('verified', true).save().then(() => res.status(302).redirect('/login')) 
       })
-        .catch(Client.NotFoundError, () => res.status(400).redirect('/'))
+        .catch(User.NotFoundError, () => res.status(400).redirect('/'))
     }
   })
 })
