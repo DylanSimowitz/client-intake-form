@@ -92,7 +92,7 @@ class Questionnaire extends React.Component {
         )
   }
   getStepContent(step) {
-    const formProps = {initialValues: this.props.formData, enableReinitialize: true, keepDirtyOnReinitialize: true, stepper: this.renderStepActions(step)}
+    const formProps = {initialValues: this.props.formData, /*enableReinitialize: true, keepDirtyOnReinitialize: true, */stepper: this.renderStepActions(step)}
 
     switch (step) {
     case 0:
