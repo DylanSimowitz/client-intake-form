@@ -17,7 +17,7 @@ class SelectClient extends Component {
   render() {
     const {clients, admin} = this.props
     return(
-      <SelectField value={admin.selectedClient}  onChange={this.handleChange}>
+      <SelectField value={admin.selectedClient} onChange={this.handleChange}>
         {
           clients.map(client => {return <MenuItem key={client.id} value={client.id} primaryText={`${client.last_name}, ${client.first_name}`}/>})
         }
@@ -29,7 +29,7 @@ class SelectClient extends Component {
 function mapStateToProps(state) {
   return {
     clients: state.admin.clients,
-    admin: state.admin
+    admin: state.admin,
   }
 }
 

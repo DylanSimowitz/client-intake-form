@@ -5,28 +5,11 @@ import {AppContainer} from 'react-hot-loader'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 import configureStore from './redux/store'
+import initialState from 'redux/store/state'
 import {authenticate} from 'redux/actions/authActions'
 
-const store = configureStore({
-  dialog: {
-    open: false,
-    message: '',
-    title: ''
-  },
-  snackbar: {
-    open: false,
-    message: ''
-  },
-  auth: {
-    authenticated: false,
-    user: {}
-  },
-  admin: {
-    clients: [],
-    selectedClient: ''
-  },
-  formData: {}
-})
+console.log(initialState)
+const store = configureStore(initialState)
 
 const rootElement = document.getElementById('app')
 

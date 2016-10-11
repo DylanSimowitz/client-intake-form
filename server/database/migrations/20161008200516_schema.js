@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable('users', table => {
@@ -14,16 +13,16 @@ exports.up = function(knex, Promise) {
     }),
     knex.schema.createTable('forms', table => {
       table.integer('user_id').primary()
-      table.foreign('user_id').references('id').inTable('users')
+      table.foreign('user_id').references('id').inTable('users').onDelete('CASCADE')
       table.json('questionnaire').defaultTo('{}')
       table.timestamps()
     })
   ])  
-};
+}
 
 exports.down = function(knex, Promise) {
   return Promise.all([
     knex.schema.dropTable('forms'),
     knex.schema.dropTable('users')
   ]) 
-};
+}

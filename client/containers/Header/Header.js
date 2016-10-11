@@ -20,9 +20,12 @@ class Header extends React.Component {
     open: !this.state.open
   })
 
-  handleClose = () => this.setState({
-    open: false
-  })
+  handleClose = () => {
+    this.setState({
+      open: false
+    })
+    this.context.router.push('/form/questionnaire')
+  }
   
   renderIconElementRight = () => {
     const {authenticated, router, handleLogoutClick} = this.props
@@ -39,14 +42,14 @@ class Header extends React.Component {
       <AppBar title="Questionnaire" onLeftIconButtonTouchTap={this.handleToggle} iconElementRight={this.renderIconElementRight()} zDepth={0}/>
       { role === 'admin' && <AdminBar/> }
       <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
-        <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
-        <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
+        <MenuItem onTouchTap={this.handleClose}>Questionnaire</MenuItem>
       </Drawer>
     </div>
     )
   }
 }
 Header.contextTypes = {
+  router: React.PropTypes.object
 }
 
 function mapStateToProps(state) {

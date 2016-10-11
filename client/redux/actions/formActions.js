@@ -1,12 +1,12 @@
 import * as actionTypes from './actionTypes'
 
-function setForm(data) {
+export function setForm(data) {
   return {type: actionTypes.LOAD_FORM, data}
 }
 
-export function loadForm(name) {
+export function loadForm(name, id) {
   return dispatch => {
-    fetch(`/api/form/${name}`, {
+    fetch(`/api/users/${id}/form/${name}`, {
       method: 'get',
       headers: {Authorization: `Bearer ${localStorage.getItem('jwtToken')}`},
     })

@@ -6,7 +6,19 @@ import authentication from '../middleware/authentication'
 import mkdirp from 'mkdirp'
 import validate from '../middleware/validate'
 
-const router = express.Router()
+function adminOrLoggedIn(req, res, next) {
+  const {id} = req.params
+  const {user} = res.locals
+
+  if (user.get('id') == id || user.get('role') === 'admin') {
+    next()
+  }
+  else {
+    res.status(401).json({error: 'Unauthorized'})
+  }
+} 
+
+const router = express.Router({mergeParams: true})
 const upload = multer({
   dest: 'uploads',
   storage: multer.diskStorage({
@@ -16,14 +28,16 @@ const upload = multer({
   })
 })
 
-router.get('/:formName', authentication, (req, res) => {
-  const {user} = res.locals
-  user.form(req.params.formName).then(form => res.json(form))
+router.get('/:formName', authentication, adminOrLoggedIn, (req, res) => {
+  const {id, formName} = req.params
+  new User({id}).form(formName).then(form => res.json(form.get('questionnaire')))
 })
 
-router.post('/:formName', authentication, upload.single(), validate(), (req, res, next) => {
+router.post('/:formName', authentication, adminOrLoggedIn, upload.single(), validate(), (req, res, next) => {
   const {user} = res.locals
-  new Form({user_id: user.id, [req.params.formName]: JSON.stringify(req.body)}).save().then(form => {
+  const {id, formName} = req.params
+
+  new Form({user_id: id, [formName]: JSON.stringify(req.body)}).save().then(form => {
     upload.dest = `uploads/form/${req.params.formName}/${user.id}`
     mkdirp.sync(upload.dest)
     res.json({success: true})

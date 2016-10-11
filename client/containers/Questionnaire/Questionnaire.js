@@ -21,36 +21,6 @@ let styles = {
     margin: '15px auto'
   }
 }
-function onSubmit(data) {
-  let body = new FormData()
-  Object.keys(data).forEach(( key ) => {
-    if (key === 'accidentPhotos') {
-      data[key].map(file => {
-        body.append(key, file, file.name)
-      })
-    } else {
-      body.append(key, data[key])
-    }
-  })
-  return new Promise((resolve, reject) => {
-    fetch('/form/questionnaire', {
-      method: 'post',
-      headers: {Authorization: `Bearer ${localStorage.getItem('jwtToken')}`},
-      body
-    })
-      .then(response => {
-        return response.json()
-      })
-      .then(json => {
-        if (json._error) {
-          reject(new SubmissionError(json))
-        }
-        else {
-          resolve()
-        }
-      })
-  })
-}
 
 class Questionnaire extends React.Component {
   constructor() {
@@ -59,8 +29,41 @@ class Questionnaire extends React.Component {
       stepIndex: 0
     }
   }
+  onSubmit = (data) => {
+    let body = new FormData()
+    Object.keys(data).forEach(( key ) => {
+      if (key === 'accidentPhotos') {
+        data[key].map(file => {
+          body.append(key, file, file.name)
+        })
+      } else {
+        body.append(key, data[key])
+      }
+    })
+    return new Promise((resolve, reject) => {
+      fetch(`/api/users/${this.props.id}/form/questionnaire`, {
+        method: 'post',
+        headers: {Authorization: `Bearer ${localStorage.getItem('jwtToken')}`},
+        body
+      })
+        .then(response => {
+          return response.json()
+        })
+        .then(json => {
+          if (json._error) {
+            reject(new SubmissionError(json))
+          }
+          else {
+            resolve()
+          }
+        })
+    })
+  }
   componentWillMount = () => {
-    this.props.loadForm('questionnaire')
+    const {loadForm, role} = this.props
+    if (role !== 'admin') {
+      loadForm('questionnaire', this.props.id)   
+    }
   }
   nextStep = () => {
     this.setState({
@@ -81,7 +84,7 @@ class Questionnaire extends React.Component {
                 <RaisedButton label={stepIndex === 3
                     ? 'Finish'
                     : 'Next'} disableTouchRipple={true} type='submit' onSubmit={stepIndex === 3
-                    ? onSubmit
+                    ? this.onSubmit
                     : this.nextStep} disableFocusRipple={true} primary={true} style={{
                       marginRight: 12
                     }}/> {step > 0 && (<FlatButton label="Back" disabled={stepIndex === 0} disableTouchRipple={true} disableFocusRipple={true} onTouchTap={this.previousStep}/>)}
@@ -89,17 +92,17 @@ class Questionnaire extends React.Component {
         )
   }
   getStepContent(step) {
-    const {stepIndex} = this.state
+    const formProps = {initialValues: this.props.formData, enableReinitialize: true, keepDirtyOnReinitialize: true, stepper: this.renderStepActions(step)}
 
     switch (step) {
     case 0:
-      return <PersonalForm onSubmit={this.nextStep} initialValues={this.props.formData.questionnaire} stepper={this.renderStepActions(step)}/>
+      return <PersonalForm onSubmit={this.nextStep} {...formProps} />
     case 1:
-      return <EmployerForm onSubmit={this.nextStep} initialValues={this.props.formData.questionnaire} stepper={this.renderStepActions(step)}/>
+      return <EmployerForm onSubmit={this.nextStep} {...formProps} />
     case 2:
-      return <InsuranceForm onSubmit={this.nextStep} initialValues={this.props.formData.questionnaire} stepper={this.renderStepActions(step)}/>
+      return <InsuranceForm onSubmit={this.nextStep} {...formProps} />
     case 3:
-      return <AccidentForm onSubmit={onSubmit} initialValues={this.props.formData.questionnaire} stepper={this.renderStepActions(step)}/>
+      return <AccidentForm onSubmit={this.onSubmit} {...formProps}/>
     default:
 
     }
@@ -151,7 +154,9 @@ Questionnaire.contextTypes = {
 }
 function mapStateToProps(state) {
   return {
-    formData: state.formData
+    formData: state.formData,
+    id: state.auth.user.id,
+    role: state.auth.user.role
   }
 }
 export default connect(mapStateToProps, {loadForm})(Questionnaire)

@@ -13,7 +13,7 @@ router.post('/', bodyParser.json(), validate('login'), (req, res, next) => {
   User.query({
     where: { email },
   }).fetch({require: true}).then(user => {
-    if (user.verified === false) {
+    if (user.get('verified') === false) {
       res.status(400).json({_error: 'Email not yet verified'})
     }
     else {

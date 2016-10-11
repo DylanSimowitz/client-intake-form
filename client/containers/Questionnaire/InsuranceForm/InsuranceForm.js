@@ -3,6 +3,7 @@ import {TextField, SelectField} from 'redux-form-material-ui'
 import {Grid, Row, Col} from 'react-flexbox-grid'
 import { Field, reduxForm } from 'redux-form'
 import states from '../../../components/StateMenuItems'
+import { normalizeZipcode } from 'redux/utils/normalizer'
 
 class InsuranceForm extends React.Component {
   render() {
@@ -35,7 +36,7 @@ class InsuranceForm extends React.Component {
                     </Field>
                   </Col>
                   <Col xs={12} md={4}>
-                      <Field name="insuranceAddressZipcode" component={TextField} floatingLabelText="Insurance Zipcode" fullWidth={true}/>
+                      <Field name="insuranceAddressZipcode" component={TextField} floatingLabelText="Insurance Zipcode" fullWidth={true} normalize={normalizeZipcode}/>
                   </Col>
               </Row>
               <Row>

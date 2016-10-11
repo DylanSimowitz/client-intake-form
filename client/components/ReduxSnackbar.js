@@ -14,7 +14,7 @@ class ReduxSnackbar extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    snackbar: state.snackbar
+    snackbar: state.ui.snackbar
   }
 }
 

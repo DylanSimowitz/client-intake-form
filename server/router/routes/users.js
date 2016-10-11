@@ -4,30 +4,36 @@ import Users from '../../database/collections/Users'
 import authentication from '../middleware/authentication'
 import formRoutes from './form'
 
-const router = express.Router()
+const router = express.Router({mergeParams: true})
 
-router.get('/clients', authentication, (req, res) => {
+function isAdmin(req, res, next) {
   const {user} = res.locals
   if (user.get('role') === 'admin') {
-    new Users().clients().then(clients => res.json(clients))
-  }
-  else res.status(400).json({error: 'Unauthorized request'})
-})
-
-router.get('/:id', authentication, (req, res) => {
-  const {user} = res.locals
-  if (user.role === 'admin') {
-    new User({id: req.params.id}).fetch().then(model => {
-      res.locals.selectedClient = model
-      res.json(model)
-    }) 
+    next()
   }
   else {
-    res.status(400).json({error: 'Unauthorized request'})
+    res.status(401).json({error: 'Unauthorized request'})
   }
+}
+
+router.get('/clients', authentication, isAdmin, (req, res) => {
+  new Users().clients().then(clients => res.json(clients))
 })
 
-//router.use('/:id', formRoutes)
+router.get('/:id', authentication, isAdmin, (req, res) => {
+  new User({id: req.params.id}).fetch().then(model => {
+    res.locals.selectedClient = model
+    res.json(model)
+  }) 
+})
+
+router.delete('/:id', authentication, isAdmin, (req, res) => {
+  new User({id: req.params.id}).destroy().then(model => {
+    res.json({success: 'Successfully deleted client'})
+  }) 
+})
+
+router.use('/:id/form', formRoutes)
 
 
 

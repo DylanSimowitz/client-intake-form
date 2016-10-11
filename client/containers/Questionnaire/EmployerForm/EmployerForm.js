@@ -3,6 +3,7 @@ import {TextField, SelectField} from 'redux-form-material-ui'
 import {Grid, Row, Col} from 'react-flexbox-grid'
 import { Field,reduxForm } from 'redux-form'
 import states from '../../../components/StateMenuItems'
+import { normalizePhone, normalizeZipcode } from 'redux/utils/normalizer'
 
 class EmployerForm extends React.Component {
   render() {
@@ -35,12 +36,12 @@ class EmployerForm extends React.Component {
                       </Field>
                   </Col>
                   <Col xs={12} md={4}>
-                      <Field name="employerAddressZipcode" component={TextField} floatingLabelText="Employer Zipcode" fullWidth={true}/>
+                      <Field name="employerAddressZipcode" component={TextField} floatingLabelText="Employer Zipcode" fullWidth={true} normalize={normalizeZipcode}/>
                   </Col>
               </Row>
               <Row>
                   <Col xs={12} md={6}>
-                      <Field name="employerPhone" component={TextField} floatingLabelText="Employer Phone" fullWidth={true}/>
+                      <Field name="employerPhone" component={TextField} floatingLabelText="Employer Phone" fullWidth={true} normalize={normalizePhone}/>
                   </Col>
                   <Col xs={12} md={6}>
                       <Field name="employerSupervisor" component={TextField} floatingLabelText="Supervisor" fullWidth={true}/>

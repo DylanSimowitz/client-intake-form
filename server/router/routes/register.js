@@ -1,5 +1,6 @@
 import express from 'express'
-import User from '../../database/models/User.js'
+import User from '../../database/models/User'
+import Form from '../../database/models/Form'
 import bodyParser from 'body-parser'
 import validate from '../middleware/validate'
 import verificationEmail from '../middleware/verification'
@@ -10,6 +11,7 @@ router.post('/', bodyParser.json(), validate('register'), (req, res, next) => {
   const {first_name, last_name, email, password} = req.body
   new User({first_name, last_name, email}).register(password)
     .then(user => {
+      new Form({user_id: user.get('id')}).save(null, {method: 'insert'}).then(form => {return form})
       res.locals.email = user.get('email') 
       next()
     })

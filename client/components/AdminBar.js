@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
 import SelectClient from './SelectClient'
+import ClientActions from './ClientActions'
 
 class AdminBar extends Component {
   
@@ -13,6 +14,7 @@ class AdminBar extends Component {
         </ToolbarGroup>
         <ToolbarGroup>
           <SelectClient/>
+          <ClientActions/>
         </ToolbarGroup>
       </Toolbar>
     )

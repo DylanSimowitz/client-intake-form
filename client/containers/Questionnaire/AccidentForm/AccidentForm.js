@@ -8,7 +8,6 @@ import {Field, reduxForm, formValueSelector} from 'redux-form'
 import {connect} from 'react-redux'
 import ClearIcon from 'material-ui/svg-icons/content/clear'
 import Auto from './AccidentTypes/Auto'
-import { openDialog } from 'redux/actions/dialogActions'
 import {openSnackbar} from 'redux/actions/snackbarActions'
 //import validate from 'server/shared/validations/questionnaire';
 
@@ -17,11 +16,11 @@ function onSubmitFail(error, dispatch) {
     dispatch(openSnackbar(error._error))
   }
   else {
-    dispatch(openSnackbar('Fix all invalid fields before submitting.'))
+    dispatch(openSnackbar('Fix all invalid fields before submitting'))
   }
 }
 function onSubmitSuccess(result, dispatch) {
-  dispatch(openDialog('Submission Successful', 'Your submission was successfully received.'))
+  dispatch(openSnackbar('Your submission was successfully received'))
 }
 
 class AccidentForm extends React.Component {

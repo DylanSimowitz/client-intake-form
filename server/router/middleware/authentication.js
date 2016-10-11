@@ -20,7 +20,8 @@ export default (req, res, next) => {
         })
         .fetch({require: true}).then(user => {
           res.locals.user = user 
-          return next()
+          next()
+          return user
         })
         .catch(User.NotFoundError, () => res.status(404).redirect('/'))
       }

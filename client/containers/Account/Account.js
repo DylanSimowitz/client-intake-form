@@ -4,7 +4,6 @@ import Paper from 'material-ui/Paper'
 import Login from '../Login'
 import Register from '../Register'
 import {openSnackbar} from 'redux/actions/snackbarActions'
-import {openDialog} from 'redux/actions/dialogActions'
 import {authenticate} from 'redux/actions/authActions'
 
 const styles = {
@@ -19,13 +18,17 @@ const styles = {
 }
 
 class Account extends React.Component {
+  componentWillMount() {
+
+  }
+
   handleLoginSubmitSuccess = (result, dispatch) => {
     dispatch(openSnackbar('Login successful'))
     this.context.router.push('/form/questionnaire')
   }
   handleRegisterSubmitSuccess = (result, dispatch) => {
     const email = result
-    dispatch(openDialog('Account Activation', `An email containing a link to activate your account has been sent to ${email}`))
+    dispatch(openSnackbar(`Activation link sent to ${email}`))
   }
   handleSubmitFail = (error, dispatch) => {
     if (error._error) {

@@ -11,3 +11,5 @@ export const LOAD_FORM='LOAD_FORM'
 
 export const SELECT_CLIENT = 'SELECT_CLIENT'
 export const FETCH_CLIENTS = 'FETCH_CLIENTS'
+export const SET_CLIENT_FORM = 'SET_CLIENT_FORM'
+export const DELETE_CLIENT = 'DELETE_CLIENT'
