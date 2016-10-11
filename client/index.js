@@ -8,7 +8,6 @@ import configureStore from './redux/store'
 import initialState from 'redux/store/state'
 import {authenticate} from 'redux/actions/authActions'
 
-console.log(initialState)
 const store = configureStore(initialState)
 
 const rootElement = document.getElementById('app')

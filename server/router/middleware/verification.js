@@ -25,7 +25,6 @@ export default function(req, res, next) {
   }
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log(error)
       res.end('error')
     }
     res.json({success: true})
