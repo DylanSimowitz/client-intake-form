@@ -34,13 +34,32 @@ class PersonalForm extends React.Component {
   //   })
   // }
   // places = []
+  //componentWillMount() {
+    //const {dispatch, initialize, ivalue} = this.props
+    //dispatch(initialize(ivalue))
+  //}
+  //shouldComponentUpdate(nextProps) {
+    //const {dispatch, initialize, ivalue} = this.props
+    //if (nextProps.ivalue !== ivalue) {
+      //dispatch(initialize(ivalue)) 
+    //}
+    //return true
+  //}
+  componentWillMount() {
+    const {pristine, dispatch, initialize, userData} = this.props
+    if (pristine) {
+      dispatch(initialize(userData)) 
+    }
+  }
+  shouldComponentUpdate(nextProps) {
+    const {pristine, dispatch, initialize, userData} = this.props
+    if (!Object.is(nextProps.userData, userData)) {
+      dispatch(initialize(userData))
+    } 
+    return true
+  }
   render() {
-
-    const {
-      handleSubmit,
-      stopPropagation,
-      isFelon
-    } = this.props
+    const {handleSubmit, isFelon} = this.props
     return (
           <form onSubmit={handleSubmit}>
               <Row>
@@ -98,7 +117,6 @@ class PersonalForm extends React.Component {
                   <Field name="personalIsFelon" component={Checkbox} label="I have been convicted of a felony"/>
                 </Col>
               </Row>
-              {/*<ExpandTransition open={isFelon}>*/}
               {isFelon &&
                 <Row>
                   <Col xs={12} md={4}>
@@ -131,10 +149,8 @@ PersonalForm = reduxForm({
 const selector = formValueSelector('questionnaire')
 PersonalForm = connect(state => {
   const isFelon = selector(state, 'personalIsFelon')
-  const address = selector(state, 'personalAddress')
   return {
-    isFelon,
-    address
+    isFelon
   }
 })(PersonalForm)
 

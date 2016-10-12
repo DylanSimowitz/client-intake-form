@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
-import {loadForm} from 'redux/actions/formActions'
+import {loadForm, submitForm} from 'redux/actions/formActions'
 import PersonalForm from './PersonalForm'
 import EmployerForm from './EmployerForm'
 import InsuranceForm from './InsuranceForm'
@@ -29,7 +29,9 @@ class Questionnaire extends React.Component {
       stepIndex: 0
     }
   }
-  onSubmit = (data) => {
+  handleSubmit = (data) => {
+    const {submitForm, user, admin} = this.props
+
     let body = new FormData()
     Object.keys(data).forEach(( key ) => {
       if (key === 'accidentPhotos') {
@@ -40,29 +42,17 @@ class Questionnaire extends React.Component {
         body.append(key, data[key])
       }
     })
-    return new Promise((resolve, reject) => {
-      fetch(`/api/users/${this.props.id}/form/questionnaire`, {
-        method: 'post',
-        headers: {Authorization: `Bearer ${localStorage.getItem('jwtToken')}`},
-        body
-      })
-        .then(response => {
-          return response.json()
-        })
-        .then(json => {
-          if (json._error) {
-            reject(new SubmissionError(json))
-          }
-          else {
-            resolve()
-          }
-        })
-    })
+    if (user.role === 'admin') {
+      return submitForm('questionnaire', admin.selectedClient, body)
+    }
+    else {
+      return submitForm('questionnaire', user.id, body)
+    }
   }
   componentWillMount = () => {
-    const {loadForm, role} = this.props
-    if (role !== 'admin') {
-      loadForm('questionnaire', this.props.id)   
+    const {loadForm, user} = this.props
+    if (user.role !== 'admin') {
+      loadForm('questionnaire', user.id) 
     }
   }
   nextStep = () => {
@@ -77,22 +67,29 @@ class Questionnaire extends React.Component {
   }
   renderStepActions(step) {
     const {stepIndex} = this.state
+    const {admin, user} = this.props
     return (
-            <div style={{
-              margin: '12px 0'
-            }}>
-                <RaisedButton label={stepIndex === 3
-                    ? 'Finish'
-                    : 'Next'} disableTouchRipple={true} type='submit' onSubmit={stepIndex === 3
-                    ? this.onSubmit
-                    : this.nextStep} disableFocusRipple={true} primary={true} style={{
-                      marginRight: 12
-                    }}/> {step > 0 && (<FlatButton label="Back" disabled={stepIndex === 0} disableTouchRipple={true} disableFocusRipple={true} onTouchTap={this.previousStep}/>)}
+            <div style={{margin: '12px 0'}}>
+              <RaisedButton 
+                label={stepIndex === 3 ? 'Finish':'Next'}
+                disableTouchRipple={true} 
+                type='submit' 
+                onSubmit={stepIndex === 3 ? this.onSubmit : this.nextStep}
+                disableFocusRipple={true}
+                primary={true} 
+                style={{marginRight: 12}}
+                disabled={user.role === 'admin' && admin.selectedClient === ''}
+              />
+              {step > 0 && (<FlatButton label="Back" disabled={stepIndex === 0} disableTouchRipple={true} disableFocusRipple={true} onTouchTap={this.previousStep}/>)}
             </div>
         )
   }
   getStepContent(step) {
-    const formProps = {initialValues: this.props.formData, /*enableReinitialize: true, keepDirtyOnReinitialize: true, */stepper: this.renderStepActions(step)}
+    let formProps = {userData: this.props.formData, enableReinitialize: true, stepper: this.renderStepActions(step)}
+    //if (this.props.role === 'admin') {
+      //formProps.enableReinitialize = true
+      //formProps.keepDirtyOnReinitialize = true
+    //}
 
     switch (step) {
     case 0:
@@ -102,7 +99,7 @@ class Questionnaire extends React.Component {
     case 2:
       return <InsuranceForm onSubmit={this.nextStep} {...formProps} />
     case 3:
-      return <AccidentForm onSubmit={this.onSubmit} {...formProps}/>
+      return <AccidentForm onSubmit={this.handleSubmit} {...formProps}/>
     default:
 
     }
@@ -155,8 +152,8 @@ Questionnaire.contextTypes = {
 function mapStateToProps(state) {
   return {
     formData: state.formData,
-    id: state.auth.user.id,
-    role: state.auth.user.role
+    user: state.auth.user,
+    admin: state.admin
   }
 }
-export default connect(mapStateToProps, {loadForm})(Questionnaire)
+export default connect(mapStateToProps, {loadForm, submitForm})(Questionnaire)

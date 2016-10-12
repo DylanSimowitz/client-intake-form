@@ -16,6 +16,7 @@ function onSubmitFail(error, dispatch) {
     dispatch(openSnackbar(error._error))
   }
   else {
+    console.error(error)
     dispatch(openSnackbar('Fix all invalid fields before submitting'))
   }
 }
