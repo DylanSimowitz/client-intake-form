@@ -15,6 +15,7 @@ class Routes extends React.Component {
     <Route path="/" component={Layout}>
       <Route path="/form/questionnaire" component={Authenticate(Questionnaire)}/>
       <Route path="login" component={Account}/>
+      <Route path="register" component={Account}/>
     </Route>
   </Router>
     )

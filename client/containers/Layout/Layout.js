@@ -8,7 +8,7 @@ class Layout extends React.Component {
   render() {
     return(
       <div>
-        <Header/>
+        <Header location={this.props.location}/>
         {this.props.children}
         <ReduxDialog/> 
         <ReduxSnackbar/> 

@@ -38,16 +38,24 @@ class Account extends React.Component {
       dispatch(openSnackbar('Correct marked fields before trying again'))
     }
   }
+  setInitialTab = () => {
+    const {router} = this.context
+    if (router.isActive('/login')) {
+      return 0
+    }
+    return 1
+  }
   render() {
+    const {router} = this.context
     return(
       <Paper style={styles.paper}>
-      <Tabs>
-        <Tab label="Login">
+      <Tabs initialSelectedIndex={this.setInitialTab()}>
+        <Tab label="Login" onActive={() => router.replace('/login')}>
           <div style={styles.form}>
             <Login onSubmitSuccess={this.handleLoginSubmitSuccess} onSubmitFail={this.handleSubmitFail}/>
           </div>
         </Tab>
-        <Tab label="Register">
+        <Tab label="Register" onActive={() => router.replace('/register')}>
           <div style={styles.form}>
             <Register onSubmitSuccess={this.handleRegisterSubmitSuccess} onSubmitFail={this.handleSubmitFail}/> 
           </div> 

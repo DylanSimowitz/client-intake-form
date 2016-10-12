@@ -27,6 +27,21 @@ class Header extends React.Component {
     this.context.router.push('/form/questionnaire')
   }
   
+  setAppBarTitle = () => {
+    switch (this.props.location.pathname) {
+      case '/':
+        return 'Home'
+      case '/login':
+        return 'Login'
+      case '/register':
+        return 'Register'
+      case '/form/questionnaire': 
+        return 'Questionnaire'
+      default:
+        return ''
+    }
+  }
+
   renderIconElementRight = () => {
     const {authenticated, router, handleLogoutClick} = this.props
     if (authenticated) {
@@ -39,7 +54,7 @@ class Header extends React.Component {
     const {role} = this.props
     return (
     <div>
-      <AppBar title="Questionnaire" onLeftIconButtonTouchTap={this.handleToggle} iconElementRight={this.renderIconElementRight()} zDepth={0}/>
+      <AppBar title={this.setAppBarTitle()} onLeftIconButtonTouchTap={this.handleToggle} iconElementRight={this.renderIconElementRight()} zDepth={0}/>
       { role === 'admin' && <AdminBar/> }
       <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
         <MenuItem onTouchTap={this.handleClose}>Questionnaire</MenuItem>
