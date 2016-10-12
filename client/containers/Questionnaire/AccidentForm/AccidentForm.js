@@ -61,7 +61,7 @@ class AccidentForm extends React.Component {
       'Dog Bites',
       'Product Liability'
     ]
-    const {handleSubmit, previousPage, selectedCase, accidentPhotos} = this.props
+    const {handleSubmit, previousPage, selectedCase, accidentPhotos, showDatePickerTip} = this.props
     const {muiTheme} = this.context
     return (
             <form onSubmit={handleSubmit}>
@@ -74,7 +74,7 @@ class AccidentForm extends React.Component {
                         </Field>
                     </Col>
                     <Col xs={12} md={3}>
-                        <Field name="accidentDate" component={DatePicker} floatingLabelText="Accident Date" fullWidth={true}/>
+                        <Field name="accidentDate" component={DatePicker} onShow={showDatePickerTip} floatingLabelText="Accident Date" fullWidth={true}/>
                     </Col>
                     <Col xs={12} md={3}>
                       <Field name="accidentTime" component={TimePicker} floatingLabelText="Accident Time" fullWidth={true}/>

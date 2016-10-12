@@ -12,6 +12,7 @@ import FlatButton from 'material-ui/FlatButton'
 import {Stepper, Step, StepButton, StepContent} from 'material-ui/Stepper'
 import Paper from 'material-ui/Paper'
 import {Grid, Row, Col} from 'react-flexbox-grid'
+import {openSnackbar} from 'redux/actions/snackbarActions'
 
 let styles = {
   paper: {
@@ -50,10 +51,17 @@ class Questionnaire extends React.Component {
     }
   }
   componentWillMount = () => {
-    const {loadForm, user} = this.props
+    const {openSnackbar, loadForm, user, admin} = this.props
     if (user.role !== 'admin') {
       loadForm('questionnaire', user.id) 
     }
+
+    if (user.role === 'admin' && admin.selectedClient === '') {
+      openSnackbar('Select a client to begin')
+    }
+  }
+  showDatePickerTip = () => {
+    this.props.openSnackbar('Click the year in the corner to select the year')
   }
   nextStep = () => {
     this.setState({
@@ -85,7 +93,7 @@ class Questionnaire extends React.Component {
         )
   }
   getStepContent(step) {
-    let formProps = {userData: this.props.formData, enableReinitialize: true, stepper: this.renderStepActions(step)}
+    let formProps = {showDatePickerTip: this.showDatePickerTip, userData: this.props.formData, enableReinitialize: true, stepper: this.renderStepActions(step)}
     //if (this.props.role === 'admin') {
       //formProps.enableReinitialize = true
       //formProps.keepDirtyOnReinitialize = true
@@ -106,6 +114,10 @@ class Questionnaire extends React.Component {
   }
   render() {
     const {stepIndex} = this.state
+    const {user, admin, openSnackbar} = this.props
+    if (user.role === 'admin' && admin.selectedClient === '') {
+      return <div></div>
+    }
     return (
             <Paper zDepth={1} style={styles.paper}>
               <Stepper linear={false} activeStep={stepIndex} orientation='vertical'>
@@ -156,4 +168,4 @@ function mapStateToProps(state) {
     admin: state.admin
   }
 }
-export default connect(mapStateToProps, {loadForm, submitForm})(Questionnaire)
+export default connect(mapStateToProps, {loadForm, submitForm, openSnackbar})(Questionnaire)

@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { Field, reduxForm, formValueSelector } from 'redux-form'
 import AddIcon from 'material-ui/svg-icons/content/add'
 import { normalizeSSN, normalizePhone, normalizeZipcode } from 'redux/utils/normalizer'
+import {openSnackbar} from 'redux/actions/snackbarActions'
 // import validate from '../../../../server/shared/validations/questionnaire'
 
 class PersonalForm extends React.Component {
@@ -59,7 +60,7 @@ class PersonalForm extends React.Component {
     return true
   }
   render() {
-    const {handleSubmit, isFelon} = this.props
+    const {handleSubmit, isFelon, showDatePickerTip} = this.props
     return (
           <form onSubmit={handleSubmit}>
               <Row>
@@ -106,7 +107,7 @@ class PersonalForm extends React.Component {
                       <Field name="personalDriversLicense" component={TextField} floatingLabelText="Driver's License" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
-                      <Field name="personalDateOfBirth" component={DatePicker} floatingLabelText="Date of Birth" fullWidth={true}/>
+                    <Field name="personalDateOfBirth" component={DatePicker} locale="en-US" onShow={showDatePickerTip} floatingLabelText="Date of Birth" fullWidth={true}/>
                   </Col>
                   <Col xs={12} md={4}>
                       <Field name="personalSSN" component={TextField} floatingLabelText="SSN" fullWidth={true} normalize={normalizeSSN}/>
@@ -152,6 +153,6 @@ PersonalForm = connect(state => {
   return {
     isFelon
   }
-})(PersonalForm)
+}, {openSnackbar})(PersonalForm)
 
 export default PersonalForm

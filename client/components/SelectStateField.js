@@ -17,13 +17,14 @@ class SelectStateField extends SelectField {
       <SelectField
         value={this.state.value}
         onChange={this.handleChange.bind(this)}
+        onFocus={() => console.log('focus')}
         floatingLabelText="State"
       >
-      	<MenuItem value={1} primaryText="Alaska" />
+      <MenuItem value={1} primaryText="Alaska" />
         <MenuItem value={2} primaryText="Alabama" />
-      	<MenuItem value={3} primaryText="Arizona" />
-      	<MenuItem value={4} primaryText="Arkansas" />
-      	<MenuItem value={5} primaryText="California" />
+        <MenuItem value={3} primaryText="Arizona" />
+        <MenuItem value={4} primaryText="Arkansas" />
+        <MenuItem value={5} primaryText="California" />
       	<MenuItem value={6} primaryText="Colorado" />
       	<MenuItem value={7} primaryText="Connecticut" />
       	<MenuItem value={8} primaryText="Delaware" />

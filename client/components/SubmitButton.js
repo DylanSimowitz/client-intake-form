@@ -13,7 +13,7 @@ const styles = {
 const SubmitButton = (props) => {
   return(
         <div style={styles.submit}>
-          <RaisedButton type="submit" label={props.label || "Submit"} secondary={true}/>
+          <RaisedButton type="submit" label={props.label || 'Submit'} secondary={true}/>
         </div>
   )  
 }

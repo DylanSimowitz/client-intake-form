@@ -29,16 +29,16 @@ class Header extends React.Component {
   
   setAppBarTitle = () => {
     switch (this.props.location.pathname) {
-      case '/':
-        return 'Home'
-      case '/login':
-        return 'Login'
-      case '/register':
-        return 'Register'
-      case '/form/questionnaire': 
-        return 'Questionnaire'
-      default:
-        return ''
+    case '/':
+      return 'Home'
+    case '/login':
+      return 'Login'
+    case '/register':
+      return 'Register'
+    case '/form/questionnaire': 
+      return 'Questionnaire'
+    default:
+      return ''
     }
   }
 
