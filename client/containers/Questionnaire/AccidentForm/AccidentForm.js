@@ -48,7 +48,7 @@ class AccidentForm extends React.Component {
     }
   }
   removePhoto = (selectedPhoto) => {
-    this.props.array.remove('accidentPhotos',selectedPhoto)
+    this.props.array.remove('accidentPhotos', selectedPhoto)
   }
   render() {
     const caseTypes = [
@@ -94,8 +94,8 @@ class AccidentForm extends React.Component {
                             {/*<UploadIcon color={muiTheme.palette.primary1Color}/>*/}
                         </Dropzone>
                       } type="file"/>
-                      <GridList cellHeight={200} cols={3}>
-                        {accidentPhotos && accidentPhotos.map((photo,item,index) => {
+                      <GridList cellHeight={200} cols={1}>
+                        {accidentPhotos && accidentPhotos.map((photo, index) => {
                           return (
                             <GridTile key={photo.name} title={photo.name} subtitle={`${photo.size} bytes`} actionIcon={<ClearIcon color="white" onClick={() => this.removePhoto(index)}/>}>
                               <img src={photo.preview}/>

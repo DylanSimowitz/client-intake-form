@@ -40,9 +40,8 @@ router.post('/:formName', authentication, adminOrLoggedIn, upload.single(), vali
   new Form({user_id: id, [formName]: JSON.stringify(req.body)}).save().then(form => {
     upload.dest = `uploads/form/${req.params.formName}/${user.id}`
     mkdirp.sync(upload.dest)
-    res.json({success: true})
     next()
   })
-}, upload.array('accidentPhotos'))
+}, upload.array('accidentPhotos'), (req, res) => res.json({success: true}))
 
 module.exports = router
