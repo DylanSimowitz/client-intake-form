@@ -1,6 +1,7 @@
 import validate from 'validate.js'
 
 validate.validators.presence.message = 'This field is required'
+validate.validators.email.message = 'Not a valid email'
 
 const constraints = {
     login: {
@@ -20,9 +21,7 @@ const constraints = {
       },
       email: {
         presence: true,
-        email: {
-          message: 'Not a valid email'
-        }
+        email: {}
       },
       password: {
         presence: true,
@@ -49,6 +48,7 @@ const constraints = {
       },
       personalEmail: {
         presence: true,
+        email: {}
       },
       personalDateOfBirth: {
         presence: true,
@@ -67,6 +67,15 @@ const constraints = {
       }
     }
   } 
+
+  export function clientValidation(values, formName) {
+    let errors = validate(values, constraints[formName], {fullMessages: false})
+    if (errors) {
+      errors._error = 'Correct marked fields before continuing'
+      return errors
+    }
+    return {}
+  }
 
   export default (formName) => {
     return (req, res, next) => {

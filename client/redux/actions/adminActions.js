@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes'
-import {setForm} from './formActions'
+import {loadForm} from './formActions'
 import {openSnackbar} from './snackbarActions' 
 import {closeDialog} from './dialogActions'
 
@@ -36,17 +36,5 @@ export function fetchClients() {
 } 
 
 export function selectClient(id) {
-  const URL = API_ENDPOINT + id + '/form/questionnaire' 
-  return dispatch => {
-    dispatch({type: actionTypes.SELECT_CLIENT, id})
-    fetch(URL, { 
-      method: 'get',
-      headers: {Authorization: `Bearer ${localStorage.getItem('jwtToken')}`},
-    })
-      .then(response => response.json())
-      .then(form => {
-        //return dispatch({type: actionTypes.SET_CLIENT_FORM, form})
-        return dispatch(setForm(form))
-      })
-  }
+  return {type: actionTypes.SELECT_CLIENT, id}
 }

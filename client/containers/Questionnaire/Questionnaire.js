@@ -13,6 +13,7 @@ import {Stepper, Step, StepButton, StepContent} from 'material-ui/Stepper'
 import Paper from 'material-ui/Paper'
 import {Grid, Row, Col} from 'react-flexbox-grid'
 import {openSnackbar} from 'redux/actions/snackbarActions'
+import {clientValidation} from 'server/router/middleware/validate'
 
 let styles = {
   paper: {
@@ -59,6 +60,10 @@ class Questionnaire extends React.Component {
     if (user.role === 'admin' && admin.selectedClient === '') {
       openSnackbar('Select a client to begin')
     }
+
+    if (admin.selectedClient !== '') {
+      loadForm('questionnaire', admin.selectedClient)
+    }
   }
   showDatePickerTip = () => {
     this.props.openSnackbar('Click the year in the corner to select the year')
@@ -92,35 +97,45 @@ class Questionnaire extends React.Component {
             </div>
         )
   }
+  handleValidate = (values) => {
+    return clientValidation(values, 'questionnaire')
+  }
   getStepContent(step) {
-    let formProps = {showDatePickerTip: this.showDatePickerTip, userData: this.props.formData, enableReinitialize: true, stepper: this.renderStepActions(step)}
-    //if (this.props.role === 'admin') {
-      //formProps.enableReinitialize = true
-      //formProps.keepDirtyOnReinitialize = true
-    //}
+    let formProps = {
+      onSubmit: this.nextStep,
+      validate: this.handleValidate,
+      showDatePickerTip: this.showDatePickerTip,
+      //initialValues: this.props.formData,
+      //enableReinitialize: true,
+      stepper: this.renderStepActions(step)
+    }
 
     switch (step) {
     case 0:
-      return <PersonalForm onSubmit={this.nextStep} {...formProps} />
+      return <PersonalForm initialValues={this.props.formData} enableReinitialize={true} {...formProps} />
     case 1:
-      return <EmployerForm onSubmit={this.nextStep} {...formProps} />
+      return <EmployerForm {...formProps} />
     case 2:
-      return <InsuranceForm onSubmit={this.nextStep} {...formProps} />
+      return <InsuranceForm {...formProps} />
     case 3:
-      return <AccidentForm onSubmit={this.handleSubmit} {...formProps}/>
+      formProps.onSubmit = this.handleSubmit
+      return <AccidentForm {...formProps}/>
     default:
 
     }
   }
   render() {
     const {stepIndex} = this.state
-    const {user, admin, openSnackbar} = this.props
+    const {user, admin, openSnackbar, formData} = this.props
     if (user.role === 'admin' && admin.selectedClient === '') {
+      return <div></div>
+    }
+    if (!formData) {
       return <div></div>
     }
     return (
             <Paper zDepth={1} style={styles.paper}>
-              <Stepper linear={false} activeStep={stepIndex} orientation='vertical'>
+              <Stepper linear={true} activeStep={stepIndex} orientation='vertical'>
                   <Step>
                       <StepButton onClick={() => this.setState({stepIndex: 0})}>
                           Personal information

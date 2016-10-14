@@ -12,6 +12,9 @@ export default (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
+        if (err.name === 'TokenExpiredError') {
+          res.status(401).json({error: 'Session has expired'})
+        }
         res.status(401).json({error: 'Failed to authenticate'})
       }
       else {

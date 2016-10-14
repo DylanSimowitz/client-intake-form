@@ -21,7 +21,7 @@ router.post('/', bodyParser.json(), validate('login'), (req, res, next) => {
         const token = jwt.sign({
           id: user.get('id'),
           role: user.get('role')
-        }, process.env.JWT_SECRET)
+        }, process.env.JWT_SECRET, {expiresIn: '7d'})
         res.json({token})
       }
       else {

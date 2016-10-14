@@ -35,7 +35,7 @@ module.exports = {
         test: /\.js$/,
         include: [
           path.join(__dirname, 'client'),
-          path.join(__dirname, 'server/shared')
+          path.join(__dirname, 'server/router/middleware')
         ],
         loaders: [
           'babel-loader'

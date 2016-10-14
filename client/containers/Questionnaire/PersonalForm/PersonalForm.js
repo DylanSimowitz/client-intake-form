@@ -7,57 +7,10 @@ import { Field, reduxForm, formValueSelector } from 'redux-form'
 import AddIcon from 'material-ui/svg-icons/content/add'
 import { normalizeSSN, normalizePhone, normalizeZipcode } from 'redux/utils/normalizer'
 import {openSnackbar} from 'redux/actions/snackbarActions'
-// import validate from '../../../../server/shared/validations/questionnaire'
 
 class PersonalForm extends React.Component {
   constructor() {
     super()
-  }
-  // getPlaces = (address) => {
-  //   let autocomplete = new google.maps.places.AutocompleteService()
-  //   let query = {
-  //     input: address
-  //   }
-  //   let descriptions;
-  //   autocomplete.getPlacePredictions(query, (predictions, status) => {
-  //     if (status === google.maps.places.PlacesServiceStatus.OK) {
-  //       descriptions = predictions.map((value,index,array) => {
-  //         console.log(value.description);
-  //         return value.description
-  //       })
-  //     }
-  //     else {
-  //       console.log('Places API denied');
-  //     }
-  //   })
-  //   this.setState({
-  //     places: descriptions
-  //   })
-  // }
-  // places = []
-  //componentWillMount() {
-    //const {dispatch, initialize, ivalue} = this.props
-    //dispatch(initialize(ivalue))
-  //}
-  //shouldComponentUpdate(nextProps) {
-    //const {dispatch, initialize, ivalue} = this.props
-    //if (nextProps.ivalue !== ivalue) {
-      //dispatch(initialize(ivalue)) 
-    //}
-    //return true
-  //}
-  componentWillMount() {
-    const {pristine, dispatch, initialize, userData} = this.props
-    if (pristine) {
-      dispatch(initialize(userData)) 
-    }
-  }
-  shouldComponentUpdate(nextProps) {
-    const {pristine, dispatch, initialize, userData} = this.props
-    if (!Object.is(nextProps.userData, userData)) {
-      dispatch(initialize(userData))
-    } 
-    return true
   }
   render() {
     const {handleSubmit, isFelon, showDatePickerTip} = this.props
@@ -140,7 +93,6 @@ class PersonalForm extends React.Component {
     )
   }
 }
-
 
 PersonalForm = reduxForm({
   form: 'questionnaire',

@@ -68,8 +68,8 @@ class AccidentForm extends React.Component {
                 <Row>
                     <Col xs={12} md={6}>
                         <Field name="accidentType" component={SelectField} fullWidth={true} floatingLabelText="Accident Type">
-                          {caseTypes.map((caseType,item) => {
-                            return <MenuItem value={caseType} primaryText={caseType}/>
+                          {caseTypes.map((caseType, index, array) => {
+                            return <MenuItem key={index} value={caseType} primaryText={caseType}/>
                           })}
                         </Field>
                     </Col>

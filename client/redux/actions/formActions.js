@@ -5,6 +5,16 @@ export function setForm(data) {
   return {type: actionTypes.LOAD_FORM, data}
 }
 
+function parseDateFromJSON(json) {
+  const REGEX = /(d|D)ate|(t|T)ime/
+  Object.keys(json).map(key => {
+    if (key.match(REGEX)) {
+      json[key] = new Date(json[key])
+    }
+  })
+  return json
+}
+
 export function loadForm(name, id) {
   return dispatch => {
     fetch(`/api/users/${id}/form/${name}`, {
@@ -14,7 +24,9 @@ export function loadForm(name, id) {
     .then(response => {
       return response.json()
     })
-    .then(json => dispatch(setForm(json)))
+    .then(json => {
+      dispatch(setForm(parseDateFromJSON(json)))
+    })
   }
 }
 
