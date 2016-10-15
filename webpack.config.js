@@ -20,6 +20,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
+    alias: {shared: path.join(__dirname, 'server/router/middleware')},
     root: [path.resolve('./client'), path.resolve('./')]
   },
   module: {

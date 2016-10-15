@@ -13,7 +13,7 @@ import {Stepper, Step, StepButton, StepContent} from 'material-ui/Stepper'
 import Paper from 'material-ui/Paper'
 import {Grid, Row, Col} from 'react-flexbox-grid'
 import {openSnackbar} from 'redux/actions/snackbarActions'
-import {clientValidation} from 'server/router/middleware/validate'
+import {clientValidation} from 'shared/validate'
 
 let styles = {
   paper: {
