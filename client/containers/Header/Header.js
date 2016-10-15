@@ -20,11 +20,11 @@ class Header extends React.Component {
     open: !this.state.open
   })
 
-  handleClose = () => {
+  handleClose = (route) => {
     this.setState({
       open: false
     })
-    this.context.router.push('/form/questionnaire')
+    this.context.router.push(route)
   }
   
   setAppBarTitle = () => {
@@ -57,7 +57,8 @@ class Header extends React.Component {
       <AppBar title={this.setAppBarTitle()} onLeftIconButtonTouchTap={this.handleToggle} iconElementRight={this.renderIconElementRight()} zDepth={0}/>
       { role === 'admin' && <AdminBar/> }
       <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
-        <MenuItem onTouchTap={this.handleClose}>Questionnaire</MenuItem>
+        <MenuItem onTouchTap={() => this.handleClose('/')}>Home</MenuItem>
+        <MenuItem onTouchTap={() => this.handleClose('/form/questionnaire')}>Questionnaire</MenuItem>
       </Drawer>
     </div>
     )

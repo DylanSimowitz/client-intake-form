@@ -74,7 +74,7 @@ class AccidentForm extends React.Component {
                         </Field>
                     </Col>
                     <Col xs={12} md={3}>
-                        <Field name="accidentDate" component={DatePicker} onShow={showDatePickerTip} floatingLabelText="Accident Date" fullWidth={true}/>
+                        <Field name="accidentDate" component={DatePicker} locale="en-US" onShow={showDatePickerTip} floatingLabelText="Accident Date" fullWidth={true}/>
                     </Col>
                     <Col xs={12} md={3}>
                       <Field name="accidentTime" component={TimePicker} floatingLabelText="Accident Time" fullWidth={true}/>
@@ -94,7 +94,7 @@ class AccidentForm extends React.Component {
                             {/*<UploadIcon color={muiTheme.palette.primary1Color}/>*/}
                         </Dropzone>
                       } type="file"/>
-                      <GridList cellHeight={200} cols={1}>
+                      <GridList>
                         {accidentPhotos && accidentPhotos.map((photo, index) => {
                           return (
                             <GridTile key={photo.name} title={photo.name} subtitle={`${photo.size} bytes`} actionIcon={<ClearIcon color="white" onClick={() => this.removePhoto(index)}/>}>

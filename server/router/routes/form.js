@@ -18,30 +18,38 @@ function adminOrLoggedIn(req, res, next) {
   }
 } 
 
+
 const router = express.Router({mergeParams: true})
-const upload = multer({
-  dest: 'uploads',
-  storage: multer.diskStorage({
+const upload = multer({})
+
+function setUploadDestination(req, res, next) {
+  const {user} = res.locals
+  
+  const dest = `uploads/form/${req.params.formName}/${user.id}`
+
+  upload.storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, dest) 
+    },
     filename: (req, file, cb) => {
-      cb(null, file.originalname + Date.now())
+      cb(null, `${file.originalname.split('.')[0]}-${Date.now()}.${file.mimetype.split('/')[1]}`)
     }
   })
-})
+  mkdirp.sync(dest)
+  next()
+}
 
 router.get('/:formName', authentication, adminOrLoggedIn, (req, res) => {
   const {id, formName} = req.params
   new User({id}).form(formName).then(form => res.json(form.get('questionnaire')))
 })
 
-router.post('/:formName', authentication, adminOrLoggedIn, upload.single(), validate(), (req, res, next) => {
-  const {user} = res.locals
+router.post('/:formName', authentication, adminOrLoggedIn, setUploadDestination, upload.array('accidentPhotos'), validate(), (req, res, next) => {
   const {id, formName} = req.params
 
-  new Form({user_id: id, [formName]: JSON.stringify(req.body)}).save().then(form => {
-    upload.dest = `uploads/form/${req.params.formName}/${user.id}`
-    mkdirp.sync(upload.dest)
-    next()
+  new Form({user_id: id, [formName]: req.body}).save().then(form => {
+    res.json({success: true})
   })
-}, upload.array('accidentPhotos'), (req, res) => res.json({success: true}))
+})
 
 module.exports = router

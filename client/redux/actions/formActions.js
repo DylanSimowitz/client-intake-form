@@ -1,14 +1,18 @@
-import * as actionTypes from './actionTypes'
 import {SubmissionError} from 'redux-form'
+import {initialize} from 'redux-form'
 
-export function setForm(data) {
-  return {type: actionTypes.LOAD_FORM, data}
-}
-
-function parseDateFromJSON(json) {
-  const REGEX = /(d|D)ate|(t|T)ime/
+function revive(json) {
+  const dateOrTime= /(d|D)ate|(t|T)ime/
+  const trueOrFalse = /true|false/
+  //if (key.match(REGEX)) {
+    //value = new Date(value)
+  //}
+  //return value
   Object.keys(json).map(key => {
-    if (key.match(REGEX)) {
+    if (json[key].match(trueOrFalse)) {
+      json[key] = (json[key] === 'true')
+    }
+    if (key.match(dateOrTime)) {
       json[key] = new Date(json[key])
     }
   })
@@ -25,7 +29,7 @@ export function loadForm(name, id) {
       return response.json()
     })
     .then(json => {
-      dispatch(setForm(parseDateFromJSON(json)))
+      dispatch(initialize(name, revive(json)))
     })
   }
 }

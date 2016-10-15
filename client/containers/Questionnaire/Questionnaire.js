@@ -112,7 +112,7 @@ class Questionnaire extends React.Component {
 
     switch (step) {
     case 0:
-      return <PersonalForm initialValues={this.props.formData} enableReinitialize={true} {...formProps} />
+      return <PersonalForm {...formProps} />
     case 1:
       return <EmployerForm {...formProps} />
     case 2:
@@ -121,8 +121,19 @@ class Questionnaire extends React.Component {
       formProps.onSubmit = this.handleSubmit
       return <AccidentForm {...formProps}/>
     default:
-
+      return <div></div>
     }
+  }
+  steps = [
+    'Personal',
+    'Employment',
+    'Insurance',
+    'Accident'
+  ]
+  handleStepClick = (index) => {
+    this.setState({
+      stepIndex: index
+    })
   }
   render() {
     const {stepIndex} = this.state
@@ -130,44 +141,21 @@ class Questionnaire extends React.Component {
     if (user.role === 'admin' && admin.selectedClient === '') {
       return <div></div>
     }
-    if (!formData) {
-      return <div></div>
-    }
     return (
             <Paper zDepth={1} style={styles.paper}>
-              <Stepper linear={true} activeStep={stepIndex} orientation='vertical'>
-                  <Step>
-                      <StepButton onClick={() => this.setState({stepIndex: 0})}>
-                          Personal information
-                      </StepButton>
-                      <StepContent>
+              <Stepper linear={false} activeStep={stepIndex} orientation='vertical'>
+                {this.steps.map((step, index) => {
+                  return (
+                    <Step key={index}>
+                        <StepButton onClick={() => this.handleStepClick(index)}>
+                          {step} 
+                        </StepButton>
+                        <StepContent>
                           {this.getStepContent(stepIndex)}
-                      </StepContent>
-                  </Step>
-                  <Step>
-                      <StepButton onClick={() => this.setState({stepIndex: 1})}>
-                          Employer information
-                      </StepButton>
-                      <StepContent>
-                          {this.getStepContent(stepIndex)}
-                      </StepContent>
-                  </Step>
-                  <Step>
-                      <StepButton onClick={() => this.setState({stepIndex: 2})}>
-                          Insurance information
-                      </StepButton>
-                      <StepContent>
-                          {this.getStepContent(stepIndex)}
-                      </StepContent>
-                  </Step>
-                  <Step>
-                      <StepButton onClick={() => this.setState({stepIndex: 3})}>
-                          Accident information
-                      </StepButton>
-                      <StepContent>
-                          {this.getStepContent(stepIndex)}
-                      </StepContent>
-                  </Step>
+                        </StepContent>
+                    </Step>
+                  )
+                })}
               </Stepper>
             </Paper>
         )

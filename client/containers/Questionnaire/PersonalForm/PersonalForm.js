@@ -101,7 +101,7 @@ PersonalForm = reduxForm({
 
 const selector = formValueSelector('questionnaire')
 PersonalForm = connect(state => {
-  const isFelon = selector(state, 'personalIsFelon')
+  let isFelon = selector(state, 'personalIsFelon')
   return {
     isFelon
   }
