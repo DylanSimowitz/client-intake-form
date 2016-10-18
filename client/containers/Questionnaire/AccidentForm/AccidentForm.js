@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
 import {GridList, GridTile}  from 'material-ui/GridList'
 import MenuItem from 'material-ui/MenuItem'
-import {SelectField, DatePicker, TimePicker} from 'redux-form-material-ui'
+import {SelectField, DatePicker, TimePicker, TextField} from 'redux-form-material-ui'
 import {Row, Col} from 'react-flexbox-grid'
 import Dropzone from 'react-dropzone'
 import {Field, reduxForm, formValueSelector} from 'redux-form'
@@ -79,6 +79,17 @@ class AccidentForm extends React.Component {
                     <Col xs={12} md={3}>
                       <Field name="accidentTime" component={TimePicker} floatingLabelText="Accident Time" fullWidth={true}/>
                     </Col>
+                </Row>
+                <Row>
+                  <Col xs={12} md={5}>
+                    <Field name="accidentPoliceDepartment" component={TextField} fullWidth={true} floatingLabelText="Police Department"/>
+                  </Col>
+                  <Col xs={12} md={4}>
+                    <Field name="accidentPoliceReportNumber" component={TextField} fullWidth={true} floatingLabelText="Police Report Number"/>
+                  </Col>
+                  <Col xs={12} md={3}>
+                    <Field name="accidentPoliceReportUpload" component={TextField} fullWidth={true} floatingLabelText="Upload Police Report"/>
+                  </Col>
                 </Row>
                 {(selectedCase === 'Auto' || selectedCase === 'Motorcycle') &&
                   <Auto/>

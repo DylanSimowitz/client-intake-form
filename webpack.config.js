@@ -3,7 +3,11 @@ import path from 'path'
 
 module.exports = {
   plugins: [
-    new webpack.HotModuleReplacementPlugin(), new webpack.NoErrorsPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.ProvidePlugin({
+      'Promise': 'es6-promise'
+    })
   ],
   node: {
     net: 'empty',
@@ -12,7 +16,9 @@ module.exports = {
   entry: [
     'webpack-hot-middleware/client',
     'react-hot-loader/patch',
-    './client/index.js'
+    'babel-polyfill',
+    'whatwg-fetch',
+    './client/index.js',
   ],
   output: {
     filename: 'bundle.js',

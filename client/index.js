@@ -7,6 +7,8 @@ injectTapEventPlugin()
 import configureStore from './redux/store'
 import initialState from 'redux/store/state'
 import {authenticate} from 'redux/actions/authActions'
+import 'babel-polyfill'
+import 'whatwg-fetch'
 
 const store = configureStore(initialState)
 

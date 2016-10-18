@@ -26,7 +26,11 @@ module.exports = {
     net: 'empty',
     dns: 'empty'
   },
-  entry: path.join(__dirname, '/client/index.js'),
+  entry: [
+    'babel-polyfill',
+    'whatwg-fetch',
+    path.join(__dirname, '/client/index.js')
+  ],
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, '/public')
