@@ -1,8 +1,9 @@
 import React from 'react'
-import {TextField} from 'redux-form-material-ui'
+import {TextField, SelectField} from 'redux-form-material-ui'
 import {Row, Col} from 'react-flexbox-grid'
 import {Field, FieldArray, reduxForm} from 'redux-form'
 import Passengers from '../Passengers'
+import directions from 'components/DirectionMenuItems'
 
 class Auto extends React.Component {
   render() {
@@ -35,7 +36,9 @@ class Auto extends React.Component {
               <Field name="accidentStreetClient" component={TextField} floatingLabelText="Street Client On" fullWidth={true}/>
           </Col>
           <Col xs={12} md={4}>
-              <Field name="accidentDirectionClient" component={TextField} floatingLabelText="Direction" fullWidth={true}/>
+            <Field name="accidentDirectionClient" component={SelectField} floatingLabelText="Direction" fullWidth={true}>
+              {directions}
+            </Field>
           </Col>
           <Col xs={12} md={4}>
               <Field name="accidentLaneClient" component={TextField} floatingLabelText="Lane" fullWidth={true}/>
@@ -44,7 +47,9 @@ class Auto extends React.Component {
               <Field name="accidentStreetDefendant" component={TextField} floatingLabelText="Street Defendant On" fullWidth={true}/>
           </Col>
           <Col xs={12} md={4}>
-              <Field name="accidentDirectionDefendant" component={TextField} floatingLabelText="Direction" fullWidth={true}/>
+            <Field name="accidentDirectionDefendant" component={SelectField} floatingLabelText="Direction" fullWidth={true}>
+              {directions}
+            </Field>
           </Col>
           <Col xs={12} md={4}>
               <Field name="accidentLaneDefendant" component={TextField} floatingLabelText="Lane" fullWidth={true}/>

@@ -12,25 +12,24 @@ import {normalizePhone} from 'redux/utils/normalizer'
 
 const styles = {
   paper: {
-    margin: '0.5rem 10px',
     padding: '15px'
   },
   addButton: {
-    margin: '10px 8px'
+    margin: '10px 0px'
   }
 }
 
 const Passengers = ({ fields, meta: { touched, error } }) => (
   <div>
+    <Col xs={12}>
       <RaisedButton
         label="Add Passenger"
         style={styles.addButton}
         primary={true}
         onClick={() => fields.push({})}/>
-  <Row>
-      {touched && error && <span>{error}</span>}
+    </Col>
     {fields.map((passenger, index) =>
-      <Col xs={12} md={6} key={index}>
+    <Row>
     <Paper zDepth={1} style={styles.paper}>
       <Row between="xs" middle="xs">
         <Col xs={4}>
@@ -82,9 +81,8 @@ const Passengers = ({ fields, meta: { touched, error } }) => (
           normalize={normalizePhone}
           fullWidth={true}/>
       </Paper>
-      </Col>
-    )}
   </Row>
+    )}
   </div>
 )
 

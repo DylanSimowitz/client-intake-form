@@ -88,11 +88,7 @@ class AccidentForm extends React.Component {
                     <Field name="accidentHobbies" component={TextField} floatingLabelText="What hobbies have you had to curtail?" fullWidth={true} multiLine={true} rows={8}/>
                   </Col>
                 </Row>
-                <Row>
-                  <Col xs={12}>
                     <Field name="accidentDescription" component={TextField} floatingLabelText="Accident Description" fullWidth={true} multiLine={true} rows={8}/>
-                  </Col>
-                </Row>
                 <Row>
                     <Col xs={12}>
                       <Field name="accidentPhotos" component={props =>
