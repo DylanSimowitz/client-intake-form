@@ -1,12 +1,24 @@
 import React from 'react'
 import {TextField} from 'redux-form-material-ui'
 import {Row, Col} from 'react-flexbox-grid'
-import {Field, reduxForm} from 'redux-form'
+import {Field, FieldArray, reduxForm} from 'redux-form'
+import Passengers from '../Passengers'
 
 class Auto extends React.Component {
   render() {
     return(
       <div>
+      <Row>
+        <Col xs={12} md={5}>
+          <Field name="accidentPoliceDepartment" component={TextField} fullWidth={true} floatingLabelText="Police Department"/>
+        </Col>
+        <Col xs={12} md={4}>
+          <Field name="accidentPoliceReportNumber" component={TextField} fullWidth={true} floatingLabelText="Police Report Number"/>
+        </Col>
+        <Col xs={12} md={3}>
+          <Field name="accidentPoliceReportUpload" component={TextField} fullWidth={true} floatingLabelText="Upload Police Report"/>
+        </Col>
+      </Row>
       <Row>
           <Col xs={12}>
               <Field name="accidentCity" component={TextField} floatingLabelText="Accident City" fullWidth={true}/>
@@ -39,17 +51,7 @@ class Auto extends React.Component {
           </Col>
       </Row>
       <Row>
-          <Col xs={12} md={6}>
-              <Field name="accidentPersonsCount" component={TextField} floatingLabelText="Persons in Auto" fullWidth={true}/>
-          </Col>
-          <Col xs={12} md={6}>
-              <Field name="accidentPersonsInjured" component={TextField} floatingLabelText="Persons Injured" fullWidth={true}/>
-          </Col>
-      </Row>
-      <Row>
-          <Col xs={12}>
-              <Field name="accidentDescription" component={TextField} floatingLabelText="Accident Description" fullWidth={true} multiLine={true} rows={8}/>
-          </Col>
+        <FieldArray name="accidentPassengers" component={Passengers}/>
       </Row>
       </div>
     )

@@ -1,5 +1,6 @@
 import {SubmissionError} from 'redux-form'
 import {initialize} from 'redux-form'
+import formData from 'form-data-to-object'
 
 function revive(json) {
   const dateOrTime= /(d|D)ate|(t|T)ime/
@@ -9,11 +10,13 @@ function revive(json) {
   //}
   //return value
   Object.keys(json).map(key => {
-    if (json[key].match(trueOrFalse)) {
-      json[key] = (json[key] === 'true')
-    }
-    if (key.match(dateOrTime)) {
-      json[key] = new Date(json[key])
+    if (typeof json[key] === 'string') {
+      if (json[key].match(trueOrFalse)) {
+        json[key] = (json[key] === 'true')
+      }
+      if (key.match(dateOrTime)) {
+        json[key] = new Date(json[key])
+      }
     }
   })
   return json
@@ -35,12 +38,20 @@ export function loadForm(name, id) {
 }
 
 export function submitForm(name, id, body) {
+  body = formData.fromObj(body)
+  let fdata = new FormData()
+  Object.keys(body).map(key => {
+    fdata.append(key, body[key])
+  })
+  //for (var pair of fdata.entries()) {
+    //console.log(pair[0] + pair[1])
+  //}
   return dispatch => {
     return new Promise((resolve, reject) => {
       fetch(`/api/users/${id}/form/${name}`, {
         method: 'post',
         headers: {Authorization: `Bearer ${localStorage.getItem('jwtToken')}`},
-        body
+        body: fdata 
       })
         .then(response => {
           return response.json()

@@ -34,16 +34,17 @@ class Questionnaire extends React.Component {
   handleSubmit = (data) => {
     const {submitForm, user, admin} = this.props
 
-    let body = new FormData()
-    Object.keys(data).forEach(( key ) => {
-      if (key === 'accidentPhotos') {
-        data[key].map(file => {
-          body.append(key, file, file.name)
-        })
-      } else {
-        body.append(key, data[key])
-      }
-    })
+    //let body = new FormData()
+    //Object.keys(data).forEach(( key ) => {
+      //if (data[key] instanceof File) {
+        //data[key].map(file => {
+          //body.append(key, file, file.name)
+        //})
+      //} else {
+        //body.append(key, data[key])
+      //}
+    //})
+    let body = data
     if (user.role === 'admin') {
       return submitForm('questionnaire', admin.selectedClient, body)
     }

@@ -15,6 +15,7 @@
     "express": "^4.14.0",
     "express-sslify": "^1.1.0",
     "flexboxgrid": "^6.3.1",
+    "form-data-to-object": "^0.2.0",
     "indicative": "^2.2.1",
     "jsonwebtoken": "^7.1.9",
     "knex": "^0.12.3",

@@ -44,7 +44,7 @@ router.get('/:formName', authentication, adminOrLoggedIn, (req, res) => {
   new User({id}).form(formName).then(form => res.json(form.get('questionnaire')))
 })
 
-router.post('/:formName', authentication, adminOrLoggedIn, setUploadDestination, upload.array('accidentPhotos'), validate(), (req, res, next) => {
+router.post('/:formName', authentication, adminOrLoggedIn, setUploadDestination, upload.any(), validate(), (req, res, next) => {
   const {id, formName} = req.params
 
   new Form({user_id: id, [formName]: req.body}).save().then(form => {

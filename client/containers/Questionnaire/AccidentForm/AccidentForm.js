@@ -80,20 +80,19 @@ class AccidentForm extends React.Component {
                       <Field name="accidentTime" component={TimePicker} floatingLabelText="Accident Time" fullWidth={true}/>
                     </Col>
                 </Row>
-                <Row>
-                  <Col xs={12} md={5}>
-                    <Field name="accidentPoliceDepartment" component={TextField} fullWidth={true} floatingLabelText="Police Department"/>
-                  </Col>
-                  <Col xs={12} md={4}>
-                    <Field name="accidentPoliceReportNumber" component={TextField} fullWidth={true} floatingLabelText="Police Report Number"/>
-                  </Col>
-                  <Col xs={12} md={3}>
-                    <Field name="accidentPoliceReportUpload" component={TextField} fullWidth={true} floatingLabelText="Upload Police Report"/>
-                  </Col>
-                </Row>
                 {(selectedCase === 'Auto' || selectedCase === 'Motorcycle') &&
                   <Auto/>
                 }
+                <Row>
+                  <Col xs={12}>
+                    <Field name="accidentHobbies" component={TextField} floatingLabelText="What hobbies have you had to curtail?" fullWidth={true} multiLine={true} rows={8}/>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <Field name="accidentDescription" component={TextField} floatingLabelText="Accident Description" fullWidth={true} multiLine={true} rows={8}/>
+                  </Col>
+                </Row>
                 <Row>
                     <Col xs={12}>
                       <Field name="accidentPhotos" component={props =>
