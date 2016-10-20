@@ -2,7 +2,7 @@ import React from 'react'
 import {TextField, SelectField} from 'redux-form-material-ui'
 import {Row, Col} from 'react-flexbox-grid'
 import {Field, FieldArray, reduxForm} from 'redux-form'
-import Passengers from '../Passengers'
+import Persons from 'components/Persons'
 import directions from 'components/DirectionMenuItems'
 
 class Auto extends React.Component {
@@ -55,9 +55,7 @@ class Auto extends React.Component {
               <Field name="accidentLaneDefendant" component={TextField} floatingLabelText="Lane" fullWidth={true}/>
           </Col>
       </Row>
-      <Row>
-        <FieldArray name="accidentPassengers" component={Passengers}/>
-      </Row>
+        <FieldArray name="accidentPassengers" component={Persons} personType="Passenger"/>
       </div>
     )
   }

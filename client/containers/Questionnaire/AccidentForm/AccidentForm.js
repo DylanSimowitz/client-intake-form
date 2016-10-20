@@ -8,6 +8,7 @@ import {Field, reduxForm, formValueSelector} from 'redux-form'
 import {connect} from 'react-redux'
 import ClearIcon from 'material-ui/svg-icons/content/clear'
 import Auto from './AccidentTypes/Auto'
+import MedicalMalpractice from './AccidentTypes/MedicalMalpractice'
 import {openSnackbar} from 'redux/actions/snackbarActions'
 //import validate from 'server/shared/validations/questionnaire';
 
@@ -16,7 +17,6 @@ function onSubmitFail(error, dispatch) {
     dispatch(openSnackbar(error._error))
   }
   else {
-    console.error(error)
     dispatch(openSnackbar('Fix all invalid fields before submitting'))
   }
 }
@@ -80,15 +80,23 @@ class AccidentForm extends React.Component {
                       <Field name="accidentTime" component={TimePicker} floatingLabelText="Accident Time" fullWidth={true}/>
                     </Col>
                 </Row>
-                {(selectedCase === 'Auto' || selectedCase === 'Motorcycle') &&
-                  <Auto/>
+                {(() => {
+                switch (selectedCase) {
+                  case 'Auto':
+                  case 'Motorcycle': return <Auto/>
+                  case 'Malpractice': return <MedicalMalpractice/>
+                  default: break
+                }
+                })()  
                 }
                 <Row>
                   <Col xs={12}>
-                    <Field name="accidentHobbies" component={TextField} floatingLabelText="What hobbies have you had to curtail?" fullWidth={true} multiLine={true} rows={8}/>
+                    <Field name="accidentDescription" component={TextField} floatingLabelText="Accident Description" fullWidth={true} multiLine={true} rows={8}/>
                   </Col>
                 </Row>
-                    <Field name="accidentDescription" component={TextField} floatingLabelText="Accident Description" fullWidth={true} multiLine={true} rows={8}/>
+                  <Col xs={12}>
+                    <Field name="accidentHobbies" component={TextField} floatingLabelText="What hobbies have you had to curtail?" fullWidth={true} multiLine={true} rows={8}/>
+                  </Col>
                 <Row>
                     <Col xs={12}>
                       <Field name="accidentPhotos" component={props =>

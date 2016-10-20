@@ -12,78 +12,79 @@ import {normalizePhone} from 'redux/utils/normalizer'
 
 const styles = {
   paper: {
-    padding: '15px'
+    padding: '15px',
+    margin: '0.5rem 2px'
   },
   addButton: {
     margin: '10px 0px'
   }
 }
 
-const Passengers = ({ fields, meta: { touched, error } }) => (
-  <div>
+const Persons = ({ personType, fields, meta: { touched, error } }) => (
+  <Row>
     <Col xs={12}>
       <RaisedButton
-        label="Add Passenger"
+        label={`Add ${personType}`}
         style={styles.addButton}
         primary={true}
         onClick={() => fields.push({})}/>
     </Col>
-    {fields.map((passenger, index) =>
-    <Row>
+    {fields.map((person, index) =>
+    <Col xs={12} md={6}>
     <Paper zDepth={1} style={styles.paper}>
       <Row between="xs" middle="xs">
         <Col xs={4}>
-        <h4>Passenger #{index + 1}</h4>
-      </Col>
-      <Col xs={8}>
-        <Row end="xs">
-        <FlatButton
-          label="Remove Passenger"
-          primary={true}
-          icon={<RemoveCircleIcon/>}
-          onClick={() => fields.remove(index)}/>
-      </Row>
-      </Col>
+          <h4>{personType} #{index + 1}</h4>
+        </Col>
+        <Col xs={8}>
+          <Row end="xs">
+          <FlatButton
+            label={`Remove ${personType}`}
+            primary={true}
+            icon={<RemoveCircleIcon/>}
+            onClick={() => fields.remove(index)}/>
+          </Row>
+        </Col>
       </Row>
         <Field
-          name={`${passenger}.firstName`}
+          name={`${person}.firstName`}
           type="text"
           component={TextField}
           fullWidth={true}
           floatingLabelText="First Name"/>
         <Field
-          name={`${passenger}.lastName`}
+          name={`${person}.lastName`}
           type="text"
           fullWidth={true}
           component={TextField}
           floatingLabelText="Last Name"/>
         <Field
-          name={`${passenger}.address`}
+          name={`${person}.address`}
           component={TextField}
           floatingLabelText="Address"
           fullWidth={true}/>
         <Field
-          name={`${passenger}.addressCity`}
+          name={`${person}.addressCity`}
           component={TextField}
           floatingLabelText="City"
           fullWidth={true}/>
         <Field
-          name={`${passenger}.addressState`}
+          name={`${person}.addressState`}
           component={SelectField}
           floatingLabelText="State"
           fullWidth={true}>
             {states}
         </Field>
         <Field
-          name={`${passenger}.phone`}
+          name={`${person}.phone`}
           component={TextField}
           floatingLabelText="Phone"
           normalize={normalizePhone}
           fullWidth={true}/>
       </Paper>
-  </Row>
+    </Col>
     )}
-  </div>
+  </Row>
 )
 
-export default Passengers
+export default Persons 

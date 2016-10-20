@@ -1,134 +1,52 @@
-import React from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
-import TimePicker from 'material-ui/TimePicker'
-import {Grid, Row, Col} from 'react-flexbox-grid'
-import {TextField, SelectField} from 'redux-form-material-ui'
-import { reduxForm } from 'redux-form'
+import React, {PropTypes} from 'react'
+import MenuItem from 'material-ui/MenuItem'
+import {SelectField, DatePicker, TimePicker, TextField, Checkbox} from 'redux-form-material-ui'
+import {Row, Col} from 'react-flexbox-grid'
+import {Field, FieldArray, formValueSelector, reduxForm} from 'redux-form'
+import {connect} from 'react-redux'
+import {normalizePhone} from 'redux/utils/normalizer'
+import AddressFields from 'components/AddressFields'
+import Persons from 'components/Persons'
 
-class MedicalForm extends React.Component {
-  handleSubmit(data) {
-    fetch('/client', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-  }
+class MedicalForm extends React.Component { 
+  
   render() {
-    const caseTypes = [
-      'Auto',
-      'Motorcycle',
-      'Slip & Fall',
-      'Premises',
-      'Malpractice',
-      'Wrongful Death',
-      'Dog Bites',
-      'Product Liability'
-    ]
-    const {
-      fields: {
-        accidentType,
-        accidentTime,
-        accidentCity,
-        accidentStreet1,
-        accidentStreet2,
-        accidentStreetClient,
-        accidentDirectionClient,
-        accidentLaneClient,
-        accidentStreetDefendant,
-        accidentDirectionDefendant,
-        accidentLaneDefendant,
-        accidentPersonsCount,
-        accidentPersonsInjured
-      },
-      handleSubmit,
-      previousPage
-    } = this.props
+    const {handleSubmit, emergencyCare} = this.props
     return (
-      <Grid fluid={true}>
-          <form onSubmit={handleSubmit}>
-              <Row>
-                  <Col xs={12} md={6}>
-                    <Field name="medical">
-
-                    </Field>
-                  </Col>
-                  <Col xs={12} md={6}>
-                      <TimePicker floatingLabelText="Accident Time" fullWidth={true} {...accidentTime}/>
-                  </Col>
-              </Row>
-              <Row>
-                  <Col xs={12}>
-                      <TextField floatingLabelText="Accident City" fullWidth={true} {...accidentCity}/>
-                  </Col>
-              </Row>
-              <Row>
-                  <Col xs={6}>
-                      <TextField floatingLabelText="Cross Street" fullWidth={true} {...accidentStreet1}/>
-                  </Col>
-                  <Col xs={6}>
-                      <TextField floatingLabelText="Cross Street" fullWidth={true} {...accidentStreet2}/>
-                  </Col>
-                  <Col xs={4}>
-                      <TextField floatingLabelText="Street Client On" fullWidth={true} {...accidentStreetClient}/>
-                  </Col>
-                  <Col xs={4}>
-                      <TextField floatingLabelText="Direction" fullWidth={true} {...accidentDirectionClient}/>
-                  </Col>
-                  <Col xs={4}>
-                      <TextField floatingLabelText="Lane" fullWidth={true} {...accidentLaneClient}/>
-                  </Col>
-                  <Col xs={4}>
-                      <TextField floatingLabelText="Street Defendant On" fullWidth={true} {...accidentStreetDefendant}/>
-                  </Col>
-                  <Col xs={4}>
-                      <TextField floatingLabelText="Direction" fullWidth={true} {...accidentDirectionDefendant}/>
-                  </Col>
-                  <Col xs={4}>
-                      <TextField floatingLabelText="Lane" fullWidth={true} {...accidentLaneDefendant}/>
-                  </Col>
-              </Row>
-              <Row>
-                  <Col xs={6}>
-                      <TextField floatingLabelText="Persons in Auto" fullWidth={true} {...accidentPersonsCount}/>
-                  </Col>
-                  <Col xs={6}>
-                      <TextField floatingLabelText="Persons Injured" fullWidth={true} {...accidentPersonsInjured}/>
-                  </Col>
-              </Row>
-              <Row bottom="xs">
-                <Col xs={12}>
-                  <RaisedButton label="Previous" onClick={previousPage}/>
-                  <RaisedButton label="Next" type="submit"/>
-                </Col>
-              </Row>
-          </form>
-      </Grid>
-    )
+      <form onSubmit={handleSubmit}>
+        <Row>
+          <Col xs={12}>
+            <Field name="medicalEmergency" component={Checkbox} label="I received emergency medical treatment"/>
+          </Col>
+        </Row>
+        {emergencyCare &&
+        <div>
+          <Row>
+            <Col xs={12}>
+              <Field name="medicalEmergencyName" component={TextField} fullWidth={true} floatingLabelText="Hospital Name"/>
+            </Col>
+            <Col xs={12}>
+              <Field name="medicalEmergencyPhone" component={TextField} fullWidth={true} normalize={normalizePhone} floatingLabelText="Hospital Phone"/>
+            </Col>
+          </Row>
+          <AddressFields form="medical" prefix="Hospital"/>
+        </div>
+        }
+        <FieldArray name="medicalPhysicians" component={Persons} personType="Physician"/>
+        {this.props.stepper}
+      </form>
+      )
   }
 }
 
+MedicalForm = reduxForm({form: 'questionnaire', destroyOnUnmount: false})(MedicalForm)
 
-MedicalForm = reduxForm({
-  form: 'questionnaire',
-  fields: [
-    'accidentType',
-    'accidentTime',
-    'accidentCity',
-    'accidentStreet1',
-    'accidentStreet2',
-    'accidentStreetClient',
-    'accidentDirectionClient',
-    'accidentLaneClient',
-    'accidentStreetDefendant',
-    'accidentDirectionDefendant',
-    'accidentLaneDefendant',
-    'accidentPersonsCount',
-    'accidentPersonsInjured'
-  ],
-  destroyOnUnmount: false
+const selector = formValueSelector('questionnaire')
+MedicalForm = connect(state => {
+  const emergencyCare = selector(state, 'medicalEmergency')
+  return {
+    emergencyCare 
+  }
 })(MedicalForm)
 
-
-export default MedicalForm
+export default MedicalForm 

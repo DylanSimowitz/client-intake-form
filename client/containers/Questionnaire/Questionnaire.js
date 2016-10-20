@@ -4,14 +4,13 @@ import {loadForm, submitForm} from 'redux/actions/formActions'
 import PersonalForm from './PersonalForm'
 import EmployerForm from './EmployerForm'
 import InsuranceForm from './InsuranceForm'
+import MedicalForm from './MedicalForm'
 import AccidentForm from './AccidentForm'
-//import 'whatwg-fetch'
-import {SubmissionError, reduxForm} from 'redux-form'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import {Stepper, Step, StepButton, StepContent} from 'material-ui/Stepper'
 import Paper from 'material-ui/Paper'
-import {Grid, Row, Col} from 'react-flexbox-grid'
+import {Row, Col} from 'react-flexbox-grid'
 import {openSnackbar} from 'redux/actions/snackbarActions'
 import {clientValidation} from 'shared/validate'
 
@@ -33,23 +32,11 @@ class Questionnaire extends React.Component {
   }
   handleSubmit = (data) => {
     const {submitForm, user, admin} = this.props
-
-    //let body = new FormData()
-    //Object.keys(data).forEach(( key ) => {
-      //if (data[key] instanceof File) {
-        //data[key].map(file => {
-          //body.append(key, file, file.name)
-        //})
-      //} else {
-        //body.append(key, data[key])
-      //}
-    //})
-    let body = data
     if (user.role === 'admin') {
-      return submitForm('questionnaire', admin.selectedClient, body)
+      return submitForm('questionnaire', admin.selectedClient, data)
     }
     else {
-      return submitForm('questionnaire', user.id, body)
+      return submitForm('questionnaire', user.id, data)
     }
   }
   componentWillMount = () => {
@@ -82,13 +69,14 @@ class Questionnaire extends React.Component {
   renderStepActions(step) {
     const {stepIndex} = this.state
     const {admin, user} = this.props
+    const finalStep = this.steps.length - 1
     return (
             <div style={{margin: '12px 0'}}>
               <RaisedButton 
-                label={stepIndex === 3 ? 'Finish':'Next'}
+                label={stepIndex === finalStep ? 'Finish':'Next'}
                 disableTouchRipple={true} 
                 type='submit' 
-                onSubmit={stepIndex === 3 ? this.onSubmit : this.nextStep}
+                onSubmit={stepIndex === finalStep ? this.onSubmit : this.nextStep}
                 disableFocusRipple={true}
                 primary={true} 
                 style={{marginRight: 12}}
@@ -119,6 +107,8 @@ class Questionnaire extends React.Component {
     case 2:
       return <InsuranceForm {...formProps} />
     case 3:
+      return <MedicalForm {...formProps} />
+    case 4:
       formProps.onSubmit = this.handleSubmit
       return <AccidentForm {...formProps}/>
     default:
@@ -129,6 +119,7 @@ class Questionnaire extends React.Component {
     'Personal',
     'Employment',
     'Insurance',
+    'Medical',
     'Accident'
   ]
   handleStepClick = (index) => {
@@ -144,7 +135,7 @@ class Questionnaire extends React.Component {
     }
     return (
             <Paper zDepth={1} style={styles.paper}>
-              <Stepper linear={false} activeStep={stepIndex} orientation='vertical'>
+              <Stepper linear={user.role !== 'admin'} activeStep={stepIndex} orientation='vertical'>
                 {this.steps.map((step, index) => {
                   return (
                     <Step key={index}>

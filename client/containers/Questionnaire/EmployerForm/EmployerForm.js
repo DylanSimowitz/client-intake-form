@@ -1,16 +1,13 @@
 import React from 'react'
-import {TextField, SelectField} from 'redux-form-material-ui'
-import {Grid, Row, Col} from 'react-flexbox-grid'
+import {TextField} from 'redux-form-material-ui'
+import {Row, Col} from 'react-flexbox-grid'
 import { Field,reduxForm } from 'redux-form'
-import states from '../../../components/StateMenuItems'
-import { normalizePhone, normalizeZipcode } from 'redux/utils/normalizer'
+import { normalizePhone } from 'redux/utils/normalizer'
+import AddressFields from 'components/AddressFields'
 
 class EmployerForm extends React.Component {
   render() {
-    const {
-      handleSubmit,
-      previousPage
-    } = this.props
+    const {handleSubmit} = this.props
     return (
           <form onSubmit={handleSubmit}>
               <Row>
@@ -21,24 +18,7 @@ class EmployerForm extends React.Component {
                       <Field name="employerOccupation" component={TextField} floatingLabelText="Occupation" fullWidth={true}/>
                   </Col>
               </Row>
-              <Row>
-                  <Col xs={12}>
-                      <Field name="employerAddress" component={TextField} floatingLabelText="Employer Address" fullWidth={true}/>
-                  </Col>
-              </Row>
-              <Row>
-                  <Col xs={12} md={4}>
-                      <Field name="employerAddressCity" component={TextField} floatingLabelText="Employer City" fullWidth={true}/>
-                  </Col>
-                  <Col xs={12} md={4}>
-                      <Field name="employerAddressState" component={SelectField} floatingLabelText="Employer State" fullWidth={true}>
-                        {states}
-                      </Field>
-                  </Col>
-                  <Col xs={12} md={4}>
-                      <Field name="employerAddressZipcode" component={TextField} floatingLabelText="Employer Zipcode" fullWidth={true} normalize={normalizeZipcode}/>
-                  </Col>
-              </Row>
+              <AddressFields form="employer" prefix="Employer"/>
               <Row>
                   <Col xs={12} md={6}>
                       <Field name="employerPhone" component={TextField} floatingLabelText="Employer Phone" fullWidth={true} normalize={normalizePhone}/>

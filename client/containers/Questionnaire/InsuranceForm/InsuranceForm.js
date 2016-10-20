@@ -4,6 +4,7 @@ import {Grid, Row, Col} from 'react-flexbox-grid'
 import { Field, reduxForm } from 'redux-form'
 import states from '../../../components/StateMenuItems'
 import { normalizeZipcode } from 'redux/utils/normalizer'
+import AddressFields from 'components/AddressFields'
 
 class InsuranceForm extends React.Component {
   render() {
@@ -21,24 +22,7 @@ class InsuranceForm extends React.Component {
                       <Field name="insuranceAgent" component={TextField} floatingLabelText="Insurance Agent" fullWidth={true}/>
                   </Col>
               </Row>
-              <Row>
-                  <Col xs={12}>
-                      <Field name="insuranceAddress" component={TextField} floatingLabelText="Insurance Address" fullWidth={true}/>
-                  </Col>
-              </Row>
-              <Row>
-                  <Col xs={12} md={4}>
-                      <Field name="insuranceAddressCity" component={TextField} floatingLabelText="Insurance City" fullWidth={true}/>
-                  </Col>
-                  <Col xs={12} md={4}>
-                    <Field name="insuranceAddressState" component={SelectField} floatingLabelText="Insurance State" fullWidth={true}>
-                      {states}
-                    </Field>
-                  </Col>
-                  <Col xs={12} md={4}>
-                      <Field name="insuranceAddressZipcode" component={TextField} floatingLabelText="Insurance Zipcode" fullWidth={true} normalize={normalizeZipcode}/>
-                  </Col>
-              </Row>
+              <AddressFields form="insurance" prefix="Insurance"/>
               <Row>
                   <Col xs={12} md={6}>
                       <Field name="insurancePolicyNumber" component={TextField} floatingLabelText="Insurance Policy #" fullWidth={true}/>

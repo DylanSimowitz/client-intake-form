@@ -7,6 +7,7 @@ import { Field, reduxForm, formValueSelector } from 'redux-form'
 import AddIcon from 'material-ui/svg-icons/content/add'
 import { normalizeSSN, normalizePhone, normalizeZipcode } from 'redux/utils/normalizer'
 import {openSnackbar} from 'redux/actions/snackbarActions'
+import AddressFields from 'components/AddressFields'
 
 class PersonalForm extends React.Component {
   constructor() {
@@ -32,24 +33,7 @@ class PersonalForm extends React.Component {
                       <Field name="personalCellPhone" component={TextField} floatingLabelText="Cell Phone" fullWidth={true} normalize={normalizePhone}/>
                   </Col>
               </Row>
-              <Row>
-                  <Col xs={12}>
-                      <Field name="personalAddress" component={TextField} floatingLabelText="Address" fullWidth={true} />
-                  </Col>
-              </Row>
-              <Row>
-                  <Col xs={12} md={4}>
-                      <Field name="personalAddressCity" component={TextField} floatingLabelText="City" fullWidth={true}/>
-                  </Col>
-                  <Col xs={12} md={4}>
-                      <Field name="personalAddressState" component={SelectField} floatingLabelText="State" fullWidth={true}>
-                        {states}
-                      </Field>
-                  </Col>
-                  <Col xs={12} md={4}>
-                      <Field name="personalAddressZipcode" component={TextField} floatingLabelText="Zipcode" fullWidth={true} normalize={normalizeZipcode}/>
-                  </Col>
-              </Row>
+              <AddressFields form="personal" prefix=""/>
               <Row>
                   <Col xs={12}>
                       <Field name="personalEmail" component={TextField} floatingLabelText="Email" fullWidth={true}/>
