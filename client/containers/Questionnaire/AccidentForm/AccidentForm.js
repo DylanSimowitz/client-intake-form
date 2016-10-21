@@ -12,17 +12,6 @@ import MedicalMalpractice from './AccidentTypes/MedicalMalpractice'
 import {openSnackbar} from 'redux/actions/snackbarActions'
 //import validate from 'server/shared/validations/questionnaire';
 
-function onSubmitFail(error, dispatch) {
-  if (error) {
-    dispatch(openSnackbar(error._error))
-  }
-  else {
-    dispatch(openSnackbar('Fix all invalid fields before submitting'))
-  }
-}
-function onSubmitSuccess(result, dispatch) {
-  dispatch(openSnackbar('Your submission was successfully received'))
-}
 
 class AccidentForm extends React.Component {
   constructor(props, context) {
@@ -129,7 +118,7 @@ AccidentForm.contextTypes = {
   muiTheme: PropTypes.object.isRequired
 }
 
-AccidentForm = reduxForm({form: 'questionnaire', destroyOnUnmount: false, onSubmitFail, onSubmitSuccess})(AccidentForm)
+AccidentForm = reduxForm({form: 'questionnaire', destroyOnUnmount: false})(AccidentForm)
 
 const selector = formValueSelector('questionnaire')
 AccidentForm = connect(state => {

@@ -5,6 +5,7 @@ import PersonalForm from './PersonalForm'
 import EmployerForm from './EmployerForm'
 import InsuranceForm from './InsuranceForm'
 import MedicalForm from './MedicalForm'
+import DefendantForm from './DefendantForm'
 import AccidentForm from './AccidentForm'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
@@ -13,6 +14,18 @@ import Paper from 'material-ui/Paper'
 import {Row, Col} from 'react-flexbox-grid'
 import {openSnackbar} from 'redux/actions/snackbarActions'
 import {clientValidation} from 'shared/validate'
+
+function onSubmitFail(error, dispatch) {
+  if (error) {
+    dispatch(openSnackbar(error._error))
+  }
+  else {
+    dispatch(openSnackbar('Fix all invalid fields before submitting'))
+  }
+}
+function onSubmitSuccess(result, dispatch) {
+  dispatch(openSnackbar('Your submission was successfully received'))
+}
 
 let styles = {
   paper: {
@@ -109,8 +122,12 @@ class Questionnaire extends React.Component {
     case 3:
       return <MedicalForm {...formProps} />
     case 4:
-      formProps.onSubmit = this.handleSubmit
       return <AccidentForm {...formProps}/>
+    case 5:
+      formProps.onSubmit = this.handleSubmit
+      formProps.onSubmitFail = onSubmitFail
+      formProps.onSubmitSuccess = onSubmitSuccess
+      return <DefendantForm {...formProps} />
     default:
       return <div></div>
     }
@@ -120,7 +137,8 @@ class Questionnaire extends React.Component {
     'Employment',
     'Insurance',
     'Medical',
-    'Accident'
+    'Accident',
+    'Defendant'
   ]
   handleStepClick = (index) => {
     this.setState({
