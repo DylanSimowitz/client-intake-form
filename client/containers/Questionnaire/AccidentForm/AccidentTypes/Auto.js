@@ -14,10 +14,10 @@ class Auto extends React.Component {
           <Field name="accidentPoliceDepartment" component={TextField} fullWidth={true} floatingLabelText="Police Department"/>
         </Col>
         <Col xs={12} md={4}>
-          <Field name="accidentPoliceReportNumber" component={TextField} fullWidth={true} floatingLabelText="Police Report Number"/>
+          <Field name="accidentPoliceReport" component={TextField} fullWidth={true} floatingLabelText="Police Report Number"/>
         </Col>
         <Col xs={12} md={3}>
-          <Field name="accidentPoliceReportUpload" component={TextField} fullWidth={true} floatingLabelText="Upload Police Report"/>
+          <Field name="accidentLicensePlate" component={TextField} fullWidth={true} floatingLabelText="Vehicle License Plate"/>
         </Col>
       </Row>
       <Row>
