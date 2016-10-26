@@ -4,6 +4,7 @@ import {Row, Col} from 'react-flexbox-grid'
 import {Field, FieldArray, reduxForm} from 'redux-form'
 import Persons from 'components/Persons'
 import directions from 'components/DirectionMenuItems'
+import {normalizeDate} from 'redux/utils/normalizer'
 
 class MedicalMalpractice extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class MedicalMalpractice extends React.Component {
       <div>
       <Row>
         <Col xs={12} md={6}>
-          <Field name="accidentNegligenceDate" component={TextField} fullWidth={true} floatingLabelText="Date you suspected negligence"/>
+          <Field name="accidentNegligenceDate" component={TextField} normalize={normalizeDate} fullWidth={true} floatingLabelText="Date you suspected negligence"/>
         </Col>
         <Col xs={12} md={6}>
           <Field name="accidentNegligencePerson" component={TextField} fullWidth={true} floatingLabelText="Who do you alleged to have been negligent?"/>
@@ -28,6 +29,6 @@ class MedicalMalpractice extends React.Component {
   }
 }
 
-MedicalMalpractice = reduxForm({form: 'questionnaire'})(MedicalMalpractice)
+MedicalMalpractice = reduxForm({form: 'questionnaire', destroyOnUnmount: false})(MedicalMalpractice)
 
 export default MedicalMalpractice

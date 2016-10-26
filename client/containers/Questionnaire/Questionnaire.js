@@ -67,7 +67,7 @@ class Questionnaire extends React.Component {
     }
   }
   showDatePickerTip = () => {
-    this.props.openSnackbar('Click the year in the corner to select the year')
+    this.props.openSnackbar('Click the year in the corner to select the year', 60000)
   }
   nextStep = () => {
     this.setState({
@@ -112,6 +112,12 @@ class Questionnaire extends React.Component {
       stepper: this.renderStepActions(step)
     }
 
+    let submitProps = {
+      onSubmit: this.handleSubmit,
+      onSubmitFail,
+      onSubmitSuccess
+    }
+
     switch (step) {
     case 0:
       return <PersonalForm {...formProps} />
@@ -124,10 +130,7 @@ class Questionnaire extends React.Component {
     case 4:
       return <AccidentForm {...formProps}/>
     case 5:
-      formProps.onSubmit = this.handleSubmit
-      formProps.onSubmitFail = onSubmitFail
-      formProps.onSubmitSuccess = onSubmitSuccess
-      return <DefendantForm {...formProps} />
+      return <DefendantForm {...formProps} {...submitProps} />
     default:
       return <div></div>
     }

@@ -7,7 +7,7 @@ class ReduxSnackbar extends React.Component {
   render() {
     const {snackbar} = this.props
     return(
-      <Snackbar open={snackbar.open} message={snackbar.message} autoHideDuration={3000} onRequestClose={this.props.closeSnackbar} />
+      <Snackbar open={snackbar.open} message={snackbar.message} autoHideDuration={snackbar.duration} onRequestClose={this.props.closeSnackbar} />
     )
   }
 }

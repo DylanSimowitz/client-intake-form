@@ -61,6 +61,6 @@ class Auto extends React.Component {
   }
 }
 
-Auto = reduxForm({form: 'questionnaire'})(Auto)
+Auto = reduxForm({form: 'questionnaire', destroyOnUnmount: false})(Auto)
 
 export default Auto
