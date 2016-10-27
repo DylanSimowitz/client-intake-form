@@ -30,7 +30,7 @@ const Persons = ({ personType, fields, meta: { touched, error } }) => (
         onClick={() => fields.push({})}/>
     </Col>
     {fields.map((person, index) =>
-    <Col xs={12} md={6}>
+    <Col xs={12} md={6} key={index}>
     <Paper zDepth={1} style={styles.paper}>
       <Row between="xs" middle="xs">
         <Col xs={4}>
