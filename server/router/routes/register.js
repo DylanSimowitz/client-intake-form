@@ -8,7 +8,7 @@ import verificationEmail from '../middleware/verification'
 const router = express.Router()
 
 router.post('/', bodyParser.json(), validate('register'), (req, res, next) => {
-  const {first_name, last_name, email, password} = req.body
+  let {first_name, last_name, email, password} = req.body
   email = email.toLowerCase()
   new User({first_name, last_name, email}).register(password)
     .then(user => {

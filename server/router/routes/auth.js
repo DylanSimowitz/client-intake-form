@@ -9,7 +9,7 @@ import validate from '../middleware/validate'
 const router = express.Router()
 
 router.post('/', bodyParser.json(), validate('login'), (req, res, next) => {
-  const {email, password} = req.body
+  let {email, password} = req.body
   email = email.toLowerCase()
   User.query({
     where: { email },
