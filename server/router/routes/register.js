@@ -9,6 +9,7 @@ const router = express.Router()
 
 router.post('/', bodyParser.json(), validate('register'), (req, res, next) => {
   const {first_name, last_name, email, password} = req.body
+  email = email.toLowerCase()
   new User({first_name, last_name, email}).register(password)
     .then(user => {
       new Form({user_id: user.get('id')}).save(null, {method: 'insert'}).then(form => {return form})

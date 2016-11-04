@@ -10,6 +10,7 @@ const router = express.Router()
 
 router.post('/', bodyParser.json(), validate('login'), (req, res, next) => {
   const {email, password} = req.body
+  email = email.toLowerCase()
   User.query({
     where: { email },
   }).fetch({require: true}).then(user => {
