@@ -6,7 +6,8 @@ import {Field, FieldArray, formValueSelector, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
 import {normalizePhone} from 'redux/utils/normalizer'
 import AddressFields from 'components/AddressFields'
-import Persons from 'components/Persons'
+import Person from 'components/Person'
+import Default from 'components/Person/types/Default'
 
 class MedicalForm extends React.Component { 
   
@@ -32,7 +33,7 @@ class MedicalForm extends React.Component {
           <AddressFields form="medical" prefix="Hospital"/>
         </div>
         }
-        <FieldArray name="medicalPhysicians" component={Persons} personType="Physician"/>
+        <FieldArray name="medicalPhysicians" component={<Person>Default</Person>} personType="Physician"/>
         {this.props.stepper}
       </form>
       )

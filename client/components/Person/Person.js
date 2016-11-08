@@ -20,7 +20,7 @@ const styles = {
   }
 }
 
-const Persons = ({ personType, fields, meta: { touched, error } }) => (
+const Persons = ({ personType, Fields, fields, meta: { touched, error } }) => (
   <Row>
     <Col xs={12}>
       <RaisedButton
@@ -46,41 +46,7 @@ const Persons = ({ personType, fields, meta: { touched, error } }) => (
           </Row>
         </Col>
       </Row>
-        <Field
-          name={`${person}.firstName`}
-          type="text"
-          component={TextField}
-          fullWidth={true}
-          floatingLabelText="First Name"/>
-        <Field
-          name={`${person}.lastName`}
-          type="text"
-          fullWidth={true}
-          component={TextField}
-          floatingLabelText="Last Name"/>
-        <Field
-          name={`${person}.address`}
-          component={TextField}
-          floatingLabelText="Address"
-          fullWidth={true}/>
-        <Field
-          name={`${person}.addressCity`}
-          component={TextField}
-          floatingLabelText="City"
-          fullWidth={true}/>
-        <Field
-          name={`${person}.addressState`}
-          component={SelectField}
-          floatingLabelText="State"
-          fullWidth={true}>
-            {states}
-        </Field>
-        <Field
-          name={`${person}.phone`}
-          component={TextField}
-          floatingLabelText="Phone"
-          normalize={normalizePhone}
-          fullWidth={true}/>
+      <Fields person={person}/>
       </Paper>
     </Col>
     )}

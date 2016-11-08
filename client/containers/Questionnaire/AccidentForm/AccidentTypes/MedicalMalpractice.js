@@ -2,7 +2,6 @@ import React from 'react'
 import {TextField, SelectField} from 'redux-form-material-ui'
 import {Row, Col} from 'react-flexbox-grid'
 import {Field, FieldArray, reduxForm} from 'redux-form'
-import Persons from 'components/Persons'
 import directions from 'components/DirectionMenuItems'
 import {normalizeDate} from 'redux/utils/normalizer'
 
