@@ -33,7 +33,7 @@ class MedicalForm extends React.Component {
           <AddressFields form="medical" prefix="Hospital"/>
         </div>
         }
-        <FieldArray name="medicalPhysicians" component={<Person>Default</Person>} personType="Physician"/>
+        <FieldArray name="medicalPhysicians" component={Person} Fields={Default} personType="Physician"/>
         {this.props.stepper}
       </form>
       )

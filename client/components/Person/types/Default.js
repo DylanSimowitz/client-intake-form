@@ -4,7 +4,7 @@ import {TextField, SelectField} from 'redux-form-material-ui'
 import states from 'components/StateMenuItems'
 import {normalizePhone} from 'redux/utils/normalizer'
 
-const Default = (person) => (
+const Default = ({person}) => (
   <div>
     <Field
       name={`${person}.firstName`}

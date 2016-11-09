@@ -14,6 +14,7 @@ export default (req, res, next) => {
       if (err) {
         if (err.name === 'TokenExpiredError') {
           res.status(401).json({error: 'Session has expired'})
+          return
         }
         res.status(401).json({error: 'Failed to authenticate'})
       }
@@ -31,6 +32,6 @@ export default (req, res, next) => {
     })
   }
   else {
-    res.json({error: 'Your session is expired'})
+    res.json({error: 'Failed to authenticate'})
   }
 }
