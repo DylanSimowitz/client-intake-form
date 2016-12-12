@@ -15,7 +15,7 @@ function revive(json) {
         json[key] = (json[key] === 'true')
       }
       if (key.match(dateOrTime)) {
-        if (json[key].match(/GMT-0700/)) {
+        if (json[key].match(/GMT-\d{4}/)) {
           let date = new Date(json[key]) 
           json[key] = date 
         }
