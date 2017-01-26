@@ -89,7 +89,7 @@ class Questionnaire extends React.Component {
                 label={stepIndex === finalStep ? 'Finish':'Next'}
                 disableTouchRipple={true} 
                 type='submit'
-                onSubmit={stepIndex === finalStep ? this.onSubmit : this.nextStep}
+                onTouchTap={stepIndex === finalStep ? this.onSubmit : this.nextStep}
                 disableFocusRipple={true}
                 primary={true} 
                 style={{marginRight: 12}}
