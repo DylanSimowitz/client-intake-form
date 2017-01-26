@@ -88,7 +88,7 @@ class Questionnaire extends React.Component {
               <RaisedButton 
                 label={stepIndex === finalStep ? 'Finish':'Next'}
                 disableTouchRipple={true} 
-                type='submit' 
+                type='submit'
                 onSubmit={stepIndex === finalStep ? this.onSubmit : this.nextStep}
                 disableFocusRipple={true}
                 primary={true} 
