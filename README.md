@@ -4,6 +4,7 @@ It was built for my dad's law practice to help him easily collect and manage new
 
 # Demo
 The demo is not hooked up to a database and does not retain any submitted data.
+The demo doesn't showcase the admin interface for the time being.
 
 https://portaldemo.simowitz.com/login
 
