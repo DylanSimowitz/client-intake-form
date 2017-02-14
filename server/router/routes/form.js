@@ -10,7 +10,7 @@ function adminOrLoggedIn(req, res, next) {
   const {id} = req.params
   const {user} = res.locals
 
-  if (user.get('id') == id || user.get('role') === 'admin') {
+  if (user.id == id || user.role === 'admin') {
     next()
   }
   else {
@@ -41,15 +41,12 @@ function setUploadDestination(req, res, next) {
 
 router.get('/:formName', authentication, adminOrLoggedIn, (req, res) => {
   const {id, formName} = req.params
-  new User({id}).form(formName).then(form => res.json(form.get('questionnaire')))
+  res.json({})
 })
 
-router.post('/:formName', authentication, adminOrLoggedIn, setUploadDestination, upload.any(), validate(), (req, res, next) => {
+router.post('/:formName', authentication, adminOrLoggedIn, validate(), (req, res, next) => {
   const {id, formName} = req.params
-
-  new Form({user_id: id, [formName]: req.body}).save().then(form => {
-    res.json({success: true})
-  })
+  res.json({success: true})
 })
 
 module.exports = router

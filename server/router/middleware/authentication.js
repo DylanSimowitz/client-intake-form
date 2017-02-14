@@ -19,15 +19,11 @@ export default (req, res, next) => {
         res.status(401).json({error: 'Failed to authenticate'})
       }
       else {
-        User.query({
-          where: {id: decoded.id}
-        })
-        .fetch({require: true}).then(user => {
-          res.locals.user = user 
-          next()
-          return user
-        })
-        .catch(User.NotFoundError, () => res.status(404).redirect('/'))
+        res.locals.user = {
+          id: decoded.id,
+          role: decoded.role
+        }
+        next()
       }
     })
   }
