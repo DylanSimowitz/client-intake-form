@@ -1,6 +1,4 @@
 import express from 'express'
-import User from '../../database/models/User'
-import Form from '../../database/models/Form'
 import bodyParser from 'body-parser'
 import validate from '../middleware/validate'
 import verificationEmail from '../middleware/verification'
