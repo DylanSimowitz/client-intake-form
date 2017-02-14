@@ -1,7 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import validate from '../middleware/validate'
-import verificationEmail from '../middleware/verification'
 
 const router = express.Router()
 
