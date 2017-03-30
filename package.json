@@ -21,8 +21,6 @@
     "knex": "^0.12.3",
     "material-ui": "^0.16.0",
     "multer": "^1.2.0",
-    "nodemailer": "^2.6.4",
-    "nodemailer-smtp-transport": "^2.7.2",
     "normalize-css": "^2.3.1",
     "pg": "^6.1.0",
     "react": "^15.3.2",
@@ -37,6 +35,7 @@
     "redux-form": "^6.1.0",
     "redux-form-material-ui": "^4.1.0",
     "redux-thunk": "^2.1.0",
+    "sendgrid": "^4.9.0",
     "validate.js": "^0.10.0",
     "validatorjs": "^3.7.0",
     "whatwg-fetch": "^1.0.0"
