@@ -1,0 +1,35 @@
+version '2'
+
+volumes:
+  app:
+
+services:
+  node:
+    image: portal.simowitz.com
+    build:
+      context: ./
+    env_file:
+      - docker/env/node.env
+    restart: always
+    volumes:
+      - app:/var/www/html
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    environment:
+      - VIRTUAL_HOST=portal.simowitz.com,www.portal.simowitz.com
+      - LETSENCRYPT_HOST=portal.simowitz.com,www.portal.simowitz.com
+      - LETSENCRYPT_EMAIL=dsimowitz@gmail.com
+    volumes:
+      - app:/var/www/html
+      - ./site.conf:/etc/nginx/conf.d/site.conf
+  
+  db:
+    image: postgres:alpine
+    restart: always
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
